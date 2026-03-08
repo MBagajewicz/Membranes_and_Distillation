@@ -1,0 +1,24 @@
+
+******* Testing consistency *******
+
+DeltaTmin does not exist in the Model_Parameters. A default value of 5 °C is adopted.
+
+Set Trimming successful - The candidates solution set is not empty
+
+************ Initial Set generated from Primordial Set ************
+
+Candidate set cardinality after each trimming [12852000, 7459200, 6753600, 6419700, 4727520]
+
+******************** Starting Execution for STHE_Example7 ********************
+
+
+The solution of Equipment1 "STHE" with yfluid = hot_stream is presented below:
+NO Enumeration mode was activated. Performing Set Trimming ONLY
+Set Trimming successful - The candidates solution set is not empty
+Candidate set cardinality after each trimming [4727520, 4727520, 3841320, 2538060, 651511, 580139, 467971, 467971, 467971, 209426, 193970, 171108, 171108, 4942]
+{'TAC_OF': {'TAC': np.float64(7622.423335306476), 'Number_of_solutions': 14}, 'Ds': np.float64(0.8382), 'dte': np.float64(0.0254), 'Npt': np.float64(6.0), 'rp': np.float64(1.5), 'lay': np.float64(1.0), 'L': np.float64(5.4864), 'Nb': np.float64(12.0), 'Bc': np.float64(0.15)}
+Elapsed time for Equipment1 "STHE": 2.54 seconds 
+
+OF Solution total ($/year) 7622.423335306476
+Total elapsed time: 14.66 seconds
+

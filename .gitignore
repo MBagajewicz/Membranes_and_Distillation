@@ -1,0 +1,23 @@
+# Ignorar entornos virtuales de Python
+venv/
+.venv/
+
+# Ignorar entornos virtuales que estén dentro de subcarpetas
+*/venv/
+*/.venv/
+
+# Archivos temporales de Python
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+
+# Archivos de configuración de VSCode
+.vscode/
+
+# Archivos de Jupyter Notebook
+.ipynb_checkpoints/
+
+# Archivos de sistema
+.DS_Store
+Thumbs.db

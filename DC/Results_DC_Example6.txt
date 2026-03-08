@@ -1,0 +1,15 @@
+Set Trimming successful - The candidates solution set is not empty
+
+************ Initial Set generated from Primordial Set ************
+
+Candidate set cardinality after each trimming [1444, 741, 705]
+
+******************** Starting Execution for DC_Example6 ********************
+
+The solution of Equipment1 "DC" is presented below:
+Set trimming and Enumeration activated. Performing Set Trimming First, followed by Selected Enumeration
+Set Trimming successful - The candidates solution set is not empty
+Set Trimming Solution {'trimmed_candidates': array([[ 3,  4,  5, ..., 38, 39, 40],
+       [13, 13, 13, ..., 42, 42, 42]]), 'candidate_set_cardinality_after_each_trimming': [705]}
+Elapsed time Set Trimming: 0.0
+Performing Smart Enumeration now

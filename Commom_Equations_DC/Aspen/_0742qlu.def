@@ -1,0 +1,10 @@
+SLAVE:
+INPUT: _0742qlu.inm
+MODNAME: apmain
+RUNID: _0742qlu
+NEW_RUNID: _0742qlu
+OLD_RUNID: _0742qlu
+PDF: _0742qlu.appdf
+USERNAME: PC
+XMOD: C:\Program Files\AspenTech\Aspen Plus V14.0\Engine\xeq\apmain
+DBCONN: _0742qlu.ads

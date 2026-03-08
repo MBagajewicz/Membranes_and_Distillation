@@ -1,0 +1,35 @@
+
+******* Testing consistency *******
+
+DeltaTmin does not exist in the Model_Parameters. A default value of 5 °C is adopted.
+
+Set Trimming successful - The candidates solution set is not empty
+
+************ Initial Set generated from Primordial Set ************
+
+Candidate set cardinality after each trimming [168000, 81600, 81600, 74520, 61560]
+
+******************** Starting Execution for STHE_Example6 ********************
+
+Options selected for yfluid: ['cold_stream', 'hot_stream']
+If only one option is desired example input for Model_Parameters['yfluid'] must be changed
+
+The solution of Equipment1 "STHE" with yfluid = cold_stream is presented below:
+NO Enumeration mode was activated. Performing Set Trimming ONLY
+Set Trimming successful - The candidates solution set is not empty
+Candidate set cardinality after each trimming [61560, 61560, 8120, 8120, 3538, 3513, 3513, 3513, 3513, 3513, 3473, 3318, 3318, 1377]
+{'AREA_OF': {'Area': np.float64(105.82829080134113), 'Number_of_solutions': 1}, 'Ds': np.float64(0.7874), 'dte': np.float64(0.0254), 'Npt': np.float64(6.0), 'rp': np.float64(1.25), 'lay': np.float64(1.0), 'L': np.float64(3.0488), 'Nb': np.float64(18.0), 'Bc': np.float64(0.25)}
+Previous solution used for trimming, candidates reduced from 61560 to 12087
+
+
+The solution of Equipment1 "STHE" with yfluid = hot_stream is presented below:
+NO Enumeration mode was activated. Performing Set Trimming ONLY
+Set Trimming produced an empty set using constraint: Areq
+The problem has no solution
+Candidate set cardinality after each trimming [12087, 12087, 9782, 9486, 679, 679, 526, 526, 526, 202, 202, 202, 202, 0]
+{'AREA_OF': {'Area': 1e+20}}
+Elapsed time for Equipment1 "STHE": 0.03 seconds 
+
+OF Solution total (m²) 105.82829080134113
+Total elapsed time: 0.08 seconds
+

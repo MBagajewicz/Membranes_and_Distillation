@@ -1,0 +1,222 @@
+
+ + + + + + + + + + + + + + + + + + + + + + + + + + + + + + + + + + + + + + + + +
+ + + + + + + + + + + + + + + + + + + + + + + + + + + + + + + + + + + + + + + + +
+ + +                                                                         + +
+ + +                      ASPEN PLUS CALCULATION HISTORY                     + +
+ + +                                                                         + +
+ + + + + + + + + + + + + + + + + + + + + + + + + + + + + + + + + + + + + + + + +
+ + + + + + + + + + + + + + + + + + + + + + + + + + + + + + + + + + + + + + + + +
+
+ ASPEN PLUS IS A TRADEMARK OF           HOTLINE:
+ ASPEN TECHNOLOGY, INC.                 U.S.A. 888/996-7100
+ 781/221-6400                           EUROPE (44) 1189-226555
+
+ PLATFORM: WIN-X64                                       AUGUST 7, 2025      
+ VERSION: 40.0   Build 359                               THURSDAY    
+ INSTALLATION:                                           3:07:52 P.M.        
+
+ THIS COPY OF ASPEN PLUS LICENSED TO UNIVERSIDADE DO ESTADO D        
+
+
+      ASPEN PLUS (R) IS A PROPRIETARY PRODUCT OF ASPEN TECHNOLOGY, INC.
+      (ASPENTECH), AND MAY BE USED ONLY UNDER AGREEMENT WITH ASPENTECH.
+      RESTRICTED RIGHTS LEGEND:  USE, REPRODUCTION, OR DISCLOSURE BY THE
+      U.S. GOVERNMENT IS SUBJECT TO RESTRICTIONS SET FORTH IN 
+      (i) FAR 52.227-14, Alt. III, (ii) FAR 52.227-19, (iii) DFARS 
+      252.227-7013(c)(1)(ii), or (iv) THE ACCOMPANYING LICENSE AGREEMENT,
+      AS APPLICABLE. FOR PURPOSES OF THE FAR, THIS SOFTWARE SHALL BE DEEMED
+      TO BE "UNPUBLISHED" AND LICENSED WITH DISCLOSURE PROHIBITIONS.
+      CONTRACTOR/SUBCONTRACTOR: ASPEN TECHNOLOGY, INC. 20 CROSBY DRIVE,
+      BEDFORD, MA 01730.
+ *** INPUT SUMMARY ***
+
+ >>CURRENT RUN
+
+   ORIGINAL RUN                           AUGUST 7, 2025      
+   3:07:52 P.M.                           THURSDAY    
+   INPUT FILE: _0742qlu.inm
+   RUN ID : _0742qlu
+          1    ;
+          2    ;Input file created by Aspen Plus Rel. 40.0 at 15:07:51 Thu Aug 7, 2025
+          3    ;Directory d:\Documentos\OptiProcessCode\Commom_Equations_DC\Aspen  Runid BTX COLUMN
+          4    ;
+          5
+          6
+          7    DYNAMICS
+          8        DYNAMICS RESULTS=ON
+          9
+         10    IN-UNITS MET ENTHALPY='J/kmol' ENTROPY='kJ/kmol-K'  &
+         11            ENTHALPY-FLO='kJ/hr' MOLE-HEAT-CA='kJ/kmol-K'  &
+         12            HEAT-TRANS-C='kJ/sec-sqm-K' PRESSURE=Pa  &
+         13            MOLE-ENTHALP='kJ/kmol' MASS-ENTHALP='kJ/kg'  &
+         14            MOLE-ENTROPY='kJ/mol-K' MASS-ENTROPY='kJ/kg-K'  &
+         15            MASS-HEAT-CA='kJ/kg-K' UA='kJ/sec-K' HEAT=kJ  &
+         16            MASS-CONC='gm/cc' PDROP=Pa VOL-HEAT-CAP='kJ/cum-K'  &
+         17            HEAT-FLUX='kJ/hr-m' INVERSE-HT-C='sec-sqm-K/kJ'  &
+         18            VOL-ENTHALPY='kJ/cum' SHORT-LENGTH=mm
+         19
+         20    DEF-STREAMS CONVEN ALL
+         21
+         22    MODEL-OPTION
+         23
+         24    DESCRIPTION "
+         25        Chemical Simulation with English Units :
+         26        F, psi, lb/hr, lbmol/hr, Btu/hr, cuft/hr.
+         27
+         28        Property Method: NRTL
+         29
+         30        Flow basis for input: Mole
+         31
+         32        Stream report composition: Mole flow
+         33        "
+         34
+         35    DATABANKS 'APV140 PURE39' / 'APV140 AQUEOUS' / 'APV140 SOLIDS' &
+         36             / 'APV140 INORGANIC' / 'APESV140 AP-EOS' /  &
+         37            'NISTV140 NIST-TRC' / NOASPENPCD
+         38
+         39    PROP-SOURCES 'APV140 PURE39' / 'APV140 AQUEOUS' /  &
+         40            'APV140 SOLIDS' / 'APV140 INORGANIC' / 'APESV140 AP-EOS' &
+         41             / 'NISTV140 NIST-TRC'
+         42
+         43    COMPONENTS
+         44        BENZENE C6H6 /
+         45        TOLUENE C7H8 /
+         46        M-XYLENE C8H10-2
+         47
+         48    SOLVE
+         49        RUN-MODE MODE=SIM
+         50
+         51    FLOWSHEET
+         52        BLOCK COLUMN1 IN=FEED OUT=D-TOP B-BOTTOM
+         53
+         54    PROPERTIES PENG-ROB
+         55        PROPERTIES NRTL
+         56
+         57    PROP-DATA NRTL-1
+         58        IN-UNITS ENG SHORT-LENGTH=in
+         59        PROP-LIST NRTL
+         60        BPVAL BENZENE M-XYLENE 0.0 -207.9702000 .3000000000 0.0  &
+         61            0.0 0.0 77.00000000 282.4520000
+         62        BPVAL M-XYLENE BENZENE 0.0 252.8013600 .3000000000 0.0 0.0  &
+         63            0.0 77.00000000 282.4520000
+         64        BPVAL BENZENE TOLUENE -2.885200000 2023.110180 .3000000000  &
+         65            0.0 0.0 0.0 104.0000000 231.3500000
+         66        BPVAL TOLUENE BENZENE 2.191100000 -1554.715440 .3000000000  &
+         67            0.0 0.0 0.0 104.0000000 231.3500000
+         68        BPVAL TOLUENE M-XYLENE 0.0 -353.5938000 .3000000000 0.0  &
+         69            0.0 0.0 231.0440000 282.4520000
+         70        BPVAL M-XYLENE TOLUENE 0.0 677.5857000 .3000000000 0.0 0.0  &
+         71            0.0 231.0440000 282.4520000
+         72
+         73    DEF-STREAMS LOAD
+         74
+         75    PROP-SET HEDESIGN CPMX-M KMX PCMX UNITS='J/kg-K' 'Watt/m-K'  &
+         76            'Pa' SUBSTREAM=MIXED PHASE=T L V
+         77
+         78    STREAM FEED
+         79        SUBSTREAM MIXED TEMP=386.55 PRES=100000.
+         80        MOLE-FLOW BENZENE 35. / TOLUENE 25. / M-XYLENE 40.
+         81
+         82    BLOCK COLUMN1 RADFRAC
+         83        SUBOBJECTS INTERNALS = CS-1
+         84        PARAM NSTAGE=52 ALGORITHM=STANDARD HYDRAULIC=NO MAXOL=25  &
+         85            DAMPING=NONE
+         86        PARAM2 STATIC-DP=YES OLD-SULZER=NO
+         87        COL-CONFIG CONDENSER=TOTAL CA-CONFIG=INT-1
+         88        FEEDS FEED 3
+         89        PRODUCTS D-TOP 1 L / B-BOTTOM 52 L
+         90        P-SPEC 1 100000.
+         91        COL-SPECS MOLE-D=14.25000000 MOLE-RR=4.12
+         92        SPEC 1 MOLE-FRAC 0.99 COMPS=BENZENE STREAMS=D-TOP  &
+         93            SPEC-DESCRIP="BENZENE RECUPERATION"
+         94        SPEC 2 MOLE-FRAC 0.005 COMPS=BENZENE STREAMS=B-BOTTOM  &
+         95            SPEC-DESCRIP="TOLUENE RECOVERY"
+         96        VARY 1 MOLE-D 0. 100.
+         97        VARY 2 MOLE-RR 0. 100.
+         98        REPORT NOHYDRAULIC
+         99        CONVERGENCE EXTRA-ML=2
+        100        INTERNALS CS-1 STAGE1=2 STAGE2=3 P-UPDATE=NO TRAYTYPE=SIEVE  &
+        101            NPASS=1 SYSFAC=1.000000000 OVER-DESIGN=1.000000000  &
+        102            WEIR-HT=50.80000000 <mm> DC-CLEAR=38.10000000 <mm>  &
+        103            DC-WTOP-SIDE=110.6699690 <mm> DC-WBOT-SIDE=110.6699690 <mm>  &
+        104            HOLE-DIAM=12.70000000 <mm> HOLE-AREA=.1000000000  &
+        105            FLOOD-METH=GLITSCH6 DECK-THICK=0.134 <IN>  &
+        106            PCT-FLOOD-FA=80.00000000 AER-PARAM-M=1.000000000  &
+        107            MAX-DC-LOAD=GLITSCH MAX-ACC-DP=2500.000000  &
+        108            MAX-PCT-DCB=100.0000000 MAX-PCT-ENT=10.00000000  &
+        109            MIN-WEIR-LD=4.470981863 MAX-WEIR-LD=117.3721131  &
+        110            MIN-PCT-DCA=.1000000000
+        111        TRAY-SIZE 1 2 3 SIEVE
+        112
+        113    EO-CONV-OPTI
+        114
+        115    STREAM-REPOR MOLEFLOW PROPERTIES=HEDESIGN
+        116
+        117    PROPERTY-REP PCES
+        118    ;
+        119    ;
+        120    ;
+        121    ;
+        122    ;
+ *** INPUT TRANSLATOR MESSAGES ***
+
+  *** THIS RUN USES THE PROPERTIES ENTERPRISE DATABASE ***
+      SQLLOCALDB.APESV140 : (DATAVERSION - 40.0.0.13)                         
+      SQLLOCALDB.APV140 : (DATAVERSION - 40.0.0.13)                           
+      SQLLOCALDB.FACTV140 : (DATAVERSION - 40.0.0.12)                         
+      SQLLOCALDB.NISTV140 : (DATAVERSION - 40.0.0.12)                         
+ 
+ 
+
+ PDF updated                                                                      TIME =      2.55
+
+ *** CALCULATION TRACE ***
+
+
+ *** FLOWSHEET ANALYSIS MESSAGES ***
+
+ FLOWSHEET CONNECTIVITY BY STREAMS       
+
+   STREAM     SOURCE     DEST           STREAM     SOURCE     DEST
+   FEED       ----       COLUMN1        D-TOP      COLUMN1    ----    
+   B-BOTTOM   COLUMN1    ----                                         
+
+ FLOWSHEET CONNECTIVITY BY BLOCKS        
+
+   BLOCK        INLETS                         OUTLETS
+   COLUMN1      FEED                           D-TOP B-BOTTOM              
+
+      COMPUTATION ORDER FOR THE FLOWSHEET IS:
+      COLUMN1 
+
+Calculations begin                                                              time      0.32
+
+
+ SIMULATION CALCULATIONS BEGIN                                                    TIME =      0.32
+
+      ENTHALPY CALCULATION FOR INLET STREAM FEED OF BLOCK COLUMN1                 TIME =      0.32
+      KODE = 2  NTRIAL =   2  T = 386.5500  P =  100000.      V = 0.579203      Q =  0.00000    
+
+      UOS BLOCK COLUMN1  MODEL: RADFRAC                                           TIME =      0.36
+
+       Convergence iterations:
+         OL   ML   IL     Err/Tol
+          1    1    4      39.153    
+          2    9   48      62.023    
+          3    7   32      120.70    
+          4    7   32      172.76    
+          5    9   55      180.45    
+          6    7   38      151.69    
+          7    7   33      114.41    
+          8    7   24      64.221    
+          9    4   12      3.0750    
+         10    2    5     0.77355    
+
+      RESULTS FOR MANIPULATED VARIABLES:
+      VARIABLE     FINAL VALUE    LOWER BOUND    UPPER BOUND
+         1         0.97293E-02     0.0000        0.27778E-01
+         2          46.061         0.0000         100.00    
+
+      CHECKING PHASE EQUILIBRIUM RESULTS                                          TIME =      0.45
+
+      CHECKING PHASE EQUILIBRIUM RESULTS                                          TIME =      0.45

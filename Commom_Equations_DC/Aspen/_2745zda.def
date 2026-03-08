@@ -1,0 +1,10 @@
+SLAVE:
+INPUT: _2745zda.inm
+MODNAME: apmain
+RUNID: _2745zda
+NEW_RUNID: _2745zda
+OLD_RUNID: _2745zda
+PDF: _2745zda.appdf
+USERNAME: PC
+XMOD: C:\Program Files\AspenTech\Aspen Plus V14.0\Engine\xeq\apmain
+DBCONN: _2745zda.ads

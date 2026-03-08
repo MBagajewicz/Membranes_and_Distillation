@@ -1,0 +1,94 @@
+------------------------------------------------------------------------------------------------------------------------
+------------------------------------------------------------------------------------------------------------------------
+SUGESTÕES:
+------------------------------------------------------------------------------------------------------------------------
+------------------------------------------------------------------------------------------------------------------------
+-> A maioria dos usuários está usando pd para representar "problem_data" nas entradas das funções. Muitos usuários usam 
+a biblioteca pandas para manipulação dos dados para salvar resultados no excel. Como o usual é import pandas as pd, acho 
+que isso pode gerar alguma confusão.
+------------------------------------------------------------------------------------------------------------------------
+-> Deixar de alguma forma bem claro para o usuário que se nenhum incumbente for dado para as enumerações um incumbente 
+de 1e20 será inicializado como padrão
+------------------------------------------------------------------------------------------------------------------------
+-> Estudar a possibilidade de substituir prints por loggings e configurar o que deve ser visualizado no terminal e o que 
+é para ser salvo em arquivos 
+------------------------------------------------------------------------------------------------------------------------
+-> Tentar prever possíveis erros de usuários e associá-los a mensagens de erros que ajudem
+------------------------------------------------------------------------------------------------------------------------
+-> Incluir a possibilidade de usar o mesmo initial set para diferentes EquipmentX
+------------------------------------------------------------------------------------------------------------------------
+-> Verificar como está a contagem do número de candidatos avaliados no Segmental smart - está errado
+------------------------------------------------------------------------------------------------------------------------
+-> IMPORTANTE: Verificar Segmental Smart. Se chegar até o último intervalo a última linha será resolvida 2 vezes!!
+------------------------------------------------------------------------------------------------------------------------
+
+
+------------------------------------------------------------------------------------------------------------------------
+------------------------------------------------------------------------------------------------------------------------
+PENDÊNCIAS INTERNAS PARTICULARES DO MEU PROBLEMA:
+------------------------------------------------------------------------------------------------------------------------
+------------------------------------------------------------------------------------------------------------------------
+-> Implementar a ideia do LB que discuti com Miguel e André (usar o menor diâmetro e menor espaçamento viáveis pros 
+candidatos com Ns=Nsmax como LB para os demais ao invés dos mínimos possíveis do campo de busca original)
+        -> Pensar em como mostrar que pegar o ótimo do último candidato não seria correto
+------------------------------------------------------------------------------------------------------------------------
+-> Incluir a rotina de geração do Nsmin (como um cálculo de parâmetro)
+------------------------------------------------------------------------------------------------------------------------
+-> A geração de LB para DC_ST está funcionando de forma que se algum candidato com Ns = Nsmax não convergir, os 
+candidatos com o mesmo Nf terão seus LBs como valores da ordem de 1e20. 
+Primeiro ponto: Isso parte do pressuposto que estamos considerando o candidato inviável caso não haja convergência.
+E acabamos dizendo que todos os outro candidatos com o mesmo Nf também seria inviável. Isso seria correto? 
+No meu exemplo esse cenário não acontece, mas se for correto, seria bom pensar em uma forma de melhorar isso para que 
+esses candidatos não fiquem com um LB tão ruim.
+------------------------------------------------------------------------------------------------------------------------
+-> Preciso organizar de forma bem clara quais são as diferenças do segmental smart que está programado aqui pro que 
+tínhamos proposto no artigo original, para poder justificar as mudanças com base no ganho da generalização da rotina
+------------------------------------------------------------------------------------------------------------------------
+-> O Aspen está funcionando com o arquivo já criado com os componentes e modelo especificados, eu só altero alguns dados 
+dele. Seria melhor programar a geração desse arquivo inicial caso ele não exista? (Principalmente pq dependendo do modelo 
+há a necessidade de Property Sets, então se o usuário não criar, vai dar erro). Seria bom também generalizar melhor ou 
+organizar melhor a forma como a especificação do problema é dada (que o usuário selecione qual é o componente cuja pureza 
+está sendo especificada, e que isso seja ajustado no aspen automaticamente)
+------------------------------------------------------------------------------------------------------------------------
+-> Avaliar a possibilidade de ordenar o ST interno de cada trimming operacional não sempre na mesma ordem, mas em uma 
+ordem que gere o maior numero de cortes antes, ou vendo pelo parâmetro operacional de cada prato que agrave aquela 
+restrição, ou pela seção fazendo começar de baixo pra cima ou de cima pra baixo
+------------------------------------------------------------------------------------------------------------------------
+-> Outra alternativa futura seria ver se tem como provar que se o prato mais restritivo passa todos os outros passam
+------------------------------------------------------------------------------------------------------------------------
+-> Incluir a possibilidade de diferentes utilidades térmicas
+------------------------------------------------------------------------------------------------------------------------
+-> Para futuro pensar na questão da pressão constante na coluna
+------------------------------------------------------------------------------------------------------------------------
+-> Verificar diferença no resultado pela estimativa inicial usada para cada candidato, verificar tolerâncias usadas para 
+convergência
+------------------------------------------------------------------------------------------------------------------------
+-> Incluir a eficiência como um input no problema sieve tray (ao invés de Nt = Ns-2)
+------------------------------------------------------------------------------------------------------------------------
+-> Colocar a possibilidade de um usuário inserir o INC_WITHIN também
+------------------------------------------------------------------------------------------------------------------------
+-> Conferir se CP_s, mi_s, etc estão sendo extraídos corretamente (médias ou informações do líquido?)
+------------------------------------------------------------------------------------------------------------------------
+-> Ver uma forma de calcular os parametros da segmental de forma automatica caso alguém não forneça nos dados
+------------------------------------------------------------------------------------------------------------------------
+-> Retirar Nfmin dos dados dos problemas de coluna de destilação
+
+
+
+--> Deixar como opção incluir ou não o CAPEX do vaso no modelo DC
+--> Deixar como opção incluir ou não o diâmetro como variável discreta no DC
+
+--> Como generalizar um pouco mais as funções do Constraints_and_OF
+--> Melhorar convergencias 
+
+
+
+
+
+
+
+
+
+
+
+

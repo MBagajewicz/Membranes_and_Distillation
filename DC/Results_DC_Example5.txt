@@ -1,0 +1,55 @@
+Set Trimming successful - The candidates solution set is not empty
+
+************ Initial Set generated from Primordial Set ************
+
+Candidate set cardinality after each trimming [2304, 1176, 1140]
+
+******************** Starting Execution for DC_Example5 ********************
+
+The solution of Equipment1 "DC" is presented below:
+Set trimming and Enumeration activated. Performing Set Trimming First, followed by Selected Enumeration
+Set Trimming successful - The candidates solution set is not empty
+Set Trimming Solution {'trimmed_candidates': array([[ 3,  4,  5, ..., 48, 49, 50],
+       [13, 13, 13, ..., 52, 52, 52]]), 'candidate_set_cardinality_after_each_trimming': [1140]}
+Elapsed time Set Trimming: 0.0
+Performing Smart Enumeration now
+Lower bound values [1.00000000e+20 2.93287132e+05 1.52126548e+05 ... 1.06604976e+05
+ 1.33753534e+05 1.93348879e+05]
+Incumbent value: 60679.154777833304
+**********************************
+Updating incumbent
+Lower Bound: 58942.34431205306 Candidate: 153
+New Incumbent: 60576.219383282194
+**********************************
+Updating incumbent
+Lower Bound: 59031.2122578062 Candidate: 171
+New Incumbent: 60324.72903871585
+**********************************
+Updating incumbent
+Lower Bound: 59119.82199261916 Candidate: 189
+New Incumbent: 60147.22066618391
+**********************************
+Updating incumbent
+Lower Bound: 59208.18307551133 Candidate: 208
+New Incumbent: 60021.70890627166
+**********************************
+Updating incumbent
+Lower Bound: 59296.304424443806 Candidate: 227
+New Incumbent: 59938.334174557735
+**********************************
+Updating incumbent
+Lower Bound: 59384.19437741013 Candidate: 247
+New Incumbent: 59892.565968827694
+**********************************
+Updating incumbent
+Lower Bound: 59471.860746081344 Candidate: 266
+New Incumbent: 59872.12468607296
+##################################
+Exit at candidate: 368
+Lower Bound: 59874.31795387518 Candidate: 368
+Solution after Smart Enumeration {'TAC_OF': {'TAC': array(59872.12468607)}, 'Nf': array([15]), 'Ns': array([37])}
+Elapsed time for Equipment1 "DC": 540.59 seconds 
+
+OF Solution total ($/year) 59872.12468607296
+Total elapsed time: 549.51 seconds
+

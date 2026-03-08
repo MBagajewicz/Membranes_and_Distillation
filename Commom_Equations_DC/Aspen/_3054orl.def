@@ -1,0 +1,10 @@
+SLAVE:
+INPUT: _3054orl.inm
+MODNAME: apmain
+RUNID: _3054orl
+NEW_RUNID: _3054orl
+OLD_RUNID: _3054orl
+PDF: _3054orl.appdf
+USERNAME: PC
+XMOD: C:\Program Files\AspenTech\Aspen Plus V14.0\Engine\xeq\apmain
+DBCONN: _3054orl.ads

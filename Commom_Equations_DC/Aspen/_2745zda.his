@@ -1,0 +1,1873 @@
+
+ + + + + + + + + + + + + + + + + + + + + + + + + + + + + + + + + + + + + + + + +
+ + + + + + + + + + + + + + + + + + + + + + + + + + + + + + + + + + + + + + + + +
+ + +                                                                         + +
+ + +                      ASPEN PLUS CALCULATION HISTORY                     + +
+ + +                                                                         + +
+ + + + + + + + + + + + + + + + + + + + + + + + + + + + + + + + + + + + + + + + +
+ + + + + + + + + + + + + + + + + + + + + + + + + + + + + + + + + + + + + + + + +
+
+ ASPEN PLUS IS A TRADEMARK OF           HOTLINE:
+ ASPEN TECHNOLOGY, INC.                 U.S.A. 888/996-7100
+ 781/221-6400                           EUROPE (44) 1189-226555
+
+ PLATFORM: WIN-X64                                       AUGUST 7, 2025      
+ VERSION: 40.0   Build 359                               THURSDAY    
+ INSTALLATION:                                           4:29:02 P.M.        
+
+ THIS COPY OF ASPEN PLUS LICENSED TO UNIVERSIDADE DO ESTADO D        
+
+
+      ASPEN PLUS (R) IS A PROPRIETARY PRODUCT OF ASPEN TECHNOLOGY, INC.
+      (ASPENTECH), AND MAY BE USED ONLY UNDER AGREEMENT WITH ASPENTECH.
+      RESTRICTED RIGHTS LEGEND:  USE, REPRODUCTION, OR DISCLOSURE BY THE
+      U.S. GOVERNMENT IS SUBJECT TO RESTRICTIONS SET FORTH IN 
+      (i) FAR 52.227-14, Alt. III, (ii) FAR 52.227-19, (iii) DFARS 
+      252.227-7013(c)(1)(ii), or (iv) THE ACCOMPANYING LICENSE AGREEMENT,
+      AS APPLICABLE. FOR PURPOSES OF THE FAR, THIS SOFTWARE SHALL BE DEEMED
+      TO BE "UNPUBLISHED" AND LICENSED WITH DISCLOSURE PROHIBITIONS.
+      CONTRACTOR/SUBCONTRACTOR: ASPEN TECHNOLOGY, INC. 20 CROSBY DRIVE,
+      BEDFORD, MA 01730.
+ *** INPUT SUMMARY ***
+
+ >>CURRENT RUN
+
+   ORIGINAL RUN                           AUGUST 7, 2025      
+   4:29:02 P.M.                           THURSDAY    
+   INPUT FILE: _2745zda.inm
+   RUN ID : _2745zda
+          1    ;
+          2    ;Input file created by Aspen Plus Rel. 40.0 at 16:29:02 Thu Aug 7, 2025
+          3    ;Directory d:\Documentos\OptiProcessCode\Commom_Equations_DC\Aspen  Runid BTX COLUMN
+          4    ;
+          5
+          6
+          7    DYNAMICS
+          8        DYNAMICS RESULTS=ON
+          9
+         10    IN-UNITS MET ENTHALPY='J/kmol' ENTROPY='kJ/kmol-K'  &
+         11            ENTHALPY-FLO='kJ/hr' MOLE-HEAT-CA='kJ/kmol-K'  &
+         12            HEAT-TRANS-C='kJ/sec-sqm-K' PRESSURE=Pa  &
+         13            MOLE-ENTHALP='kJ/kmol' MASS-ENTHALP='kJ/kg'  &
+         14            MOLE-ENTROPY='kJ/mol-K' MASS-ENTROPY='kJ/kg-K'  &
+         15            MASS-HEAT-CA='kJ/kg-K' UA='kJ/sec-K' HEAT=kJ  &
+         16            MASS-CONC='gm/cc' PDROP=Pa VOL-HEAT-CAP='kJ/cum-K'  &
+         17            HEAT-FLUX='kJ/hr-m' INVERSE-HT-C='sec-sqm-K/kJ'  &
+         18            VOL-ENTHALPY='kJ/cum' SHORT-LENGTH=mm
+         19
+         20    DEF-STREAMS CONVEN ALL
+         21
+         22    MODEL-OPTION
+         23
+         24    DESCRIPTION "
+         25        Chemical Simulation with English Units :
+         26        F, psi, lb/hr, lbmol/hr, Btu/hr, cuft/hr.
+         27
+         28        Property Method: NRTL
+         29
+         30        Flow basis for input: Mole
+         31
+         32        Stream report composition: Mole flow
+         33        "
+         34
+         35    DATABANKS 'APV140 PURE39' / 'APV140 AQUEOUS' / 'APV140 SOLIDS' &
+         36             / 'APV140 INORGANIC' / 'APESV140 AP-EOS' /  &
+         37            'NISTV140 NIST-TRC' / NOASPENPCD
+         38
+         39    PROP-SOURCES 'APV140 PURE39' / 'APV140 AQUEOUS' /  &
+         40            'APV140 SOLIDS' / 'APV140 INORGANIC' / 'APESV140 AP-EOS' &
+         41             / 'NISTV140 NIST-TRC'
+         42
+         43    COMPONENTS
+         44        BENZENE C6H6 /
+         45        TOLUENE C7H8 /
+         46        M-XYLENE C8H10-2
+         47
+         48    SOLVE
+         49        RUN-MODE MODE=SIM
+         50
+         51    FLOWSHEET
+         52        BLOCK COLUMN1 IN=FEED OUT=D-TOP B-BOTTOM
+         53
+         54    PROPERTIES PENG-ROB
+         55        PROPERTIES NRTL
+         56
+         57    PROP-DATA NRTL-1
+         58        IN-UNITS ENG SHORT-LENGTH=in
+         59        PROP-LIST NRTL
+         60        BPVAL BENZENE M-XYLENE 0.0 -207.9702000 .3000000000 0.0  &
+         61            0.0 0.0 77.00000000 282.4520000
+         62        BPVAL M-XYLENE BENZENE 0.0 252.8013600 .3000000000 0.0 0.0  &
+         63            0.0 77.00000000 282.4520000
+         64        BPVAL BENZENE TOLUENE -2.885200000 2023.110180 .3000000000  &
+         65            0.0 0.0 0.0 104.0000000 231.3500000
+         66        BPVAL TOLUENE BENZENE 2.191100000 -1554.715440 .3000000000  &
+         67            0.0 0.0 0.0 104.0000000 231.3500000
+         68        BPVAL TOLUENE M-XYLENE 0.0 -353.5938000 .3000000000 0.0  &
+         69            0.0 0.0 231.0440000 282.4520000
+         70        BPVAL M-XYLENE TOLUENE 0.0 677.5857000 .3000000000 0.0 0.0  &
+         71            0.0 231.0440000 282.4520000
+         72
+         73    DEF-STREAMS LOAD
+         74
+         75    PROP-SET HEDESIGN CPMX-M KMX PCMX UNITS='J/kg-K' 'Watt/m-K'  &
+         76            'Pa' SUBSTREAM=MIXED PHASE=T L V
+         77
+         78    STREAM FEED
+         79        SUBSTREAM MIXED TEMP=386.55 PRES=100000.
+         80        MOLE-FLOW BENZENE 35. / TOLUENE 25. / M-XYLENE 40.
+         81
+         82    BLOCK COLUMN1 RADFRAC
+         83        SUBOBJECTS INTERNALS = CS-1
+         84        PARAM NSTAGE=52 ALGORITHM=STANDARD HYDRAULIC=NO MAXOL=25  &
+         85            DAMPING=NONE
+         86        PARAM2 STATIC-DP=YES OLD-SULZER=NO
+         87        COL-CONFIG CONDENSER=TOTAL CA-CONFIG=INT-1
+         88        FEEDS FEED 10
+         89        PRODUCTS D-TOP 1 L / B-BOTTOM 52 L
+         90        P-SPEC 1 100000.
+         91        COL-SPECS MOLE-D=14.25000000 MOLE-RR=4.12
+         92        SPEC 1 MOLE-FRAC 0.99 COMPS=BENZENE STREAMS=D-TOP  &
+         93            SPEC-DESCRIP="BENZENE RECUPERATION"
+         94        SPEC 2 MOLE-FRAC 0.005 COMPS=BENZENE STREAMS=B-BOTTOM  &
+         95            SPEC-DESCRIP="TOLUENE RECOVERY"
+         96        VARY 1 MOLE-D 0. 100.
+         97        VARY 2 MOLE-RR 0. 100.
+         98        REPORT NOHYDRAULIC
+         99        CONVERGENCE EXTRA-ML=2
+        100        INTERNALS CS-1 STAGE1=2 STAGE2=3 P-UPDATE=NO TRAYTYPE=SIEVE  &
+        101            NPASS=1 SYSFAC=1.000000000 OVER-DESIGN=1.000000000  &
+        102            WEIR-HT=50.80000000 <mm> DC-CLEAR=38.10000000 <mm>  &
+        103            DC-WTOP-SIDE=153.8249648 <mm> DC-WBOT-SIDE=153.8249648 <mm>  &
+        104            HOLE-DIAM=12.70000000 <mm> HOLE-AREA=.1000000000  &
+        105            FLOOD-METH=GLITSCH6 DECK-THICK=0.134 <IN>  &
+        106            PCT-FLOOD-FA=80.00000000 AER-PARAM-M=1.000000000  &
+        107            MAX-DC-LOAD=GLITSCH MAX-ACC-DP=2500.000000  &
+        108            MAX-PCT-DCB=100.0000000 MAX-PCT-ENT=10.00000000  &
+        109            MIN-WEIR-LD=4.470981863 MAX-WEIR-LD=117.3721131  &
+        110            MIN-PCT-DCA=.1000000000
+        111        TRAY-SIZE 1 2 3 SIEVE
+        112
+        113    EO-CONV-OPTI
+        114
+        115    STREAM-REPOR MOLEFLOW PROPERTIES=HEDESIGN
+        116
+        117    PROPERTY-REP PCES
+        118    ;
+        119    ;
+        120    ;
+        121    ;
+        122    ;
+ *** INPUT TRANSLATOR MESSAGES ***
+
+  *** THIS RUN USES THE PROPERTIES ENTERPRISE DATABASE ***
+      SQLLOCALDB.APESV140 : (DATAVERSION - 40.0.0.13)                         
+      SQLLOCALDB.APV140 : (DATAVERSION - 40.0.0.13)                           
+      SQLLOCALDB.FACTV140 : (DATAVERSION - 40.0.0.12)                         
+      SQLLOCALDB.NISTV140 : (DATAVERSION - 40.0.0.12)                         
+ 
+ 
+
+ PDF updated                                                                      TIME =      0.87
+
+ *** CALCULATION TRACE ***
+
+
+ *** FLOWSHEET ANALYSIS MESSAGES ***
+
+ FLOWSHEET CONNECTIVITY BY STREAMS       
+
+   STREAM     SOURCE     DEST           STREAM     SOURCE     DEST
+   FEED       ----       COLUMN1        D-TOP      COLUMN1    ----    
+   B-BOTTOM   COLUMN1    ----                                         
+
+ FLOWSHEET CONNECTIVITY BY BLOCKS        
+
+   BLOCK        INLETS                         OUTLETS
+   COLUMN1      FEED                           D-TOP B-BOTTOM              
+
+      COMPUTATION ORDER FOR THE FLOWSHEET IS:
+      COLUMN1 
+
+Calculations begin                                                              time      0.06
+
+
+ SIMULATION CALCULATIONS BEGIN                                                    TIME =      0.06
+
+      ENTHALPY CALCULATION FOR INLET STREAM FEED OF BLOCK COLUMN1                 TIME =      0.06
+      KODE = 2  NTRIAL =   2  T = 386.5500  P =  100000.      V = 0.579203      Q =  0.00000    
+
+      UOS BLOCK COLUMN1  MODEL: RADFRAC                                           TIME =      0.06
+
+       Convergence iterations:
+         OL   ML   IL     Err/Tol
+          1    1    4      30.221    
+          2   14   78      158.12    
+          3   10   85      310.20    
+          4   10   57      90.484    
+          5   12   62      232.28    
+          6   13  108      135.23    
+          7   10   81      67.391    
+          8    7   40      10.644    
+          9    7   29      13.831    
+         10    7   20      2.5459    
+         11    3    7     0.92480    
+
+      RESULTS FOR MANIPULATED VARIABLES:
+      VARIABLE     FINAL VALUE    LOWER BOUND    UPPER BOUND
+         1         0.97293E-02     0.0000        0.27778E-01
+         2          2.8171         0.0000         100.00    
+
+      CHECKING PHASE EQUILIBRIUM RESULTS                                          TIME =      0.08
+
+      CHECKING PHASE EQUILIBRIUM RESULTS                                          TIME =      0.08
+
+
+*** INPUT SPECIFICATION MESSAGES ***
+
+ CHANGES WERE MADE TO BLOCK        COLUMN1  08/07/2025   16:29:06:99 
+ BLOCK COLUMN1 RADFRAC
+     SUBOBJECTS INTERNALS = CS-1
+     PARAM NSTAGE=52 ALGORITHM=STANDARD HYDRAULIC=NO MAXOL=25  &
+         DAMPING=NONE
+     PARAM2 STATIC-DP=YES OLD-SULZER=NO
+     COL-CONFIG CONDENSER=TOTAL CA-CONFIG=INT-1
+     FEEDS FEED 11
+     PRODUCTS D-TOP 1 L / B-BOTTOM 52 L
+     P-SPEC 1 100000.
+     COL-SPECS MOLE-D=14.25000000 MOLE-RR=4.12
+     SPEC 1 MOLE-FRAC 0.99 COMPS=BENZENE STREAMS=D-TOP  &
+         SPEC-DESCRIP="BENZENE RECUPERATION"
+     SPEC 2 MOLE-FRAC 0.005 COMPS=BENZENE STREAMS=B-BOTTOM  &
+         SPEC-DESCRIP="TOLUENE RECOVERY"
+     VARY 1 MOLE-D 0. 100.
+     VARY 2 MOLE-RR 0. 100.
+     REPORT NOHYDRAULIC
+     CONVERGENCE EXTRA-ML=2
+     INTERNALS CS-1 STAGE1=2 STAGE2=3 P-UPDATE=NO TRAYTYPE=SIEVE  &
+         NPASS=1 SYSFAC=1.000000000 OVER-DESIGN=1.000000000  &
+         WEIR-HT=50.80000000 <mm> DC-CLEAR=38.10000000 <mm>  &
+         DC-WTOP-SIDE=149.8434021 <mm> DC-WBOT-SIDE=149.8434021 <mm>  &
+         HOLE-DIAM=12.70000000 <mm> HOLE-AREA=.1000000000  &
+         FLOOD-METH=GLITSCH6 DECK-THICK=0.134 <IN>  &
+         PCT-FLOOD-FA=80.00000000 AER-PARAM-M=1.000000000  &
+         MAX-DC-LOAD=GLITSCH MAX-ACC-DP=2500.000000  &
+         MAX-PCT-DCB=100.0000000 MAX-PCT-ENT=10.00000000  &
+         MIN-WEIR-LD=4.470981863 MAX-WEIR-LD=117.3721131  &
+         MIN-PCT-DCA=.1000000000
+     TRAY-SIZE 1 2 3 SIEVE
+
+ PDF updated                                                                      TIME =      3.33
+ THIS COPY OF ASPEN PLUS LICENSED TO UNIVERSIDADE DO ESTADO D        
+ 
+ 
+
+
+Calculations begin                                                              time      3.52
+
+
+      UOS BLOCK COLUMN1  MODEL: RADFRAC                                           TIME =      3.52
+
+       Convergence iterations:
+         OL   ML   IL     Err/Tol
+          1    1   10      21.472    
+          2    9   47      10.414    
+          3    7   29      11.833    
+          4    4   14      7.4029    
+          5    5   12      1.3117    
+          6    6   14     0.38129    
+
+      RESULTS FOR MANIPULATED VARIABLES:
+      VARIABLE     FINAL VALUE    LOWER BOUND    UPPER BOUND
+         1         0.97293E-02     0.0000        0.27778E-01
+         2          2.7028         0.0000         100.00    
+
+      CHECKING PHASE EQUILIBRIUM RESULTS                                          TIME =      3.53
+
+      CHECKING PHASE EQUILIBRIUM RESULTS                                          TIME =      3.53
+
+
+*** INPUT SPECIFICATION MESSAGES ***
+
+ CHANGES WERE MADE TO BLOCK        COLUMN1  08/07/2025   16:29:10:99 
+ BLOCK COLUMN1 RADFRAC
+     SUBOBJECTS INTERNALS = CS-1
+     PARAM NSTAGE=52 ALGORITHM=STANDARD HYDRAULIC=NO MAXOL=25  &
+         DAMPING=NONE
+     PARAM2 STATIC-DP=YES OLD-SULZER=NO
+     COL-CONFIG CONDENSER=TOTAL CA-CONFIG=INT-1
+     FEEDS FEED 12
+     PRODUCTS D-TOP 1 L / B-BOTTOM 52 L
+     P-SPEC 1 100000.
+     COL-SPECS MOLE-D=14.25000000 MOLE-RR=4.12
+     SPEC 1 MOLE-FRAC 0.99 COMPS=BENZENE STREAMS=D-TOP  &
+         SPEC-DESCRIP="BENZENE RECUPERATION"
+     SPEC 2 MOLE-FRAC 0.005 COMPS=BENZENE STREAMS=B-BOTTOM  &
+         SPEC-DESCRIP="TOLUENE RECOVERY"
+     VARY 1 MOLE-D 0. 100.
+     VARY 2 MOLE-RR 0. 100.
+     REPORT NOHYDRAULIC
+     CONVERGENCE EXTRA-ML=2
+     INTERNALS CS-1 STAGE1=2 STAGE2=3 P-UPDATE=NO TRAYTYPE=SIEVE  &
+         NPASS=1 SYSFAC=1.000000000 OVER-DESIGN=1.000000000  &
+         WEIR-HT=50.80000000 <mm> DC-CLEAR=38.10000000 <mm>  &
+         DC-WTOP-SIDE=147.5109135 <mm> DC-WBOT-SIDE=147.5109135 <mm>  &
+         HOLE-DIAM=12.70000000 <mm> HOLE-AREA=.1000000000  &
+         FLOOD-METH=GLITSCH6 DECK-THICK=0.134 <IN>  &
+         PCT-FLOOD-FA=80.00000000 AER-PARAM-M=1.000000000  &
+         MAX-DC-LOAD=GLITSCH MAX-ACC-DP=2500.000000  &
+         MAX-PCT-DCB=100.0000000 MAX-PCT-ENT=10.00000000  &
+         MIN-WEIR-LD=4.470981863 MAX-WEIR-LD=117.3721131  &
+         MIN-PCT-DCA=.1000000000
+     TRAY-SIZE 1 2 3 SIEVE
+
+ PDF updated                                                                      TIME =      6.90
+ THIS COPY OF ASPEN PLUS LICENSED TO UNIVERSIDADE DO ESTADO D        
+ 
+ 
+
+
+Calculations begin                                                              time      7.06
+
+
+      UOS BLOCK COLUMN1  MODEL: RADFRAC                                           TIME =      7.06
+
+       Convergence iterations:
+         OL   ML   IL     Err/Tol
+          1    1   10      16.151    
+          2    8   41      10.642    
+          3    6   25      7.8793    
+          4    4   12      1.3859    
+          5    4   11     0.26469    
+
+      RESULTS FOR MANIPULATED VARIABLES:
+      VARIABLE     FINAL VALUE    LOWER BOUND    UPPER BOUND
+         1         0.97292E-02     0.0000        0.27778E-01
+         2          2.6360         0.0000         100.00    
+
+      CHECKING PHASE EQUILIBRIUM RESULTS                                          TIME =      7.06
+
+      CHECKING PHASE EQUILIBRIUM RESULTS                                          TIME =      7.06
+
+
+*** INPUT SPECIFICATION MESSAGES ***
+
+ CHANGES WERE MADE TO BLOCK        COLUMN1  08/07/2025   16:29:13:99 
+ BLOCK COLUMN1 RADFRAC
+     SUBOBJECTS INTERNALS = CS-1
+     PARAM NSTAGE=52 ALGORITHM=STANDARD HYDRAULIC=NO MAXOL=25  &
+         DAMPING=NONE
+     PARAM2 STATIC-DP=YES OLD-SULZER=NO
+     COL-CONFIG CONDENSER=TOTAL CA-CONFIG=INT-1
+     FEEDS FEED 13
+     PRODUCTS D-TOP 1 L / B-BOTTOM 52 L
+     P-SPEC 1 100000.
+     COL-SPECS MOLE-D=14.25000000 MOLE-RR=4.12
+     SPEC 1 MOLE-FRAC 0.99 COMPS=BENZENE STREAMS=D-TOP  &
+         SPEC-DESCRIP="BENZENE RECUPERATION"
+     SPEC 2 MOLE-FRAC 0.005 COMPS=BENZENE STREAMS=B-BOTTOM  &
+         SPEC-DESCRIP="TOLUENE RECOVERY"
+     VARY 1 MOLE-D 0. 100.
+     VARY 2 MOLE-RR 0. 100.
+     REPORT NOHYDRAULIC
+     CONVERGENCE EXTRA-ML=2
+     INTERNALS CS-1 STAGE1=2 STAGE2=3 P-UPDATE=NO TRAYTYPE=SIEVE  &
+         NPASS=1 SYSFAC=1.000000000 OVER-DESIGN=1.000000000  &
+         WEIR-HT=50.80000000 <mm> DC-CLEAR=38.10000000 <mm>  &
+         DC-WTOP-SIDE=146.1333132 <mm> DC-WBOT-SIDE=146.1333132 <mm>  &
+         HOLE-DIAM=12.70000000 <mm> HOLE-AREA=.1000000000  &
+         FLOOD-METH=GLITSCH6 DECK-THICK=0.134 <IN>  &
+         PCT-FLOOD-FA=80.00000000 AER-PARAM-M=1.000000000  &
+         MAX-DC-LOAD=GLITSCH MAX-ACC-DP=2500.000000  &
+         MAX-PCT-DCB=100.0000000 MAX-PCT-ENT=10.00000000  &
+         MIN-WEIR-LD=4.470981863 MAX-WEIR-LD=117.3721131  &
+         MIN-PCT-DCA=.1000000000
+     TRAY-SIZE 1 2 3 SIEVE
+
+ PDF updated                                                                      TIME =     10.31
+ THIS COPY OF ASPEN PLUS LICENSED TO UNIVERSIDADE DO ESTADO D        
+ 
+ 
+
+
+Calculations begin                                                              time     10.45
+
+
+      UOS BLOCK COLUMN1  MODEL: RADFRAC                                           TIME =     10.45
+
+       Convergence iterations:
+         OL   ML   IL     Err/Tol
+          1    1   10      14.205    
+          2    8   39      11.123    
+          3    5   17      5.9613    
+          4    5   14     0.99072    
+
+      RESULTS FOR MANIPULATED VARIABLES:
+      VARIABLE     FINAL VALUE    LOWER BOUND    UPPER BOUND
+         1         0.97292E-02     0.0000        0.27778E-01
+         2          2.5980         0.0000         100.00    
+
+      CHECKING PHASE EQUILIBRIUM RESULTS                                          TIME =     10.45
+
+      CHECKING PHASE EQUILIBRIUM RESULTS                                          TIME =     10.45
+
+
+*** INPUT SPECIFICATION MESSAGES ***
+
+ CHANGES WERE MADE TO BLOCK        COLUMN1  08/07/2025   16:29:17:99 
+ BLOCK COLUMN1 RADFRAC
+     SUBOBJECTS INTERNALS = CS-1
+     PARAM NSTAGE=52 ALGORITHM=STANDARD HYDRAULIC=NO MAXOL=25  &
+         DAMPING=NONE
+     PARAM2 STATIC-DP=YES OLD-SULZER=NO
+     COL-CONFIG CONDENSER=TOTAL CA-CONFIG=INT-1
+     FEEDS FEED 14
+     PRODUCTS D-TOP 1 L / B-BOTTOM 52 L
+     P-SPEC 1 100000.
+     COL-SPECS MOLE-D=14.25000000 MOLE-RR=4.12
+     SPEC 1 MOLE-FRAC 0.99 COMPS=BENZENE STREAMS=D-TOP  &
+         SPEC-DESCRIP="BENZENE RECUPERATION"
+     SPEC 2 MOLE-FRAC 0.005 COMPS=BENZENE STREAMS=B-BOTTOM  &
+         SPEC-DESCRIP="TOLUENE RECOVERY"
+     VARY 1 MOLE-D 0. 100.
+     VARY 2 MOLE-RR 0. 100.
+     REPORT NOHYDRAULIC
+     CONVERGENCE EXTRA-ML=2
+     INTERNALS CS-1 STAGE1=2 STAGE2=3 P-UPDATE=NO TRAYTYPE=SIEVE  &
+         NPASS=1 SYSFAC=1.000000000 OVER-DESIGN=1.000000000  &
+         WEIR-HT=50.80000000 <mm> DC-CLEAR=38.10000000 <mm>  &
+         DC-WTOP-SIDE=145.3437552 <mm> DC-WBOT-SIDE=145.3437552 <mm>  &
+         HOLE-DIAM=12.70000000 <mm> HOLE-AREA=.1000000000  &
+         FLOOD-METH=GLITSCH6 DECK-THICK=0.134 <IN>  &
+         PCT-FLOOD-FA=80.00000000 AER-PARAM-M=1.000000000  &
+         MAX-DC-LOAD=GLITSCH MAX-ACC-DP=2500.000000  &
+         MAX-PCT-DCB=100.0000000 MAX-PCT-ENT=10.00000000  &
+         MIN-WEIR-LD=4.470981863 MAX-WEIR-LD=117.3721131  &
+         MIN-PCT-DCA=.1000000000
+     TRAY-SIZE 1 2 3 SIEVE
+
+ PDF updated                                                                      TIME =     13.73
+ THIS COPY OF ASPEN PLUS LICENSED TO UNIVERSIDADE DO ESTADO D        
+ 
+ 
+
+
+Calculations begin                                                              time     13.87
+
+
+      UOS BLOCK COLUMN1  MODEL: RADFRAC                                           TIME =     13.87
+
+       Convergence iterations:
+         OL   ML   IL     Err/Tol
+          1    1   10      10.938    
+          2    8   40      9.4756    
+          3    7   20      1.3106    
+          4    3    9     0.69552    
+
+      RESULTS FOR MANIPULATED VARIABLES:
+      VARIABLE     FINAL VALUE    LOWER BOUND    UPPER BOUND
+         1         0.97293E-02     0.0000        0.27778E-01
+         2          2.5756         0.0000         100.00    
+
+      CHECKING PHASE EQUILIBRIUM RESULTS                                          TIME =     13.87
+
+      CHECKING PHASE EQUILIBRIUM RESULTS                                          TIME =     13.87
+
+
+*** INPUT SPECIFICATION MESSAGES ***
+
+ CHANGES WERE MADE TO BLOCK        COLUMN1  08/07/2025   16:29:20:99 
+ BLOCK COLUMN1 RADFRAC
+     SUBOBJECTS INTERNALS = CS-1
+     PARAM NSTAGE=52 ALGORITHM=STANDARD HYDRAULIC=NO MAXOL=25  &
+         DAMPING=NONE
+     PARAM2 STATIC-DP=YES OLD-SULZER=NO
+     COL-CONFIG CONDENSER=TOTAL CA-CONFIG=INT-1
+     FEEDS FEED 15
+     PRODUCTS D-TOP 1 L / B-BOTTOM 52 L
+     P-SPEC 1 100000.
+     COL-SPECS MOLE-D=14.25000000 MOLE-RR=4.12
+     SPEC 1 MOLE-FRAC 0.99 COMPS=BENZENE STREAMS=D-TOP  &
+         SPEC-DESCRIP="BENZENE RECUPERATION"
+     SPEC 2 MOLE-FRAC 0.005 COMPS=BENZENE STREAMS=B-BOTTOM  &
+         SPEC-DESCRIP="TOLUENE RECOVERY"
+     VARY 1 MOLE-D 0. 100.
+     VARY 2 MOLE-RR 0. 100.
+     REPORT NOHYDRAULIC
+     CONVERGENCE EXTRA-ML=2
+     INTERNALS CS-1 STAGE1=2 STAGE2=3 P-UPDATE=NO TRAYTYPE=SIEVE  &
+         NPASS=1 SYSFAC=1.000000000 OVER-DESIGN=1.000000000  &
+         WEIR-HT=50.80000000 <mm> DC-CLEAR=38.10000000 <mm>  &
+         DC-WTOP-SIDE=144.8759273 <mm> DC-WBOT-SIDE=144.8759273 <mm>  &
+         HOLE-DIAM=12.70000000 <mm> HOLE-AREA=.1000000000  &
+         FLOOD-METH=GLITSCH6 DECK-THICK=0.134 <IN>  &
+         PCT-FLOOD-FA=80.00000000 AER-PARAM-M=1.000000000  &
+         MAX-DC-LOAD=GLITSCH MAX-ACC-DP=2500.000000  &
+         MAX-PCT-DCB=100.0000000 MAX-PCT-ENT=10.00000000  &
+         MIN-WEIR-LD=4.470981863 MAX-WEIR-LD=117.3721131  &
+         MIN-PCT-DCA=.1000000000
+     TRAY-SIZE 1 2 3 SIEVE
+
+ PDF updated                                                                      TIME =     17.07
+ THIS COPY OF ASPEN PLUS LICENSED TO UNIVERSIDADE DO ESTADO D        
+ 
+ 
+
+
+Calculations begin                                                              time     17.21
+
+
+      UOS BLOCK COLUMN1  MODEL: RADFRAC                                           TIME =     17.21
+
+       Convergence iterations:
+         OL   ML   IL     Err/Tol
+          1    1   10      10.616    
+          2    7   34      8.2022    
+          3    4   15      1.0273    
+          4    4   11     0.14204    
+
+      RESULTS FOR MANIPULATED VARIABLES:
+      VARIABLE     FINAL VALUE    LOWER BOUND    UPPER BOUND
+         1         0.97293E-02     0.0000        0.27778E-01
+         2          2.5625         0.0000         100.00    
+
+      CHECKING PHASE EQUILIBRIUM RESULTS                                          TIME =     17.21
+
+      CHECKING PHASE EQUILIBRIUM RESULTS                                          TIME =     17.21
+
+
+*** INPUT SPECIFICATION MESSAGES ***
+
+ CHANGES WERE MADE TO BLOCK        COLUMN1  08/07/2025   16:29:23:99 
+ BLOCK COLUMN1 RADFRAC
+     SUBOBJECTS INTERNALS = CS-1
+     PARAM NSTAGE=52 ALGORITHM=STANDARD HYDRAULIC=NO MAXOL=25  &
+         DAMPING=NONE
+     PARAM2 STATIC-DP=YES OLD-SULZER=NO
+     COL-CONFIG CONDENSER=TOTAL CA-CONFIG=INT-1
+     FEEDS FEED 16
+     PRODUCTS D-TOP 1 L / B-BOTTOM 52 L
+     P-SPEC 1 100000.
+     COL-SPECS MOLE-D=14.25000000 MOLE-RR=4.12
+     SPEC 1 MOLE-FRAC 0.99 COMPS=BENZENE STREAMS=D-TOP  &
+         SPEC-DESCRIP="BENZENE RECUPERATION"
+     SPEC 2 MOLE-FRAC 0.005 COMPS=BENZENE STREAMS=B-BOTTOM  &
+         SPEC-DESCRIP="TOLUENE RECOVERY"
+     VARY 1 MOLE-D 0. 100.
+     VARY 2 MOLE-RR 0. 100.
+     REPORT NOHYDRAULIC
+     CONVERGENCE EXTRA-ML=2
+     INTERNALS CS-1 STAGE1=2 STAGE2=3 P-UPDATE=NO TRAYTYPE=SIEVE  &
+         NPASS=1 SYSFAC=1.000000000 OVER-DESIGN=1.000000000  &
+         WEIR-HT=50.80000000 <mm> DC-CLEAR=38.10000000 <mm>  &
+         DC-WTOP-SIDE=144.6028561 <mm> DC-WBOT-SIDE=144.6028561 <mm>  &
+         HOLE-DIAM=12.70000000 <mm> HOLE-AREA=.1000000000  &
+         FLOOD-METH=GLITSCH6 DECK-THICK=0.134 <IN>  &
+         PCT-FLOOD-FA=80.00000000 AER-PARAM-M=1.000000000  &
+         MAX-DC-LOAD=GLITSCH MAX-ACC-DP=2500.000000  &
+         MAX-PCT-DCB=100.0000000 MAX-PCT-ENT=10.00000000  &
+         MIN-WEIR-LD=4.470981863 MAX-WEIR-LD=117.3721131  &
+         MIN-PCT-DCA=.1000000000
+     TRAY-SIZE 1 2 3 SIEVE
+
+ PDF updated                                                                      TIME =     20.46
+ THIS COPY OF ASPEN PLUS LICENSED TO UNIVERSIDADE DO ESTADO D        
+ 
+ 
+
+
+Calculations begin                                                              time     20.59
+
+
+      UOS BLOCK COLUMN1  MODEL: RADFRAC                                           TIME =     20.59
+
+       Convergence iterations:
+         OL   ML   IL     Err/Tol
+          1    1   10      8.3830    
+          2    6   29      6.0259    
+          3    3   11     0.65957    
+
+      RESULTS FOR MANIPULATED VARIABLES:
+      VARIABLE     FINAL VALUE    LOWER BOUND    UPPER BOUND
+         1         0.97293E-02     0.0000        0.27778E-01
+         2          2.5557         0.0000         100.00    
+
+      CHECKING PHASE EQUILIBRIUM RESULTS                                          TIME =     20.59
+
+      CHECKING PHASE EQUILIBRIUM RESULTS                                          TIME =     20.60
+
+
+*** INPUT SPECIFICATION MESSAGES ***
+
+ CHANGES WERE MADE TO BLOCK        COLUMN1  08/07/2025   16:29:27:99 
+ BLOCK COLUMN1 RADFRAC
+     SUBOBJECTS INTERNALS = CS-1
+     PARAM NSTAGE=52 ALGORITHM=STANDARD HYDRAULIC=NO MAXOL=25  &
+         DAMPING=NONE
+     PARAM2 STATIC-DP=YES OLD-SULZER=NO
+     COL-CONFIG CONDENSER=TOTAL CA-CONFIG=INT-1
+     FEEDS FEED 17
+     PRODUCTS D-TOP 1 L / B-BOTTOM 52 L
+     P-SPEC 1 100000.
+     COL-SPECS MOLE-D=14.25000000 MOLE-RR=4.12
+     SPEC 1 MOLE-FRAC 0.99 COMPS=BENZENE STREAMS=D-TOP  &
+         SPEC-DESCRIP="BENZENE RECUPERATION"
+     SPEC 2 MOLE-FRAC 0.005 COMPS=BENZENE STREAMS=B-BOTTOM  &
+         SPEC-DESCRIP="TOLUENE RECOVERY"
+     VARY 1 MOLE-D 0. 100.
+     VARY 2 MOLE-RR 0. 100.
+     REPORT NOHYDRAULIC
+     CONVERGENCE EXTRA-ML=2
+     INTERNALS CS-1 STAGE1=2 STAGE2=3 P-UPDATE=NO TRAYTYPE=SIEVE  &
+         NPASS=1 SYSFAC=1.000000000 OVER-DESIGN=1.000000000  &
+         WEIR-HT=50.80000000 <mm> DC-CLEAR=38.10000000 <mm>  &
+         DC-WTOP-SIDE=144.4605815 <mm> DC-WBOT-SIDE=144.4605815 <mm>  &
+         HOLE-DIAM=12.70000000 <mm> HOLE-AREA=.1000000000  &
+         FLOOD-METH=GLITSCH6 DECK-THICK=0.134 <IN>  &
+         PCT-FLOOD-FA=80.00000000 AER-PARAM-M=1.000000000  &
+         MAX-DC-LOAD=GLITSCH MAX-ACC-DP=2500.000000  &
+         MAX-PCT-DCB=100.0000000 MAX-PCT-ENT=10.00000000  &
+         MIN-WEIR-LD=4.470981863 MAX-WEIR-LD=117.3721131  &
+         MIN-PCT-DCA=.1000000000
+     TRAY-SIZE 1 2 3 SIEVE
+
+ PDF updated                                                                      TIME =     24.02
+ THIS COPY OF ASPEN PLUS LICENSED TO UNIVERSIDADE DO ESTADO D        
+ 
+ 
+
+
+Calculations begin                                                              time     24.17
+
+
+      UOS BLOCK COLUMN1  MODEL: RADFRAC                                           TIME =     24.17
+
+       Convergence iterations:
+         OL   ML   IL     Err/Tol
+          1    1   10      8.6864    
+          2    6   25      5.4053    
+          3    3    7     0.55000    
+
+      RESULTS FOR MANIPULATED VARIABLES:
+      VARIABLE     FINAL VALUE    LOWER BOUND    UPPER BOUND
+         1         0.97293E-02     0.0000        0.27778E-01
+         2          2.5516         0.0000         100.00    
+
+      CHECKING PHASE EQUILIBRIUM RESULTS                                          TIME =     24.17
+
+      CHECKING PHASE EQUILIBRIUM RESULTS                                          TIME =     24.17
+
+
+*** INPUT SPECIFICATION MESSAGES ***
+
+ CHANGES WERE MADE TO BLOCK        COLUMN1  08/07/2025   16:29:30:99 
+ BLOCK COLUMN1 RADFRAC
+     SUBOBJECTS INTERNALS = CS-1
+     PARAM NSTAGE=52 ALGORITHM=STANDARD HYDRAULIC=NO MAXOL=25  &
+         DAMPING=NONE
+     PARAM2 STATIC-DP=YES OLD-SULZER=NO
+     COL-CONFIG CONDENSER=TOTAL CA-CONFIG=INT-1
+     FEEDS FEED 18
+     PRODUCTS D-TOP 1 L / B-BOTTOM 52 L
+     P-SPEC 1 100000.
+     COL-SPECS MOLE-D=14.25000000 MOLE-RR=4.12
+     SPEC 1 MOLE-FRAC 0.99 COMPS=BENZENE STREAMS=D-TOP  &
+         SPEC-DESCRIP="BENZENE RECUPERATION"
+     SPEC 2 MOLE-FRAC 0.005 COMPS=BENZENE STREAMS=B-BOTTOM  &
+         SPEC-DESCRIP="TOLUENE RECOVERY"
+     VARY 1 MOLE-D 0. 100.
+     VARY 2 MOLE-RR 0. 100.
+     REPORT NOHYDRAULIC
+     CONVERGENCE EXTRA-ML=2
+     INTERNALS CS-1 STAGE1=2 STAGE2=3 P-UPDATE=NO TRAYTYPE=SIEVE  &
+         NPASS=1 SYSFAC=1.000000000 OVER-DESIGN=1.000000000  &
+         WEIR-HT=50.80000000 <mm> DC-CLEAR=38.10000000 <mm>  &
+         DC-WTOP-SIDE=144.3740574 <mm> DC-WBOT-SIDE=144.3740574 <mm>  &
+         HOLE-DIAM=12.70000000 <mm> HOLE-AREA=.1000000000  &
+         FLOOD-METH=GLITSCH6 DECK-THICK=0.134 <IN>  &
+         PCT-FLOOD-FA=80.00000000 AER-PARAM-M=1.000000000  &
+         MAX-DC-LOAD=GLITSCH MAX-ACC-DP=2500.000000  &
+         MAX-PCT-DCB=100.0000000 MAX-PCT-ENT=10.00000000  &
+         MIN-WEIR-LD=4.470981863 MAX-WEIR-LD=117.3721131  &
+         MIN-PCT-DCA=.1000000000
+     TRAY-SIZE 1 2 3 SIEVE
+
+ PDF updated                                                                      TIME =     27.52
+ THIS COPY OF ASPEN PLUS LICENSED TO UNIVERSIDADE DO ESTADO D        
+ 
+ 
+
+
+Calculations begin                                                              time     27.73
+
+
+      UOS BLOCK COLUMN1  MODEL: RADFRAC                                           TIME =     27.73
+
+       Convergence iterations:
+         OL   ML   IL     Err/Tol
+          1    1   10      6.4262    
+          2    5   25      3.7756    
+          3    3    9     0.34172    
+
+      RESULTS FOR MANIPULATED VARIABLES:
+      VARIABLE     FINAL VALUE    LOWER BOUND    UPPER BOUND
+         1         0.97293E-02     0.0000        0.27778E-01
+         2          2.5492         0.0000         100.00    
+
+      CHECKING PHASE EQUILIBRIUM RESULTS                                          TIME =     27.74
+
+      CHECKING PHASE EQUILIBRIUM RESULTS                                          TIME =     27.74
+
+
+*** INPUT SPECIFICATION MESSAGES ***
+
+ CHANGES WERE MADE TO BLOCK        COLUMN1  08/07/2025   16:29:34:99 
+ BLOCK COLUMN1 RADFRAC
+     SUBOBJECTS INTERNALS = CS-1
+     PARAM NSTAGE=52 ALGORITHM=STANDARD HYDRAULIC=NO MAXOL=25  &
+         DAMPING=NONE
+     PARAM2 STATIC-DP=YES OLD-SULZER=NO
+     COL-CONFIG CONDENSER=TOTAL CA-CONFIG=INT-1
+     FEEDS FEED 19
+     PRODUCTS D-TOP 1 L / B-BOTTOM 52 L
+     P-SPEC 1 100000.
+     COL-SPECS MOLE-D=14.25000000 MOLE-RR=4.12
+     SPEC 1 MOLE-FRAC 0.99 COMPS=BENZENE STREAMS=D-TOP  &
+         SPEC-DESCRIP="BENZENE RECUPERATION"
+     SPEC 2 MOLE-FRAC 0.005 COMPS=BENZENE STREAMS=B-BOTTOM  &
+         SPEC-DESCRIP="TOLUENE RECOVERY"
+     VARY 1 MOLE-D 0. 100.
+     VARY 2 MOLE-RR 0. 100.
+     REPORT NOHYDRAULIC
+     CONVERGENCE EXTRA-ML=2
+     INTERNALS CS-1 STAGE1=2 STAGE2=3 P-UPDATE=NO TRAYTYPE=SIEVE  &
+         NPASS=1 SYSFAC=1.000000000 OVER-DESIGN=1.000000000  &
+         WEIR-HT=50.80000000 <mm> DC-CLEAR=38.10000000 <mm>  &
+         DC-WTOP-SIDE=144.3246863 <mm> DC-WBOT-SIDE=144.3246863 <mm>  &
+         HOLE-DIAM=12.70000000 <mm> HOLE-AREA=.1000000000  &
+         FLOOD-METH=GLITSCH6 DECK-THICK=0.134 <IN>  &
+         PCT-FLOOD-FA=80.00000000 AER-PARAM-M=1.000000000  &
+         MAX-DC-LOAD=GLITSCH MAX-ACC-DP=2500.000000  &
+         MAX-PCT-DCB=100.0000000 MAX-PCT-ENT=10.00000000  &
+         MIN-WEIR-LD=4.470981863 MAX-WEIR-LD=117.3721131  &
+         MIN-PCT-DCA=.1000000000
+     TRAY-SIZE 1 2 3 SIEVE
+
+ PDF updated                                                                      TIME =     31.01
+ THIS COPY OF ASPEN PLUS LICENSED TO UNIVERSIDADE DO ESTADO D        
+ 
+ 
+
+
+Calculations begin                                                              time     31.15
+
+
+      UOS BLOCK COLUMN1  MODEL: RADFRAC                                           TIME =     31.15
+
+       Convergence iterations:
+         OL   ML   IL     Err/Tol
+          1    1   10      6.5786    
+          2    5   21      3.3829    
+          3    3    9     0.28375    
+
+      RESULTS FOR MANIPULATED VARIABLES:
+      VARIABLE     FINAL VALUE    LOWER BOUND    UPPER BOUND
+         1         0.97293E-02     0.0000        0.27778E-01
+         2          2.5480         0.0000         100.00    
+
+      CHECKING PHASE EQUILIBRIUM RESULTS                                          TIME =     31.16
+
+      CHECKING PHASE EQUILIBRIUM RESULTS                                          TIME =     31.16
+
+
+*** INPUT SPECIFICATION MESSAGES ***
+
+ CHANGES WERE MADE TO BLOCK        COLUMN1  08/07/2025   16:29:37:99 
+ BLOCK COLUMN1 RADFRAC
+     SUBOBJECTS INTERNALS = CS-1
+     PARAM NSTAGE=52 ALGORITHM=STANDARD HYDRAULIC=NO MAXOL=25  &
+         DAMPING=NONE
+     PARAM2 STATIC-DP=YES OLD-SULZER=NO
+     COL-CONFIG CONDENSER=TOTAL CA-CONFIG=INT-1
+     FEEDS FEED 20
+     PRODUCTS D-TOP 1 L / B-BOTTOM 52 L
+     P-SPEC 1 100000.
+     COL-SPECS MOLE-D=14.25000000 MOLE-RR=4.12
+     SPEC 1 MOLE-FRAC 0.99 COMPS=BENZENE STREAMS=D-TOP  &
+         SPEC-DESCRIP="BENZENE RECUPERATION"
+     SPEC 2 MOLE-FRAC 0.005 COMPS=BENZENE STREAMS=B-BOTTOM  &
+         SPEC-DESCRIP="TOLUENE RECOVERY"
+     VARY 1 MOLE-D 0. 100.
+     VARY 2 MOLE-RR 0. 100.
+     REPORT NOHYDRAULIC
+     CONVERGENCE EXTRA-ML=2
+     INTERNALS CS-1 STAGE1=2 STAGE2=3 P-UPDATE=NO TRAYTYPE=SIEVE  &
+         NPASS=1 SYSFAC=1.000000000 OVER-DESIGN=1.000000000  &
+         WEIR-HT=50.80000000 <mm> DC-CLEAR=38.10000000 <mm>  &
+         DC-WTOP-SIDE=144.2979776 <mm> DC-WBOT-SIDE=144.2979776 <mm>  &
+         HOLE-DIAM=12.70000000 <mm> HOLE-AREA=.1000000000  &
+         FLOOD-METH=GLITSCH6 DECK-THICK=0.134 <IN>  &
+         PCT-FLOOD-FA=80.00000000 AER-PARAM-M=1.000000000  &
+         MAX-DC-LOAD=GLITSCH MAX-ACC-DP=2500.000000  &
+         MAX-PCT-DCB=100.0000000 MAX-PCT-ENT=10.00000000  &
+         MIN-WEIR-LD=4.470981863 MAX-WEIR-LD=117.3721131  &
+         MIN-PCT-DCA=.1000000000
+     TRAY-SIZE 1 2 3 SIEVE
+
+ PDF updated                                                                      TIME =     34.40
+ THIS COPY OF ASPEN PLUS LICENSED TO UNIVERSIDADE DO ESTADO D        
+ 
+ 
+
+
+Calculations begin                                                              time     34.53
+
+
+      UOS BLOCK COLUMN1  MODEL: RADFRAC                                           TIME =     34.53
+
+       Convergence iterations:
+         OL   ML   IL     Err/Tol
+          1    1   10      4.3728    
+          2    6   24      2.2110    
+          3    3    7     0.16224    
+
+      RESULTS FOR MANIPULATED VARIABLES:
+      VARIABLE     FINAL VALUE    LOWER BOUND    UPPER BOUND
+         1         0.97293E-02     0.0000        0.27778E-01
+         2          2.5473         0.0000         100.00    
+
+      CHECKING PHASE EQUILIBRIUM RESULTS                                          TIME =     34.54
+
+      CHECKING PHASE EQUILIBRIUM RESULTS                                          TIME =     34.54
+
+
+*** INPUT SPECIFICATION MESSAGES ***
+
+ CHANGES WERE MADE TO BLOCK        COLUMN1  08/07/2025   16:29:41:99 
+ BLOCK COLUMN1 RADFRAC
+     SUBOBJECTS INTERNALS = CS-1
+     PARAM NSTAGE=52 ALGORITHM=STANDARD HYDRAULIC=NO MAXOL=25  &
+         DAMPING=NONE
+     PARAM2 STATIC-DP=YES OLD-SULZER=NO
+     COL-CONFIG CONDENSER=TOTAL CA-CONFIG=INT-1
+     FEEDS FEED 21
+     PRODUCTS D-TOP 1 L / B-BOTTOM 52 L
+     P-SPEC 1 100000.
+     COL-SPECS MOLE-D=14.25000000 MOLE-RR=4.12
+     SPEC 1 MOLE-FRAC 0.99 COMPS=BENZENE STREAMS=D-TOP  &
+         SPEC-DESCRIP="BENZENE RECUPERATION"
+     SPEC 2 MOLE-FRAC 0.005 COMPS=BENZENE STREAMS=B-BOTTOM  &
+         SPEC-DESCRIP="TOLUENE RECOVERY"
+     VARY 1 MOLE-D 0. 100.
+     VARY 2 MOLE-RR 0. 100.
+     REPORT NOHYDRAULIC
+     CONVERGENCE EXTRA-ML=2
+     INTERNALS CS-1 STAGE1=2 STAGE2=3 P-UPDATE=NO TRAYTYPE=SIEVE  &
+         NPASS=1 SYSFAC=1.000000000 OVER-DESIGN=1.000000000  &
+         WEIR-HT=50.80000000 <mm> DC-CLEAR=38.10000000 <mm>  &
+         DC-WTOP-SIDE=144.2832163 <mm> DC-WBOT-SIDE=144.2832163 <mm>  &
+         HOLE-DIAM=12.70000000 <mm> HOLE-AREA=.1000000000  &
+         FLOOD-METH=GLITSCH6 DECK-THICK=0.134 <IN>  &
+         PCT-FLOOD-FA=80.00000000 AER-PARAM-M=1.000000000  &
+         MAX-DC-LOAD=GLITSCH MAX-ACC-DP=2500.000000  &
+         MAX-PCT-DCB=100.0000000 MAX-PCT-ENT=10.00000000  &
+         MIN-WEIR-LD=4.470981863 MAX-WEIR-LD=117.3721131  &
+         MIN-PCT-DCA=.1000000000
+     TRAY-SIZE 1 2 3 SIEVE
+
+ PDF updated                                                                      TIME =     37.80
+ THIS COPY OF ASPEN PLUS LICENSED TO UNIVERSIDADE DO ESTADO D        
+ 
+ 
+
+
+Calculations begin                                                              time     37.93
+
+
+      UOS BLOCK COLUMN1  MODEL: RADFRAC                                           TIME =     37.93
+
+       Convergence iterations:
+         OL   ML   IL     Err/Tol
+          1    1   10      4.3406    
+          2    6   23      2.0436    
+          3    3    7     0.14192    
+
+      RESULTS FOR MANIPULATED VARIABLES:
+      VARIABLE     FINAL VALUE    LOWER BOUND    UPPER BOUND
+         1         0.97293E-02     0.0000        0.27778E-01
+         2          2.5469         0.0000         100.00    
+
+      CHECKING PHASE EQUILIBRIUM RESULTS                                          TIME =     37.93
+
+      CHECKING PHASE EQUILIBRIUM RESULTS                                          TIME =     37.93
+
+
+*** INPUT SPECIFICATION MESSAGES ***
+
+ CHANGES WERE MADE TO BLOCK        COLUMN1  08/07/2025   16:29:44:99 
+ BLOCK COLUMN1 RADFRAC
+     SUBOBJECTS INTERNALS = CS-1
+     PARAM NSTAGE=52 ALGORITHM=STANDARD HYDRAULIC=NO MAXOL=25  &
+         DAMPING=NONE
+     PARAM2 STATIC-DP=YES OLD-SULZER=NO
+     COL-CONFIG CONDENSER=TOTAL CA-CONFIG=INT-1
+     FEEDS FEED 22
+     PRODUCTS D-TOP 1 L / B-BOTTOM 52 L
+     P-SPEC 1 100000.
+     COL-SPECS MOLE-D=14.25000000 MOLE-RR=4.12
+     SPEC 1 MOLE-FRAC 0.99 COMPS=BENZENE STREAMS=D-TOP  &
+         SPEC-DESCRIP="BENZENE RECUPERATION"
+     SPEC 2 MOLE-FRAC 0.005 COMPS=BENZENE STREAMS=B-BOTTOM  &
+         SPEC-DESCRIP="TOLUENE RECOVERY"
+     VARY 1 MOLE-D 0. 100.
+     VARY 2 MOLE-RR 0. 100.
+     REPORT NOHYDRAULIC
+     CONVERGENCE EXTRA-ML=2
+     INTERNALS CS-1 STAGE1=2 STAGE2=3 P-UPDATE=NO TRAYTYPE=SIEVE  &
+         NPASS=1 SYSFAC=1.000000000 OVER-DESIGN=1.000000000  &
+         WEIR-HT=50.80000000 <mm> DC-CLEAR=38.10000000 <mm>  &
+         DC-WTOP-SIDE=144.2761830 <mm> DC-WBOT-SIDE=144.2761830 <mm>  &
+         HOLE-DIAM=12.70000000 <mm> HOLE-AREA=.1000000000  &
+         FLOOD-METH=GLITSCH6 DECK-THICK=0.134 <IN>  &
+         PCT-FLOOD-FA=80.00000000 AER-PARAM-M=1.000000000  &
+         MAX-DC-LOAD=GLITSCH MAX-ACC-DP=2500.000000  &
+         MAX-PCT-DCB=100.0000000 MAX-PCT-ENT=10.00000000  &
+         MIN-WEIR-LD=4.470981863 MAX-WEIR-LD=117.3721131  &
+         MIN-PCT-DCA=.1000000000
+     TRAY-SIZE 1 2 3 SIEVE
+
+ PDF updated                                                                      TIME =     41.24
+ THIS COPY OF ASPEN PLUS LICENSED TO UNIVERSIDADE DO ESTADO D        
+ 
+ 
+
+
+Calculations begin                                                              time     41.39
+
+
+      UOS BLOCK COLUMN1  MODEL: RADFRAC                                           TIME =     41.39
+
+       Convergence iterations:
+         OL   ML   IL     Err/Tol
+          1    1   10      2.6817    
+          2    6   24      1.2340    
+          3    3    6     0.73022E-01
+
+      RESULTS FOR MANIPULATED VARIABLES:
+      VARIABLE     FINAL VALUE    LOWER BOUND    UPPER BOUND
+         1         0.97293E-02     0.0000        0.27778E-01
+         2          2.5468         0.0000         100.00    
+
+      CHECKING PHASE EQUILIBRIUM RESULTS                                          TIME =     41.39
+
+      CHECKING PHASE EQUILIBRIUM RESULTS                                          TIME =     41.39
+
+
+*** INPUT SPECIFICATION MESSAGES ***
+
+ CHANGES WERE MADE TO BLOCK        COLUMN1  08/07/2025   16:29:48:09 
+ BLOCK COLUMN1 RADFRAC
+     SUBOBJECTS INTERNALS = CS-1
+     PARAM NSTAGE=52 ALGORITHM=STANDARD HYDRAULIC=NO MAXOL=25  &
+         DAMPING=NONE
+     PARAM2 STATIC-DP=YES OLD-SULZER=NO
+     COL-CONFIG CONDENSER=TOTAL CA-CONFIG=INT-1
+     FEEDS FEED 23
+     PRODUCTS D-TOP 1 L / B-BOTTOM 52 L
+     P-SPEC 1 100000.
+     COL-SPECS MOLE-D=14.25000000 MOLE-RR=4.12
+     SPEC 1 MOLE-FRAC 0.99 COMPS=BENZENE STREAMS=D-TOP  &
+         SPEC-DESCRIP="BENZENE RECUPERATION"
+     SPEC 2 MOLE-FRAC 0.005 COMPS=BENZENE STREAMS=B-BOTTOM  &
+         SPEC-DESCRIP="TOLUENE RECOVERY"
+     VARY 1 MOLE-D 0. 100.
+     VARY 2 MOLE-RR 0. 100.
+     REPORT NOHYDRAULIC
+     CONVERGENCE EXTRA-ML=2
+     INTERNALS CS-1 STAGE1=2 STAGE2=3 P-UPDATE=NO TRAYTYPE=SIEVE  &
+         NPASS=1 SYSFAC=1.000000000 OVER-DESIGN=1.000000000  &
+         WEIR-HT=50.80000000 <mm> DC-CLEAR=38.10000000 <mm>  &
+         DC-WTOP-SIDE=144.2732676 <mm> DC-WBOT-SIDE=144.2732676 <mm>  &
+         HOLE-DIAM=12.70000000 <mm> HOLE-AREA=.1000000000  &
+         FLOOD-METH=GLITSCH6 DECK-THICK=0.134 <IN>  &
+         PCT-FLOOD-FA=80.00000000 AER-PARAM-M=1.000000000  &
+         MAX-DC-LOAD=GLITSCH MAX-ACC-DP=2500.000000  &
+         MAX-PCT-DCB=100.0000000 MAX-PCT-ENT=10.00000000  &
+         MIN-WEIR-LD=4.470981863 MAX-WEIR-LD=117.3721131  &
+         MIN-PCT-DCA=.1000000000
+     TRAY-SIZE 1 2 3 SIEVE
+
+ PDF updated                                                                      TIME =     44.63
+ THIS COPY OF ASPEN PLUS LICENSED TO UNIVERSIDADE DO ESTADO D        
+ 
+ 
+
+
+Calculations begin                                                              time     44.76
+
+
+      UOS BLOCK COLUMN1  MODEL: RADFRAC                                           TIME =     44.76
+
+       Convergence iterations:
+         OL   ML   IL     Err/Tol
+          1    1   10      2.6240    
+          2    6   21      1.1536    
+          3    3    7     0.65876E-01
+
+      RESULTS FOR MANIPULATED VARIABLES:
+      VARIABLE     FINAL VALUE    LOWER BOUND    UPPER BOUND
+         1         0.97293E-02     0.0000        0.27778E-01
+         2          2.5468         0.0000         100.00    
+
+      CHECKING PHASE EQUILIBRIUM RESULTS                                          TIME =     44.76
+
+      CHECKING PHASE EQUILIBRIUM RESULTS                                          TIME =     44.76
+
+
+*** INPUT SPECIFICATION MESSAGES ***
+
+ CHANGES WERE MADE TO BLOCK        COLUMN1  08/07/2025   16:29:51:99 
+ BLOCK COLUMN1 RADFRAC
+     SUBOBJECTS INTERNALS = CS-1
+     PARAM NSTAGE=52 ALGORITHM=STANDARD HYDRAULIC=NO MAXOL=25  &
+         DAMPING=NONE
+     PARAM2 STATIC-DP=YES OLD-SULZER=NO
+     COL-CONFIG CONDENSER=TOTAL CA-CONFIG=INT-1
+     FEEDS FEED 24
+     PRODUCTS D-TOP 1 L / B-BOTTOM 52 L
+     P-SPEC 1 100000.
+     COL-SPECS MOLE-D=14.25000000 MOLE-RR=4.12
+     SPEC 1 MOLE-FRAC 0.99 COMPS=BENZENE STREAMS=D-TOP  &
+         SPEC-DESCRIP="BENZENE RECUPERATION"
+     SPEC 2 MOLE-FRAC 0.005 COMPS=BENZENE STREAMS=B-BOTTOM  &
+         SPEC-DESCRIP="TOLUENE RECOVERY"
+     VARY 1 MOLE-D 0. 100.
+     VARY 2 MOLE-RR 0. 100.
+     REPORT NOHYDRAULIC
+     CONVERGENCE EXTRA-ML=2
+     INTERNALS CS-1 STAGE1=2 STAGE2=3 P-UPDATE=NO TRAYTYPE=SIEVE  &
+         NPASS=1 SYSFAC=1.000000000 OVER-DESIGN=1.000000000  &
+         WEIR-HT=50.80000000 <mm> DC-CLEAR=38.10000000 <mm>  &
+         DC-WTOP-SIDE=144.2738665 <mm> DC-WBOT-SIDE=144.2738665 <mm>  &
+         HOLE-DIAM=12.70000000 <mm> HOLE-AREA=.1000000000  &
+         FLOOD-METH=GLITSCH6 DECK-THICK=0.134 <IN>  &
+         PCT-FLOOD-FA=80.00000000 AER-PARAM-M=1.000000000  &
+         MAX-DC-LOAD=GLITSCH MAX-ACC-DP=2500.000000  &
+         MAX-PCT-DCB=100.0000000 MAX-PCT-ENT=10.00000000  &
+         MIN-WEIR-LD=4.470981863 MAX-WEIR-LD=117.3721131  &
+         MIN-PCT-DCA=.1000000000
+     TRAY-SIZE 1 2 3 SIEVE
+
+ PDF updated                                                                      TIME =     48.08
+ THIS COPY OF ASPEN PLUS LICENSED TO UNIVERSIDADE DO ESTADO D        
+ 
+ 
+
+
+Calculations begin                                                              time     48.26
+
+
+      UOS BLOCK COLUMN1  MODEL: RADFRAC                                           TIME =     48.26
+
+       Convergence iterations:
+         OL   ML   IL     Err/Tol
+          1    1   10      1.6093    
+          2    6   23     0.71529    
+
+      RESULTS FOR MANIPULATED VARIABLES:
+      VARIABLE     FINAL VALUE    LOWER BOUND    UPPER BOUND
+         1         0.97293E-02     0.0000        0.27778E-01
+         2          2.5472         0.0000         100.00    
+
+      CHECKING PHASE EQUILIBRIUM RESULTS                                          TIME =     48.27
+
+      CHECKING PHASE EQUILIBRIUM RESULTS                                          TIME =     48.27
+
+
+*** INPUT SPECIFICATION MESSAGES ***
+
+ CHANGES WERE MADE TO BLOCK        COLUMN1  08/07/2025   16:29:55:09 
+ BLOCK COLUMN1 RADFRAC
+     SUBOBJECTS INTERNALS = CS-1
+     PARAM NSTAGE=52 ALGORITHM=STANDARD HYDRAULIC=NO MAXOL=25  &
+         DAMPING=NONE
+     PARAM2 STATIC-DP=YES OLD-SULZER=NO
+     COL-CONFIG CONDENSER=TOTAL CA-CONFIG=INT-1
+     FEEDS FEED 25
+     PRODUCTS D-TOP 1 L / B-BOTTOM 52 L
+     P-SPEC 1 100000.
+     COL-SPECS MOLE-D=14.25000000 MOLE-RR=4.12
+     SPEC 1 MOLE-FRAC 0.99 COMPS=BENZENE STREAMS=D-TOP  &
+         SPEC-DESCRIP="BENZENE RECUPERATION"
+     SPEC 2 MOLE-FRAC 0.005 COMPS=BENZENE STREAMS=B-BOTTOM  &
+         SPEC-DESCRIP="TOLUENE RECOVERY"
+     VARY 1 MOLE-D 0. 100.
+     VARY 2 MOLE-RR 0. 100.
+     REPORT NOHYDRAULIC
+     CONVERGENCE EXTRA-ML=2
+     INTERNALS CS-1 STAGE1=2 STAGE2=3 P-UPDATE=NO TRAYTYPE=SIEVE  &
+         NPASS=1 SYSFAC=1.000000000 OVER-DESIGN=1.000000000  &
+         WEIR-HT=50.80000000 <mm> DC-CLEAR=38.10000000 <mm>  &
+         DC-WTOP-SIDE=144.2812218 <mm> DC-WBOT-SIDE=144.2812218 <mm>  &
+         HOLE-DIAM=12.70000000 <mm> HOLE-AREA=.1000000000  &
+         FLOOD-METH=GLITSCH6 DECK-THICK=0.134 <IN>  &
+         PCT-FLOOD-FA=80.00000000 AER-PARAM-M=1.000000000  &
+         MAX-DC-LOAD=GLITSCH MAX-ACC-DP=2500.000000  &
+         MAX-PCT-DCB=100.0000000 MAX-PCT-ENT=10.00000000  &
+         MIN-WEIR-LD=4.470981863 MAX-WEIR-LD=117.3721131  &
+         MIN-PCT-DCA=.1000000000
+     TRAY-SIZE 1 2 3 SIEVE
+
+ PDF updated                                                                      TIME =     51.58
+ THIS COPY OF ASPEN PLUS LICENSED TO UNIVERSIDADE DO ESTADO D        
+ 
+ 
+
+
+Calculations begin                                                              time     51.72
+
+
+      UOS BLOCK COLUMN1  MODEL: RADFRAC                                           TIME =     51.72
+
+       Convergence iterations:
+         OL   ML   IL     Err/Tol
+          1    1   10      1.5324    
+          2    5   20     0.70252    
+
+      RESULTS FOR MANIPULATED VARIABLES:
+      VARIABLE     FINAL VALUE    LOWER BOUND    UPPER BOUND
+         1         0.97293E-02     0.0000        0.27778E-01
+         2          2.5474         0.0000         100.00    
+
+      CHECKING PHASE EQUILIBRIUM RESULTS                                          TIME =     51.72
+
+      CHECKING PHASE EQUILIBRIUM RESULTS                                          TIME =     51.72
+
+
+*** INPUT SPECIFICATION MESSAGES ***
+
+ CHANGES WERE MADE TO BLOCK        COLUMN1  08/07/2025   16:29:58:99 
+ BLOCK COLUMN1 RADFRAC
+     SUBOBJECTS INTERNALS = CS-1
+     PARAM NSTAGE=52 ALGORITHM=STANDARD HYDRAULIC=NO MAXOL=25  &
+         DAMPING=NONE
+     PARAM2 STATIC-DP=YES OLD-SULZER=NO
+     COL-CONFIG CONDENSER=TOTAL CA-CONFIG=INT-1
+     FEEDS FEED 26
+     PRODUCTS D-TOP 1 L / B-BOTTOM 52 L
+     P-SPEC 1 100000.
+     COL-SPECS MOLE-D=14.25000000 MOLE-RR=4.12
+     SPEC 1 MOLE-FRAC 0.99 COMPS=BENZENE STREAMS=D-TOP  &
+         SPEC-DESCRIP="BENZENE RECUPERATION"
+     SPEC 2 MOLE-FRAC 0.005 COMPS=BENZENE STREAMS=B-BOTTOM  &
+         SPEC-DESCRIP="TOLUENE RECOVERY"
+     VARY 1 MOLE-D 0. 100.
+     VARY 2 MOLE-RR 0. 100.
+     REPORT NOHYDRAULIC
+     CONVERGENCE EXTRA-ML=2
+     INTERNALS CS-1 STAGE1=2 STAGE2=3 P-UPDATE=NO TRAYTYPE=SIEVE  &
+         NPASS=1 SYSFAC=1.000000000 OVER-DESIGN=1.000000000  &
+         WEIR-HT=50.80000000 <mm> DC-CLEAR=38.10000000 <mm>  &
+         DC-WTOP-SIDE=144.2867498 <mm> DC-WBOT-SIDE=144.2867498 <mm>  &
+         HOLE-DIAM=12.70000000 <mm> HOLE-AREA=.1000000000  &
+         FLOOD-METH=GLITSCH6 DECK-THICK=0.134 <IN>  &
+         PCT-FLOOD-FA=80.00000000 AER-PARAM-M=1.000000000  &
+         MAX-DC-LOAD=GLITSCH MAX-ACC-DP=2500.000000  &
+         MAX-PCT-DCB=100.0000000 MAX-PCT-ENT=10.00000000  &
+         MIN-WEIR-LD=4.470981863 MAX-WEIR-LD=117.3721131  &
+         MIN-PCT-DCA=.1000000000
+     TRAY-SIZE 1 2 3 SIEVE
+
+ PDF updated                                                                      TIME =     55.15
+ THIS COPY OF ASPEN PLUS LICENSED TO UNIVERSIDADE DO ESTADO D        
+ 
+ 
+
+
+Calculations begin                                                              time     55.29
+
+
+      UOS BLOCK COLUMN1  MODEL: RADFRAC                                           TIME =     55.29
+
+       Convergence iterations:
+         OL   ML   IL     Err/Tol
+          1    1   10      1.2562    
+          2    5   21     0.67995    
+
+      RESULTS FOR MANIPULATED VARIABLES:
+      VARIABLE     FINAL VALUE    LOWER BOUND    UPPER BOUND
+         1         0.97293E-02     0.0000        0.27778E-01
+         2          2.5478         0.0000         100.00    
+
+      CHECKING PHASE EQUILIBRIUM RESULTS                                          TIME =     55.29
+
+      CHECKING PHASE EQUILIBRIUM RESULTS                                          TIME =     55.29
+
+
+*** INPUT SPECIFICATION MESSAGES ***
+
+ CHANGES WERE MADE TO BLOCK        COLUMN1  08/07/2025   16:30:02:99 
+ BLOCK COLUMN1 RADFRAC
+     SUBOBJECTS INTERNALS = CS-1
+     PARAM NSTAGE=52 ALGORITHM=STANDARD HYDRAULIC=NO MAXOL=25  &
+         DAMPING=NONE
+     PARAM2 STATIC-DP=YES OLD-SULZER=NO
+     COL-CONFIG CONDENSER=TOTAL CA-CONFIG=INT-1
+     FEEDS FEED 27
+     PRODUCTS D-TOP 1 L / B-BOTTOM 52 L
+     P-SPEC 1 100000.
+     COL-SPECS MOLE-D=14.25000000 MOLE-RR=4.12
+     SPEC 1 MOLE-FRAC 0.99 COMPS=BENZENE STREAMS=D-TOP  &
+         SPEC-DESCRIP="BENZENE RECUPERATION"
+     SPEC 2 MOLE-FRAC 0.005 COMPS=BENZENE STREAMS=B-BOTTOM  &
+         SPEC-DESCRIP="TOLUENE RECOVERY"
+     VARY 1 MOLE-D 0. 100.
+     VARY 2 MOLE-RR 0. 100.
+     REPORT NOHYDRAULIC
+     CONVERGENCE EXTRA-ML=2
+     INTERNALS CS-1 STAGE1=2 STAGE2=3 P-UPDATE=NO TRAYTYPE=SIEVE  &
+         NPASS=1 SYSFAC=1.000000000 OVER-DESIGN=1.000000000  &
+         WEIR-HT=50.80000000 <mm> DC-CLEAR=38.10000000 <mm>  &
+         DC-WTOP-SIDE=144.2930544 <mm> DC-WBOT-SIDE=144.2930544 <mm>  &
+         HOLE-DIAM=12.70000000 <mm> HOLE-AREA=.1000000000  &
+         FLOOD-METH=GLITSCH6 DECK-THICK=0.134 <IN>  &
+         PCT-FLOOD-FA=80.00000000 AER-PARAM-M=1.000000000  &
+         MAX-DC-LOAD=GLITSCH MAX-ACC-DP=2500.000000  &
+         MAX-PCT-DCB=100.0000000 MAX-PCT-ENT=10.00000000  &
+         MIN-WEIR-LD=4.470981863 MAX-WEIR-LD=117.3721131  &
+         MIN-PCT-DCA=.1000000000
+     TRAY-SIZE 1 2 3 SIEVE
+
+ PDF updated                                                                      TIME =     58.73
+ THIS COPY OF ASPEN PLUS LICENSED TO UNIVERSIDADE DO ESTADO D        
+ 
+ 
+
+
+Calculations begin                                                              time     58.86
+
+
+      UOS BLOCK COLUMN1  MODEL: RADFRAC                                           TIME =     58.86
+
+       Convergence iterations:
+         OL   ML   IL     Err/Tol
+          1    1   10      1.3001    
+          2    5   20     0.72543    
+
+      RESULTS FOR MANIPULATED VARIABLES:
+      VARIABLE     FINAL VALUE    LOWER BOUND    UPPER BOUND
+         1         0.97293E-02     0.0000        0.27778E-01
+         2          2.5483         0.0000         100.00    
+
+      CHECKING PHASE EQUILIBRIUM RESULTS                                          TIME =     58.86
+
+      CHECKING PHASE EQUILIBRIUM RESULTS                                          TIME =     58.86
+
+
+*** INPUT SPECIFICATION MESSAGES ***
+
+ CHANGES WERE MADE TO BLOCK        COLUMN1  08/07/2025   16:30:05:99 
+ BLOCK COLUMN1 RADFRAC
+     SUBOBJECTS INTERNALS = CS-1
+     PARAM NSTAGE=52 ALGORITHM=STANDARD HYDRAULIC=NO MAXOL=25  &
+         DAMPING=NONE
+     PARAM2 STATIC-DP=YES OLD-SULZER=NO
+     COL-CONFIG CONDENSER=TOTAL CA-CONFIG=INT-1
+     FEEDS FEED 28
+     PRODUCTS D-TOP 1 L / B-BOTTOM 52 L
+     P-SPEC 1 100000.
+     COL-SPECS MOLE-D=14.25000000 MOLE-RR=4.12
+     SPEC 1 MOLE-FRAC 0.99 COMPS=BENZENE STREAMS=D-TOP  &
+         SPEC-DESCRIP="BENZENE RECUPERATION"
+     SPEC 2 MOLE-FRAC 0.005 COMPS=BENZENE STREAMS=B-BOTTOM  &
+         SPEC-DESCRIP="TOLUENE RECOVERY"
+     VARY 1 MOLE-D 0. 100.
+     VARY 2 MOLE-RR 0. 100.
+     REPORT NOHYDRAULIC
+     CONVERGENCE EXTRA-ML=2
+     INTERNALS CS-1 STAGE1=2 STAGE2=3 P-UPDATE=NO TRAYTYPE=SIEVE  &
+         NPASS=1 SYSFAC=1.000000000 OVER-DESIGN=1.000000000  &
+         WEIR-HT=50.80000000 <mm> DC-CLEAR=38.10000000 <mm>  &
+         DC-WTOP-SIDE=144.3046142 <mm> DC-WBOT-SIDE=144.3046142 <mm>  &
+         HOLE-DIAM=12.70000000 <mm> HOLE-AREA=.1000000000  &
+         FLOOD-METH=GLITSCH6 DECK-THICK=0.134 <IN>  &
+         PCT-FLOOD-FA=80.00000000 AER-PARAM-M=1.000000000  &
+         MAX-DC-LOAD=GLITSCH MAX-ACC-DP=2500.000000  &
+         MAX-PCT-DCB=100.0000000 MAX-PCT-ENT=10.00000000  &
+         MIN-WEIR-LD=4.470981863 MAX-WEIR-LD=117.3721131  &
+         MIN-PCT-DCA=.1000000000
+     TRAY-SIZE 1 2 3 SIEVE
+
+ PDF updated                                                                      TIME =     62.29
+ THIS COPY OF ASPEN PLUS LICENSED TO UNIVERSIDADE DO ESTADO D        
+ 
+ 
+
+
+Calculations begin                                                              time     62.42
+
+
+      UOS BLOCK COLUMN1  MODEL: RADFRAC                                           TIME =     62.42
+
+       Convergence iterations:
+         OL   ML   IL     Err/Tol
+          1    1   10      1.5651    
+          2    5   21     0.98863    
+
+      RESULTS FOR MANIPULATED VARIABLES:
+      VARIABLE     FINAL VALUE    LOWER BOUND    UPPER BOUND
+         1         0.97293E-02     0.0000        0.27778E-01
+         2          2.5491         0.0000         100.00    
+
+      CHECKING PHASE EQUILIBRIUM RESULTS                                          TIME =     62.43
+
+      CHECKING PHASE EQUILIBRIUM RESULTS                                          TIME =     62.43
+
+
+*** INPUT SPECIFICATION MESSAGES ***
+
+ CHANGES WERE MADE TO BLOCK        COLUMN1  08/07/2025   16:30:09:99 
+ BLOCK COLUMN1 RADFRAC
+     SUBOBJECTS INTERNALS = CS-1
+     PARAM NSTAGE=52 ALGORITHM=STANDARD HYDRAULIC=NO MAXOL=25  &
+         DAMPING=NONE
+     PARAM2 STATIC-DP=YES OLD-SULZER=NO
+     COL-CONFIG CONDENSER=TOTAL CA-CONFIG=INT-1
+     FEEDS FEED 29
+     PRODUCTS D-TOP 1 L / B-BOTTOM 52 L
+     P-SPEC 1 100000.
+     COL-SPECS MOLE-D=14.25000000 MOLE-RR=4.12
+     SPEC 1 MOLE-FRAC 0.99 COMPS=BENZENE STREAMS=D-TOP  &
+         SPEC-DESCRIP="BENZENE RECUPERATION"
+     SPEC 2 MOLE-FRAC 0.005 COMPS=BENZENE STREAMS=B-BOTTOM  &
+         SPEC-DESCRIP="TOLUENE RECOVERY"
+     VARY 1 MOLE-D 0. 100.
+     VARY 2 MOLE-RR 0. 100.
+     REPORT NOHYDRAULIC
+     CONVERGENCE EXTRA-ML=2
+     INTERNALS CS-1 STAGE1=2 STAGE2=3 P-UPDATE=NO TRAYTYPE=SIEVE  &
+         NPASS=1 SYSFAC=1.000000000 OVER-DESIGN=1.000000000  &
+         WEIR-HT=50.80000000 <mm> DC-CLEAR=38.10000000 <mm>  &
+         DC-WTOP-SIDE=144.3202633 <mm> DC-WBOT-SIDE=144.3202633 <mm>  &
+         HOLE-DIAM=12.70000000 <mm> HOLE-AREA=.1000000000  &
+         FLOOD-METH=GLITSCH6 DECK-THICK=0.134 <IN>  &
+         PCT-FLOOD-FA=80.00000000 AER-PARAM-M=1.000000000  &
+         MAX-DC-LOAD=GLITSCH MAX-ACC-DP=2500.000000  &
+         MAX-PCT-DCB=100.0000000 MAX-PCT-ENT=10.00000000  &
+         MIN-WEIR-LD=4.470981863 MAX-WEIR-LD=117.3721131  &
+         MIN-PCT-DCA=.1000000000
+     TRAY-SIZE 1 2 3 SIEVE
+
+ PDF updated                                                                      TIME =     65.89
+ THIS COPY OF ASPEN PLUS LICENSED TO UNIVERSIDADE DO ESTADO D        
+ 
+ 
+
+
+Calculations begin                                                              time     66.02
+
+
+      UOS BLOCK COLUMN1  MODEL: RADFRAC                                           TIME =     66.02
+
+       Convergence iterations:
+         OL   ML   IL     Err/Tol
+          1    1   10      1.6061    
+          2    5   20      1.0674    
+          3    2    7     0.98332E-01
+
+      RESULTS FOR MANIPULATED VARIABLES:
+      VARIABLE     FINAL VALUE    LOWER BOUND    UPPER BOUND
+         1         0.97293E-02     0.0000        0.27778E-01
+         2          2.5502         0.0000         100.00    
+
+      CHECKING PHASE EQUILIBRIUM RESULTS                                          TIME =     66.02
+
+      CHECKING PHASE EQUILIBRIUM RESULTS                                          TIME =     66.02
+
+
+*** INPUT SPECIFICATION MESSAGES ***
+
+ CHANGES WERE MADE TO BLOCK        COLUMN1  08/07/2025   16:30:12:99 
+ BLOCK COLUMN1 RADFRAC
+     SUBOBJECTS INTERNALS = CS-1
+     PARAM NSTAGE=52 ALGORITHM=STANDARD HYDRAULIC=NO MAXOL=25  &
+         DAMPING=NONE
+     PARAM2 STATIC-DP=YES OLD-SULZER=NO
+     COL-CONFIG CONDENSER=TOTAL CA-CONFIG=INT-1
+     FEEDS FEED 30
+     PRODUCTS D-TOP 1 L / B-BOTTOM 52 L
+     P-SPEC 1 100000.
+     COL-SPECS MOLE-D=14.25000000 MOLE-RR=4.12
+     SPEC 1 MOLE-FRAC 0.99 COMPS=BENZENE STREAMS=D-TOP  &
+         SPEC-DESCRIP="BENZENE RECUPERATION"
+     SPEC 2 MOLE-FRAC 0.005 COMPS=BENZENE STREAMS=B-BOTTOM  &
+         SPEC-DESCRIP="TOLUENE RECOVERY"
+     VARY 1 MOLE-D 0. 100.
+     VARY 2 MOLE-RR 0. 100.
+     REPORT NOHYDRAULIC
+     CONVERGENCE EXTRA-ML=2
+     INTERNALS CS-1 STAGE1=2 STAGE2=3 P-UPDATE=NO TRAYTYPE=SIEVE  &
+         NPASS=1 SYSFAC=1.000000000 OVER-DESIGN=1.000000000  &
+         WEIR-HT=50.80000000 <mm> DC-CLEAR=38.10000000 <mm>  &
+         DC-WTOP-SIDE=144.3452400 <mm> DC-WBOT-SIDE=144.3452400 <mm>  &
+         HOLE-DIAM=12.70000000 <mm> HOLE-AREA=.1000000000  &
+         FLOOD-METH=GLITSCH6 DECK-THICK=0.134 <IN>  &
+         PCT-FLOOD-FA=80.00000000 AER-PARAM-M=1.000000000  &
+         MAX-DC-LOAD=GLITSCH MAX-ACC-DP=2500.000000  &
+         MAX-PCT-DCB=100.0000000 MAX-PCT-ENT=10.00000000  &
+         MIN-WEIR-LD=4.470981863 MAX-WEIR-LD=117.3721131  &
+         MIN-PCT-DCA=.1000000000
+     TRAY-SIZE 1 2 3 SIEVE
+
+ PDF updated                                                                      TIME =     69.37
+ THIS COPY OF ASPEN PLUS LICENSED TO UNIVERSIDADE DO ESTADO D        
+ 
+ 
+
+
+Calculations begin                                                              time     69.50
+
+
+      UOS BLOCK COLUMN1  MODEL: RADFRAC                                           TIME =     69.50
+
+       Convergence iterations:
+         OL   ML   IL     Err/Tol
+          1    1   10      1.9660    
+          2    5   23      1.3837    
+          3    3    7     0.12105    
+
+      RESULTS FOR MANIPULATED VARIABLES:
+      VARIABLE     FINAL VALUE    LOWER BOUND    UPPER BOUND
+         1         0.97293E-02     0.0000        0.27778E-01
+         2          2.5519         0.0000         100.00    
+
+      CHECKING PHASE EQUILIBRIUM RESULTS                                          TIME =     69.51
+
+      CHECKING PHASE EQUILIBRIUM RESULTS                                          TIME =     69.51
+
+
+*** INPUT SPECIFICATION MESSAGES ***
+
+ CHANGES WERE MADE TO BLOCK        COLUMN1  08/07/2025   16:30:16:99 
+ BLOCK COLUMN1 RADFRAC
+     SUBOBJECTS INTERNALS = CS-1
+     PARAM NSTAGE=52 ALGORITHM=STANDARD HYDRAULIC=NO MAXOL=25  &
+         DAMPING=NONE
+     PARAM2 STATIC-DP=YES OLD-SULZER=NO
+     COL-CONFIG CONDENSER=TOTAL CA-CONFIG=INT-1
+     FEEDS FEED 31
+     PRODUCTS D-TOP 1 L / B-BOTTOM 52 L
+     P-SPEC 1 100000.
+     COL-SPECS MOLE-D=14.25000000 MOLE-RR=4.12
+     SPEC 1 MOLE-FRAC 0.99 COMPS=BENZENE STREAMS=D-TOP  &
+         SPEC-DESCRIP="BENZENE RECUPERATION"
+     SPEC 2 MOLE-FRAC 0.005 COMPS=BENZENE STREAMS=B-BOTTOM  &
+         SPEC-DESCRIP="TOLUENE RECOVERY"
+     VARY 1 MOLE-D 0. 100.
+     VARY 2 MOLE-RR 0. 100.
+     REPORT NOHYDRAULIC
+     CONVERGENCE EXTRA-ML=2
+     INTERNALS CS-1 STAGE1=2 STAGE2=3 P-UPDATE=NO TRAYTYPE=SIEVE  &
+         NPASS=1 SYSFAC=1.000000000 OVER-DESIGN=1.000000000  &
+         WEIR-HT=50.80000000 <mm> DC-CLEAR=38.10000000 <mm>  &
+         DC-WTOP-SIDE=144.3793858 <mm> DC-WBOT-SIDE=144.3793858 <mm>  &
+         HOLE-DIAM=12.70000000 <mm> HOLE-AREA=.1000000000  &
+         FLOOD-METH=GLITSCH6 DECK-THICK=0.134 <IN>  &
+         PCT-FLOOD-FA=80.00000000 AER-PARAM-M=1.000000000  &
+         MAX-DC-LOAD=GLITSCH MAX-ACC-DP=2500.000000  &
+         MAX-PCT-DCB=100.0000000 MAX-PCT-ENT=10.00000000  &
+         MIN-WEIR-LD=4.470981863 MAX-WEIR-LD=117.3721131  &
+         MIN-PCT-DCA=.1000000000
+     TRAY-SIZE 1 2 3 SIEVE
+
+ PDF updated                                                                      TIME =     72.95
+ THIS COPY OF ASPEN PLUS LICENSED TO UNIVERSIDADE DO ESTADO D        
+ 
+ 
+
+
+Calculations begin                                                              time     73.09
+
+
+      UOS BLOCK COLUMN1  MODEL: RADFRAC                                           TIME =     73.09
+
+       Convergence iterations:
+         OL   ML   IL     Err/Tol
+          1    1   10      1.9801    
+          2    6   22      1.4765    
+          3    3    8     0.12515    
+
+      RESULTS FOR MANIPULATED VARIABLES:
+      VARIABLE     FINAL VALUE    LOWER BOUND    UPPER BOUND
+         1         0.97293E-02     0.0000        0.27778E-01
+         2          2.5541         0.0000         100.00    
+
+      CHECKING PHASE EQUILIBRIUM RESULTS                                          TIME =     73.09
+
+      CHECKING PHASE EQUILIBRIUM RESULTS                                          TIME =     73.09
+
+
+*** INPUT SPECIFICATION MESSAGES ***
+
+ CHANGES WERE MADE TO BLOCK        COLUMN1  08/07/2025   16:30:19:99 
+ BLOCK COLUMN1 RADFRAC
+     SUBOBJECTS INTERNALS = CS-1
+     PARAM NSTAGE=52 ALGORITHM=STANDARD HYDRAULIC=NO MAXOL=25  &
+         DAMPING=NONE
+     PARAM2 STATIC-DP=YES OLD-SULZER=NO
+     COL-CONFIG CONDENSER=TOTAL CA-CONFIG=INT-1
+     FEEDS FEED 32
+     PRODUCTS D-TOP 1 L / B-BOTTOM 52 L
+     P-SPEC 1 100000.
+     COL-SPECS MOLE-D=14.25000000 MOLE-RR=4.12
+     SPEC 1 MOLE-FRAC 0.99 COMPS=BENZENE STREAMS=D-TOP  &
+         SPEC-DESCRIP="BENZENE RECUPERATION"
+     SPEC 2 MOLE-FRAC 0.005 COMPS=BENZENE STREAMS=B-BOTTOM  &
+         SPEC-DESCRIP="TOLUENE RECOVERY"
+     VARY 1 MOLE-D 0. 100.
+     VARY 2 MOLE-RR 0. 100.
+     REPORT NOHYDRAULIC
+     CONVERGENCE EXTRA-ML=2
+     INTERNALS CS-1 STAGE1=2 STAGE2=3 P-UPDATE=NO TRAYTYPE=SIEVE  &
+         NPASS=1 SYSFAC=1.000000000 OVER-DESIGN=1.000000000  &
+         WEIR-HT=50.80000000 <mm> DC-CLEAR=38.10000000 <mm>  &
+         DC-WTOP-SIDE=144.4269625 <mm> DC-WBOT-SIDE=144.4269625 <mm>  &
+         HOLE-DIAM=12.70000000 <mm> HOLE-AREA=.1000000000  &
+         FLOOD-METH=GLITSCH6 DECK-THICK=0.134 <IN>  &
+         PCT-FLOOD-FA=80.00000000 AER-PARAM-M=1.000000000  &
+         MAX-DC-LOAD=GLITSCH MAX-ACC-DP=2500.000000  &
+         MAX-PCT-DCB=100.0000000 MAX-PCT-ENT=10.00000000  &
+         MIN-WEIR-LD=4.470981863 MAX-WEIR-LD=117.3721131  &
+         MIN-PCT-DCA=.1000000000
+     TRAY-SIZE 1 2 3 SIEVE
+
+ PDF updated                                                                      TIME =     76.53
+ THIS COPY OF ASPEN PLUS LICENSED TO UNIVERSIDADE DO ESTADO D        
+ 
+ 
+
+
+Calculations begin                                                              time     76.68
+
+
+      UOS BLOCK COLUMN1  MODEL: RADFRAC                                           TIME =     76.68
+
+       Convergence iterations:
+         OL   ML   IL     Err/Tol
+          1    1   10      2.5024    
+          2    6   22      1.9357    
+          3    3    8     0.15450    
+
+      RESULTS FOR MANIPULATED VARIABLES:
+      VARIABLE     FINAL VALUE    LOWER BOUND    UPPER BOUND
+         1         0.97293E-02     0.0000        0.27778E-01
+         2          2.5573         0.0000         100.00    
+
+      CHECKING PHASE EQUILIBRIUM RESULTS                                          TIME =     76.68
+
+      CHECKING PHASE EQUILIBRIUM RESULTS                                          TIME =     76.68
+
+
+*** INPUT SPECIFICATION MESSAGES ***
+
+ CHANGES WERE MADE TO BLOCK        COLUMN1  08/07/2025   16:30:23:99 
+ BLOCK COLUMN1 RADFRAC
+     SUBOBJECTS INTERNALS = CS-1
+     PARAM NSTAGE=52 ALGORITHM=STANDARD HYDRAULIC=NO MAXOL=25  &
+         DAMPING=NONE
+     PARAM2 STATIC-DP=YES OLD-SULZER=NO
+     COL-CONFIG CONDENSER=TOTAL CA-CONFIG=INT-1
+     FEEDS FEED 33
+     PRODUCTS D-TOP 1 L / B-BOTTOM 52 L
+     P-SPEC 1 100000.
+     COL-SPECS MOLE-D=14.25000000 MOLE-RR=4.12
+     SPEC 1 MOLE-FRAC 0.99 COMPS=BENZENE STREAMS=D-TOP  &
+         SPEC-DESCRIP="BENZENE RECUPERATION"
+     SPEC 2 MOLE-FRAC 0.005 COMPS=BENZENE STREAMS=B-BOTTOM  &
+         SPEC-DESCRIP="TOLUENE RECOVERY"
+     VARY 1 MOLE-D 0. 100.
+     VARY 2 MOLE-RR 0. 100.
+     REPORT NOHYDRAULIC
+     CONVERGENCE EXTRA-ML=2
+     INTERNALS CS-1 STAGE1=2 STAGE2=3 P-UPDATE=NO TRAYTYPE=SIEVE  &
+         NPASS=1 SYSFAC=1.000000000 OVER-DESIGN=1.000000000  &
+         WEIR-HT=50.80000000 <mm> DC-CLEAR=38.10000000 <mm>  &
+         DC-WTOP-SIDE=144.4927632 <mm> DC-WBOT-SIDE=144.4927632 <mm>  &
+         HOLE-DIAM=12.70000000 <mm> HOLE-AREA=.1000000000  &
+         FLOOD-METH=GLITSCH6 DECK-THICK=0.134 <IN>  &
+         PCT-FLOOD-FA=80.00000000 AER-PARAM-M=1.000000000  &
+         MAX-DC-LOAD=GLITSCH MAX-ACC-DP=2500.000000  &
+         MAX-PCT-DCB=100.0000000 MAX-PCT-ENT=10.00000000  &
+         MIN-WEIR-LD=4.470981863 MAX-WEIR-LD=117.3721131  &
+         MIN-PCT-DCA=.1000000000
+     TRAY-SIZE 1 2 3 SIEVE
+
+ PDF updated                                                                      TIME =     80.33
+ THIS COPY OF ASPEN PLUS LICENSED TO UNIVERSIDADE DO ESTADO D        
+ 
+ 
+
+
+Calculations begin                                                              time     80.48
+
+
+      UOS BLOCK COLUMN1  MODEL: RADFRAC                                           TIME =     80.48
+
+       Convergence iterations:
+         OL   ML   IL     Err/Tol
+          1    1   10      2.5095    
+          2    6   22      2.0832    
+          3    3    9     0.16077    
+
+      RESULTS FOR MANIPULATED VARIABLES:
+      VARIABLE     FINAL VALUE    LOWER BOUND    UPPER BOUND
+         1         0.97293E-02     0.0000        0.27778E-01
+         2          2.5616         0.0000         100.00    
+
+      CHECKING PHASE EQUILIBRIUM RESULTS                                          TIME =     80.48
+
+      CHECKING PHASE EQUILIBRIUM RESULTS                                          TIME =     80.48
+
+
+*** INPUT SPECIFICATION MESSAGES ***
+
+ CHANGES WERE MADE TO BLOCK        COLUMN1  08/07/2025   16:30:27:99 
+ BLOCK COLUMN1 RADFRAC
+     SUBOBJECTS INTERNALS = CS-1
+     PARAM NSTAGE=52 ALGORITHM=STANDARD HYDRAULIC=NO MAXOL=25  &
+         DAMPING=NONE
+     PARAM2 STATIC-DP=YES OLD-SULZER=NO
+     COL-CONFIG CONDENSER=TOTAL CA-CONFIG=INT-1
+     FEEDS FEED 34
+     PRODUCTS D-TOP 1 L / B-BOTTOM 52 L
+     P-SPEC 1 100000.
+     COL-SPECS MOLE-D=14.25000000 MOLE-RR=4.12
+     SPEC 1 MOLE-FRAC 0.99 COMPS=BENZENE STREAMS=D-TOP  &
+         SPEC-DESCRIP="BENZENE RECUPERATION"
+     SPEC 2 MOLE-FRAC 0.005 COMPS=BENZENE STREAMS=B-BOTTOM  &
+         SPEC-DESCRIP="TOLUENE RECOVERY"
+     VARY 1 MOLE-D 0. 100.
+     VARY 2 MOLE-RR 0. 100.
+     REPORT NOHYDRAULIC
+     CONVERGENCE EXTRA-ML=2
+     INTERNALS CS-1 STAGE1=2 STAGE2=3 P-UPDATE=NO TRAYTYPE=SIEVE  &
+         NPASS=1 SYSFAC=1.000000000 OVER-DESIGN=1.000000000  &
+         WEIR-HT=50.80000000 <mm> DC-CLEAR=38.10000000 <mm>  &
+         DC-WTOP-SIDE=144.5837495 <mm> DC-WBOT-SIDE=144.5837495 <mm>  &
+         HOLE-DIAM=12.70000000 <mm> HOLE-AREA=.1000000000  &
+         FLOOD-METH=GLITSCH6 DECK-THICK=0.134 <IN>  &
+         PCT-FLOOD-FA=80.00000000 AER-PARAM-M=1.000000000  &
+         MAX-DC-LOAD=GLITSCH MAX-ACC-DP=2500.000000  &
+         MAX-PCT-DCB=100.0000000 MAX-PCT-ENT=10.00000000  &
+         MIN-WEIR-LD=4.470981863 MAX-WEIR-LD=117.3721131  &
+         MIN-PCT-DCA=.1000000000
+     TRAY-SIZE 1 2 3 SIEVE
+
+ PDF updated                                                                      TIME =     83.86
+ THIS COPY OF ASPEN PLUS LICENSED TO UNIVERSIDADE DO ESTADO D        
+ 
+ 
+
+
+Calculations begin                                                              time     84.00
+
+
+      UOS BLOCK COLUMN1  MODEL: RADFRAC                                           TIME =     84.00
+
+       Convergence iterations:
+         OL   ML   IL     Err/Tol
+          1    1   10      3.0878    
+          2    6   26      2.6427    
+          3    3    9     0.19239    
+
+      RESULTS FOR MANIPULATED VARIABLES:
+      VARIABLE     FINAL VALUE    LOWER BOUND    UPPER BOUND
+         1         0.97293E-02     0.0000        0.27778E-01
+         2          2.5676         0.0000         100.00    
+
+      CHECKING PHASE EQUILIBRIUM RESULTS                                          TIME =     84.01
+
+      CHECKING PHASE EQUILIBRIUM RESULTS                                          TIME =     84.01
+
+
+*** INPUT SPECIFICATION MESSAGES ***
+
+ CHANGES WERE MADE TO BLOCK        COLUMN1  08/07/2025   16:30:30:99 
+ BLOCK COLUMN1 RADFRAC
+     SUBOBJECTS INTERNALS = CS-1
+     PARAM NSTAGE=52 ALGORITHM=STANDARD HYDRAULIC=NO MAXOL=25  &
+         DAMPING=NONE
+     PARAM2 STATIC-DP=YES OLD-SULZER=NO
+     COL-CONFIG CONDENSER=TOTAL CA-CONFIG=INT-1
+     FEEDS FEED 35
+     PRODUCTS D-TOP 1 L / B-BOTTOM 52 L
+     P-SPEC 1 100000.
+     COL-SPECS MOLE-D=14.25000000 MOLE-RR=4.12
+     SPEC 1 MOLE-FRAC 0.99 COMPS=BENZENE STREAMS=D-TOP  &
+         SPEC-DESCRIP="BENZENE RECUPERATION"
+     SPEC 2 MOLE-FRAC 0.005 COMPS=BENZENE STREAMS=B-BOTTOM  &
+         SPEC-DESCRIP="TOLUENE RECOVERY"
+     VARY 1 MOLE-D 0. 100.
+     VARY 2 MOLE-RR 0. 100.
+     REPORT NOHYDRAULIC
+     CONVERGENCE EXTRA-ML=2
+     INTERNALS CS-1 STAGE1=2 STAGE2=3 P-UPDATE=NO TRAYTYPE=SIEVE  &
+         NPASS=1 SYSFAC=1.000000000 OVER-DESIGN=1.000000000  &
+         WEIR-HT=50.80000000 <mm> DC-CLEAR=38.10000000 <mm>  &
+         DC-WTOP-SIDE=144.7085502 <mm> DC-WBOT-SIDE=144.7085502 <mm>  &
+         HOLE-DIAM=12.70000000 <mm> HOLE-AREA=.1000000000  &
+         FLOOD-METH=GLITSCH6 DECK-THICK=0.134 <IN>  &
+         PCT-FLOOD-FA=80.00000000 AER-PARAM-M=1.000000000  &
+         MAX-DC-LOAD=GLITSCH MAX-ACC-DP=2500.000000  &
+         MAX-PCT-DCB=100.0000000 MAX-PCT-ENT=10.00000000  &
+         MIN-WEIR-LD=4.470981863 MAX-WEIR-LD=117.3721131  &
+         MIN-PCT-DCA=.1000000000
+     TRAY-SIZE 1 2 3 SIEVE
+
+ PDF updated                                                                      TIME =     87.53
+ THIS COPY OF ASPEN PLUS LICENSED TO UNIVERSIDADE DO ESTADO D        
+ 
+ 
+
+
+Calculations begin                                                              time     87.68
+
+
+      UOS BLOCK COLUMN1  MODEL: RADFRAC                                           TIME =     87.68
+
+       Convergence iterations:
+         OL   ML   IL     Err/Tol
+          1    1   10      3.1199    
+          2    7   27      2.8465    
+          3    3   10     0.20012    
+
+      RESULTS FOR MANIPULATED VARIABLES:
+      VARIABLE     FINAL VALUE    LOWER BOUND    UPPER BOUND
+         1         0.97293E-02     0.0000        0.27778E-01
+         2          2.5758         0.0000         100.00    
+
+      CHECKING PHASE EQUILIBRIUM RESULTS                                          TIME =     87.68
+
+      CHECKING PHASE EQUILIBRIUM RESULTS                                          TIME =     87.68
+
+
+*** INPUT SPECIFICATION MESSAGES ***
+
+ CHANGES WERE MADE TO BLOCK        COLUMN1  08/07/2025   16:30:34:99 
+ BLOCK COLUMN1 RADFRAC
+     SUBOBJECTS INTERNALS = CS-1
+     PARAM NSTAGE=52 ALGORITHM=STANDARD HYDRAULIC=NO MAXOL=25  &
+         DAMPING=NONE
+     PARAM2 STATIC-DP=YES OLD-SULZER=NO
+     COL-CONFIG CONDENSER=TOTAL CA-CONFIG=INT-1
+     FEEDS FEED 36
+     PRODUCTS D-TOP 1 L / B-BOTTOM 52 L
+     P-SPEC 1 100000.
+     COL-SPECS MOLE-D=14.25000000 MOLE-RR=4.12
+     SPEC 1 MOLE-FRAC 0.99 COMPS=BENZENE STREAMS=D-TOP  &
+         SPEC-DESCRIP="BENZENE RECUPERATION"
+     SPEC 2 MOLE-FRAC 0.005 COMPS=BENZENE STREAMS=B-BOTTOM  &
+         SPEC-DESCRIP="TOLUENE RECOVERY"
+     VARY 1 MOLE-D 0. 100.
+     VARY 2 MOLE-RR 0. 100.
+     REPORT NOHYDRAULIC
+     CONVERGENCE EXTRA-ML=2
+     INTERNALS CS-1 STAGE1=2 STAGE2=3 P-UPDATE=NO TRAYTYPE=SIEVE  &
+         NPASS=1 SYSFAC=1.000000000 OVER-DESIGN=1.000000000  &
+         WEIR-HT=50.80000000 <mm> DC-CLEAR=38.10000000 <mm>  &
+         DC-WTOP-SIDE=144.8796796 <mm> DC-WBOT-SIDE=144.8796796 <mm>  &
+         HOLE-DIAM=12.70000000 <mm> HOLE-AREA=.1000000000  &
+         FLOOD-METH=GLITSCH6 DECK-THICK=0.134 <IN>  &
+         PCT-FLOOD-FA=80.00000000 AER-PARAM-M=1.000000000  &
+         MAX-DC-LOAD=GLITSCH MAX-ACC-DP=2500.000000  &
+         MAX-PCT-DCB=100.0000000 MAX-PCT-ENT=10.00000000  &
+         MIN-WEIR-LD=4.470981863 MAX-WEIR-LD=117.3721131  &
+         MIN-PCT-DCA=.1000000000
+     TRAY-SIZE 1 2 3 SIEVE
+
+ PDF updated                                                                      TIME =     91.26
+ THIS COPY OF ASPEN PLUS LICENSED TO UNIVERSIDADE DO ESTADO D        
+ 
+ 
+
+
+Calculations begin                                                              time     91.50
+
+
+      UOS BLOCK COLUMN1  MODEL: RADFRAC                                           TIME =     91.50
+
+       Convergence iterations:
+         OL   ML   IL     Err/Tol
+          1    1   10      3.7777    
+          2    7   27      3.4997    
+          3    3   10     0.23303    
+
+      RESULTS FOR MANIPULATED VARIABLES:
+      VARIABLE     FINAL VALUE    LOWER BOUND    UPPER BOUND
+         1         0.97293E-02     0.0000        0.27778E-01
+         2          2.5869         0.0000         100.00    
+
+      CHECKING PHASE EQUILIBRIUM RESULTS                                          TIME =     91.51
+
+      CHECKING PHASE EQUILIBRIUM RESULTS                                          TIME =     91.51
+
+
+*** INPUT SPECIFICATION MESSAGES ***
+
+ CHANGES WERE MADE TO BLOCK        COLUMN1  08/07/2025   16:30:38:99 
+ BLOCK COLUMN1 RADFRAC
+     SUBOBJECTS INTERNALS = CS-1
+     PARAM NSTAGE=52 ALGORITHM=STANDARD HYDRAULIC=NO MAXOL=25  &
+         DAMPING=NONE
+     PARAM2 STATIC-DP=YES OLD-SULZER=NO
+     COL-CONFIG CONDENSER=TOTAL CA-CONFIG=INT-1
+     FEEDS FEED 37
+     PRODUCTS D-TOP 1 L / B-BOTTOM 52 L
+     P-SPEC 1 100000.
+     COL-SPECS MOLE-D=14.25000000 MOLE-RR=4.12
+     SPEC 1 MOLE-FRAC 0.99 COMPS=BENZENE STREAMS=D-TOP  &
+         SPEC-DESCRIP="BENZENE RECUPERATION"
+     SPEC 2 MOLE-FRAC 0.005 COMPS=BENZENE STREAMS=B-BOTTOM  &
+         SPEC-DESCRIP="TOLUENE RECOVERY"
+     VARY 1 MOLE-D 0. 100.
+     VARY 2 MOLE-RR 0. 100.
+     REPORT NOHYDRAULIC
+     CONVERGENCE EXTRA-ML=2
+     INTERNALS CS-1 STAGE1=2 STAGE2=3 P-UPDATE=NO TRAYTYPE=SIEVE  &
+         NPASS=1 SYSFAC=1.000000000 OVER-DESIGN=1.000000000  &
+         WEIR-HT=50.80000000 <mm> DC-CLEAR=38.10000000 <mm>  &
+         DC-WTOP-SIDE=145.1120704 <mm> DC-WBOT-SIDE=145.1120704 <mm>  &
+         HOLE-DIAM=12.70000000 <mm> HOLE-AREA=.1000000000  &
+         FLOOD-METH=GLITSCH6 DECK-THICK=0.134 <IN>  &
+         PCT-FLOOD-FA=80.00000000 AER-PARAM-M=1.000000000  &
+         MAX-DC-LOAD=GLITSCH MAX-ACC-DP=2500.000000  &
+         MAX-PCT-DCB=100.0000000 MAX-PCT-ENT=10.00000000  &
+         MIN-WEIR-LD=4.470981863 MAX-WEIR-LD=117.3721131  &
+         MIN-PCT-DCA=.1000000000
+     TRAY-SIZE 1 2 3 SIEVE
+
+ PDF updated                                                                      TIME =     95.17
+ THIS COPY OF ASPEN PLUS LICENSED TO UNIVERSIDADE DO ESTADO D        
+ 
+ 
+
+
+Calculations begin                                                              time     95.32
+
+
+      UOS BLOCK COLUMN1  MODEL: RADFRAC                                           TIME =     95.32
+
+       Convergence iterations:
+         OL   ML   IL     Err/Tol
+          1    1   10      3.8819    
+          2    7   26      3.7504    
+          3    3   10     0.24417    
+
+      RESULTS FOR MANIPULATED VARIABLES:
+      VARIABLE     FINAL VALUE    LOWER BOUND    UPPER BOUND
+         1         0.97293E-02     0.0000        0.27778E-01
+         2          2.6020         0.0000         100.00    
+
+      CHECKING PHASE EQUILIBRIUM RESULTS                                          TIME =     95.33
+
+      CHECKING PHASE EQUILIBRIUM RESULTS                                          TIME =     95.33

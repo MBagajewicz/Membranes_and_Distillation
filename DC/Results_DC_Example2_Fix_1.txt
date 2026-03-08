@@ -1,0 +1,32 @@
+Set Trimming successful - The candidates solution set is not empty
+
+************ Initial Set generated from Primordial Set ************
+
+Candidate set cardinality after each trimming [1, 1, 1]
+
+******************** Starting Execution for DC_Example2_Fix_1 ********************
+
+The solution of Equipment1 "DC" is presented below:
+Set trimming and Enumeration activated. Performing Set Trimming First, followed by Selected Enumeration
+Set Trimming successful - The candidates solution set is not empty
+Set Trimming Solution {'trimmed_candidates': array([[15],
+       [38]]), 'candidate_set_cardinality_after_each_trimming': [1]}
+Elapsed time Set Trimming: 0.0
+Performing Exhaustive Enumeration now
+@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
+All 1 candidates were evaluated
+@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
+Solution after Exhaustive Enumeration {'TAC_OF': {'TAC': 69460.76426607391}, 'Nf': 15, 'Ns': 38}
+Elapsed time for Equipment1 "DC": 4.04 seconds 
+
+OF Solution total ($/year) 69460.76426607391
+Total elapsed time: 12.68 seconds
+
+CAPEX_COL: 52285.87392900167
+CAPEX_COND: 29672.583759707
+CAPEX_REB: 33774.69920197908
+CAPEX_RD: 12967.4756069312
+Cooling_Cost: 6469.512082362001
+Heating_Cost: 50121.188933950005
+OPEX_COL: 56590.70101631201
+Dc: 0.8411610862038186
