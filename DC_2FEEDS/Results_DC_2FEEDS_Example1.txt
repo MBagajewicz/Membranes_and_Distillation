@@ -1,0 +1,45 @@
+********** Normal Set Trimming running **********
+Set Trimming successful - The candidates solution set is not empty
+Building initial set time:  0.00012 seconds
+
+Primordial Set Trimming time:  0.00054 seconds
+
+
+************ Initial Set generated from Primordial Set ************
+
+Candidate set cardinality after each trimming [5832, 3078, 1140, 1130]
+
+******************** Starting Execution for DC_2FEEDS_Example1 ********************
+
+The solution of Equipment1 "DC_2FEEDS" is presented below:
+Set trimming and Enumeration activated. Performing Set Trimming First, followed by Selected Enumeration
+Set Trimming successful - The candidates solution set is not empty
+Set Trimming Solution {'trimmed_candidates': array([[13, 13, 13, ..., 28, 29, 30],
+       [13, 13, 13, ..., 30, 30, 30],
+       [18, 19, 20, ..., 32, 32, 32]], shape=(3, 1130)), 'candidate_set_cardinality_after_each_trimming': [1130]}
+Elapsed time Set Trimming: 0.0005044937133789062
+Performing Smart Enumeration now
+Lower bound values [1.00000000e+20 1.00000000e+20 1.00000000e+20 ... 6.57132107e+05
+ 7.87987378e+05 1.11116584e+06]
+Incumbent value: 183868.47552971556
+**********************************
+Updating incumbent
+Lower Bound: 181205.1789009372 Candidate: 312
+New Incumbent: 183794.811726218
+**********************************
+Updating incumbent
+Lower Bound: 181861.62740480367 Candidate: 337
+New Incumbent: 183759.94026565333
+**********************************
+Updating incumbent
+Lower Bound: 182644.19834872184 Candidate: 362
+New Incumbent: 183710.40857666708
+##################################
+Exit at candidate: 407
+Lower Bound: 183720.2915273523 Candidate: 407
+Solution after Smart Enumeration {'TAC_OF': {'TAC': array(183710.40857667)}, 'Nf1': array([13]), 'Nf2': array([19]), 'Ns': array([31])}
+Elapsed time for Equipment1 "DC_2FEEDS": 1207.13 seconds 
+
+OF Solution total ($/year) 183710.40857666708
+Total time elapsed: 1226.14479 seconds
+
