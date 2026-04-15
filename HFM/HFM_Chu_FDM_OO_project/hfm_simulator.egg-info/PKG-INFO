@@ -1,0 +1,9 @@
+Metadata-Version: 2.4
+Name: hfm-simulator
+Version: 0.1.0
+Summary: Hollow Fiber Membrane Simulator
+Author: Oliva D.G.
+Requires-Dist: numpy
+Requires-Dist: scipy
+Requires-Dist: openpyxl
+Requires-Dist: CoolProp
