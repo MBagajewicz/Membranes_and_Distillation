@@ -47,7 +47,7 @@ def Consistency_Check(Active_Example, Active_Models, save_result):
             Parameters_Update_Module = Active_Models['Parameters_Update'][Type_Equipment]
             Consistency_Funcions = equipment_def['Model_Info'].setdefault('Consistency_Check_Functions', [])
             for function in Consistency_Funcions:
-                getattr(Parameters_Update_Module, function)(model_declarations, model_parameters)
+                getattr(Parameters_Update_Module, function)(model_declarations, model_parameters, save_result)
                 
 #endregion
 ####################################################################################################################

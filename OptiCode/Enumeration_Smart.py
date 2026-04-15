@@ -16,6 +16,7 @@
 #   0.13       19-Mar-2025      Alice Peccini              Correction on Feasibility check
 #   0.14       27-Apr-2025      Mariana Mello              Add .txt file with Results of Examples
 #   0.15       13-May-2025      Mariana Mello              Update .txt file with Examples Results
+#   0.16       27-Mar-2026      João Tupinambá             Adapted to handle multiple feasibility constraints
 ##################################################################################################################
 # INPUT: No inputs allowed
 ##################################################################################################################
@@ -44,7 +45,7 @@ def Smart_Enumeration(OF_NAME, LB_NAME, Fobj_within_LB, INC_OBJ, INC_VAR, constr
 
     # Initializing variable sol_data
     sol_data = {}
-
+    
     # ---------------------------------------- Lower Bound Generation ---------------------------------------- #
     # If candidate's objective function are evaluated within LB Generation function:
     if Fobj_within_LB:
@@ -73,7 +74,6 @@ def Smart_Enumeration(OF_NAME, LB_NAME, Fobj_within_LB, INC_OBJ, INC_VAR, constr
         for cont, value in zip(var_list, INC_VAR):
             sol_data[cont] = value
 
-
     # ------------------------------------- Organizing Smart Enumeration ------------------------------------- #
     # Total number of candidates
     number_of_candidates = candidates.shape[1]
@@ -92,8 +92,10 @@ def Smart_Enumeration(OF_NAME, LB_NAME, Fobj_within_LB, INC_OBJ, INC_VAR, constr
         # Creating a multidimensional array containing just the candidate for simulation
         i = Ranking_position[k]
         candidate_tested = candidates[:, i].reshape(np.size(candidates[:, i]), 1)
-        # print (candidate_tested)
+
         # Evaluating the candidate
+        flat = candidate_tested.flatten().tolist()
+        save_result(f"Solving candidate {k} of {number_of_candidates}", var_list, " = ", flat, ':')
 
         Candidate_evaluation = Constraint_Eval.Constraint_Eval(OF_NAME[0], candidate_tested, problem_data, 
                                                                Type_Equipment, Active_Models_Constraints)
@@ -106,7 +108,8 @@ def Smart_Enumeration(OF_NAME, LB_NAME, Fobj_within_LB, INC_OBJ, INC_VAR, constr
         for constraints in constraint_lists:
             constraint_evaluation = Constraint_Eval.Constraint_Eval(constraints, candidate_tested, problem_data,
                                                                     Type_Equipment, Active_Models_Constraints)
-            if constraint_evaluation[0] > 0:
+            if np.any(np.asarray(constraint_evaluation[0]) > 0):
+            # if constraint_evaluation[0] > 0:
                 Feasibility = False
                 break
 

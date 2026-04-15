@@ -16,6 +16,8 @@
 #   0.13       19-Mar-2025      Alice Peccini              Correction on Feasibility check
 #   0.14       27-Apr-2025      Mariana Mello              Add .txt file with Results of Examples
 #   0.15       13-May-2025      Mariana Mello              Update .txt file with Examples Results
+#   0.16       13-Nov-2025      Alice Peccini              Incumbent Initialization update
+
 ##################################################################################################################
 # INPUT: No inputs allowed
 ##################################################################################################################
@@ -44,7 +46,8 @@ def Smart_Enumeration_Next_Level(OF_NAME, LB_NAME, Fobj_within_LB, INC_OBJ, INC_
     sol_data = {}
     if not INC_NEXT_LEVEL:
         INC_NEXT_LEVEL = 1e20
-    
+    sol_data['Next_Level'] = INC_NEXT_LEVEL
+
     # ---------------------------------------- Lower Bound Generation ---------------------------------------- #
     # If candidate's objective function are evaluated within LB Generation function:
     if Fobj_within_LB:
@@ -66,11 +69,14 @@ def Smart_Enumeration_Next_Level(OF_NAME, LB_NAME, Fobj_within_LB, INC_OBJ, INC_
     save_result('Incumbent value:', INC_OBJ)
 
     # --------------------------------------- Incumbent Initialization --------------------------------------- #
-    Incumbent_Value = INC_OBJ
-    sol_data[OF_NAME[0]] = {OF_VAR[0]: INC_OBJ}
-    for cont, value in zip(var_list, INC_VAR):
-        sol_data[cont] = value
-    sol_data['Next_Level'] = INC_NEXT_LEVEL
+    # If an incumbent solution value is provided or was found during LB generation, then it is used.   
+    if not INC_OBJ:
+        Incumbent_Value = 1e20
+    else:
+        Incumbent_Value = INC_OBJ
+        sol_data[OF_NAME[0]] = {OF_VAR[0]: INC_OBJ}
+        for cont, value in zip(var_list, INC_VAR):
+            sol_data[cont] = value
 
     # ------------------------------------- Organizing Smart Enumeration ------------------------------------- #
     # Total number of candidates
@@ -90,7 +96,10 @@ def Smart_Enumeration_Next_Level(OF_NAME, LB_NAME, Fobj_within_LB, INC_OBJ, INC_
         i = Ranking_position[k]
         candidate_tested = candidates[:, i].reshape(np.size(candidates[:, i]), 1)
 
-        # Evaluating the candidate      
+        # Evaluating the candidate  
+        flat = candidate_tested.flatten().tolist()
+        save_result(" -------------> Solving candidate", var_list, " = ", flat, ':')
+   
         [Candidate_evaluation, Solution_Next_Level] = Constraint_Eval.Constraint_Eval(OF_NAME[0], candidate_tested,
                                                                                       problem_data, Type_Equipment,
                                                                                       Active_Models_Constraints)

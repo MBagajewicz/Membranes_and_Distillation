@@ -214,7 +214,7 @@ def Execute_Solver(Type_Equipment, Next_Level, ST_Mode, SO_Mode, Enum_Mode, List
                 if Enum_type == 'Smart':
                 #### SCENARIO 7 - Set Trimming AND Smart Enumeration
                     save_result("Performing Smart Enumeration now")
-
+                   
                     Solution = Enumeration_Smart.Smart_Enumeration(OF_NAME, LB_NAME, Fobj_within_LB, INC_OBJ, INC_VAR,
                                                                    Enumeration_Constraints_List, List_of_Variables,
                                                                    OPT_VAR_NAMES,
