@@ -2,3 +2,52 @@
 ******* Testing consistency *******
 
 ********** Normal Set Trimming running **********
+Set Trimming successful - The candidates solution set is not empty
+Building initial set time:  1.21812 seconds
+
+Primordial Set Trimming time:  17.07957 seconds
+
+
+************ Initial Set generated from Primordial Set ************
+
+Candidate set cardinality after each trimming [978432, 718536, 3948, 3478]
+
+******************** Starting Execution for HFM_Example1 ********************
+
+The solution of Equipment1 "HFM" is presented below:
+Set trimming and Enumeration activated. Performing Set Trimming First, followed by Selected Enumeration
+Set Trimming successful - The candidates solution set is not empty
+Set Trimming Solution {'trimmed_candidates': array([['0.8', '0.8', '0.9', ..., '2.0', '2.0', '2.0'],
+       ['0.08', '0.08', '0.08', ..., '0.2', '0.2', '0.2'],
+       ['(0.00021,2e-05)', '(0.00021,2e-05)', '(0.00021,2e-05)', ...,
+        '(0.00021,2e-05)', '(0.00021,2e-05)', '(0.00021,2e-05)'],
+       ['0.3', '0.31', '0.3', ..., '0.48', '0.49', '0.5']],
+      shape=(4, 3478), dtype='<U32'), 'candidate_set_cardinality_after_each_trimming': [3478]}
+Elapsed time Set Trimming: 0.0029916763305664062
+Performing Smart Enumeration now
+Lower bound values [ 53.61635545  52.85053569  60.31839988 ... 622.33411087 610.36652782
+ 598.39762529]
+Incumbent value: []
+Solving candidate 0 of 3478 ['L', 'D', 'dfo_esp', 'Void_Frac']  =  ['0.9', '0.08', '(0.00021,2e-05)', '0.39'] :
+Solving candidate 1 of 3478 ['L', 'D', 'dfo_esp', 'Void_Frac']  =  ['0.7', '0.09', '(0.00021,2e-05)', '0.38'] :
+Solving candidate 2 of 3478 ['L', 'D', 'dfo_esp', 'Void_Frac']  =  ['1.0', '0.08', '(0.00021,2e-05)', '0.45'] :
+Solving candidate 3 of 3478 ['L', 'D', 'dfo_esp', 'Void_Frac']  =  ['1.1', '0.08', '(0.00021,2e-05)', '0.5'] :
+Solving candidate 4 of 3478 ['L', 'D', 'dfo_esp', 'Void_Frac']  =  ['0.8', '0.08', '(0.00021,2e-05)', '0.31'] :
+Solving candidate 5 of 3478 ['L', 'D', 'dfo_esp', 'Void_Frac']  =  ['0.6', '0.1', '(0.00021,2e-05)', '0.41'] :
+Solving candidate 6 of 3478 ['L', 'D', 'dfo_esp', 'Void_Frac']  =  ['0.8', '0.09', '(0.00021,2e-05)', '0.45'] :
+Solving candidate 7 of 3478 ['L', 'D', 'dfo_esp', 'Void_Frac']  =  ['0.5', '0.11', '(0.00021,2e-05)', '0.41'] :
+Solving candidate 8 of 3478 ['L', 'D', 'dfo_esp', 'Void_Frac']  =  ['0.7', '0.1', '(0.00021,2e-05)', '0.49'] :
+Solving candidate 9 of 3478 ['L', 'D', 'dfo_esp', 'Void_Frac']  =  ['0.9', '0.08', '(0.00021,2e-05)', '0.38'] :
+Solving candidate 10 of 3478 ['L', 'D', 'dfo_esp', 'Void_Frac']  =  ['0.7', '0.09', '(0.00021,2e-05)', '0.37'] :
+Solving candidate 11 of 3478 ['L', 'D', 'dfo_esp', 'Void_Frac']  =  ['1.0', '0.08', '(0.00021,2e-05)', '0.44'] :
+Solving candidate 12 of 3478 ['L', 'D', 'dfo_esp', 'Void_Frac']  =  ['0.8', '0.08', '(0.00021,2e-05)', '0.3'] :
+Solving candidate 13 of 3478 ['L', 'D', 'dfo_esp', 'Void_Frac']  =  ['1.1', '0.08', '(0.00021,2e-05)', '0.49'] :
+Solving candidate 14 of 3478 ['L', 'D', 'dfo_esp', 'Void_Frac']  =  ['0.6', '0.1', '(0.00021,2e-05)', '0.4'] :
+Solving candidate 15 of 3478 ['L', 'D', 'dfo_esp', 'Void_Frac']  =  ['0.5', '0.12', '(0.00021,2e-05)', '0.5'] :
+Solving candidate 16 of 3478 ['L', 'D', 'dfo_esp', 'Void_Frac']  =  ['0.9', '0.08', '(0.00021,2e-05)', '0.37'] :
+Solving candidate 17 of 3478 ['L', 'D', 'dfo_esp', 'Void_Frac']  =  ['0.8', '0.09', '(0.00021,2e-05)', '0.44'] :
+Solving candidate 18 of 3478 ['L', 'D', 'dfo_esp', 'Void_Frac']  =  ['0.7', '0.09', '(0.00021,2e-05)', '0.36'] :
+Solving candidate 19 of 3478 ['L', 'D', 'dfo_esp', 'Void_Frac']  =  ['0.5', '0.11', '(0.00021,2e-05)', '0.4'] :
+Solving candidate 20 of 3478 ['L', 'D', 'dfo_esp', 'Void_Frac']  =  ['0.6', '0.11', '(0.00021,2e-05)', '0.5'] :
+Solving candidate 21 of 3478 ['L', 'D', 'dfo_esp', 'Void_Frac']  =  ['0.7', '0.1', '(0.00021,2e-05)', '0.48'] :
+Solving candidate 22 of 3478 ['L', 'D', 'dfo_esp', 'Void_Frac']  =  ['0.9', '0.09', '(0.00021,2e-05)', '0.5'] :
