@@ -21,42 +21,43 @@ class EnergyModule:
 
     def __init__(
         self,
-        F_ret,
-        G_per,
-        P_ret,
-        P_per,
-        x_ret,
-        y_per,
+        FRet,
+        FPer,
+        PRet,
+        PPerm,
+        ZRet,
+        ZPerm,
         thermo,
         T_ret_in,
         UA,
-        J_per,
-        z_J
+        FMemb,
+        ZMemb,
+        geom
     ):
 
         # Retentate molar flow profile along the module
         # Perfil de vazão molar do retentado ao longo do módulo
-        self.F = np.asarray(F_ret, dtype=float)
+        self.FRet = np.asarray(FRet, dtype=float)
 
         # Permeate molar flow profile (clipped to avoid negative values)
         # Perfil de vazão molar do permeado (limitado para evitar valores negativos)
-        self.G = np.clip(np.asarray(G_per, dtype=float), 0, None)
+        self.FPerm = np.clip(np.asarray(FPer, dtype=float), 0, None)
 
         # Retentate pressure profile
         # Perfil de pressão do retentado
-        self.P_ret = np.asarray(P_ret)
+        self.PRet = np.asarray(PRet)
 
         # Permeate pressure profile
         # Perfil de pressão do permeado
-        self.P_per = np.asarray(P_per)
+        self.PPerm = np.asarray(PPerm)
 
         # Retentate composition profile
         # Perfil de composição molar do retentado
-        self.x_ret = np.asarray(x_ret)
+        self.ZRet = np.asarray(ZRet)
 
         # Permeate composition profile
         # Perfil de composição molar do permeado
-        self.y_per = np.asarray(y_per)
+        self.ZPerm = np.asarray(ZPerm)
 
         # Thermodynamic model used to compute enthalpies
         # Modelo termodinâmico usado para calcular entalpias
@@ -68,19 +69,23 @@ class EnergyModule:
 
         # Overall heat transfer coefficient per segment (UA)
         # Coeficiente global de transferência de calor por segmento (UA)
-        self.UA = np.asarray(UA, dtype=float)
+        self.UA = np.asarray(UA, dtype=float) if UA is not None else None
+        self.eval_UA = True if UA is None else False
 
         # Number of axial segments (nodes = N+1)
         # Número de segmentos axiais (nós = N+1)
-        self.N = len(self.F) - 1
+        self.NCells = len(self.FRet) - 1
 
         # Total molar flux through the membrane
         # Fluxo molar total através da membrana
-        self.J_per = np.asarray(J_per)
+        self.FMemb = np.asarray(FMemb)
 
         # Composition of the permeating flux
         # Composição do fluxo que atravessa a membrana
-        self.z_J = np.asarray(z_J)
+        self.ZMemb = np.asarray(ZMemb)
+
+        # geometry
+        self.geom = geom
 
     # -------------------------------------------------
     # Residual function
@@ -90,19 +95,19 @@ class EnergyModule:
 
         # Number of spatial segments
         # Número de segmentos espaciais
-        N = self.N
+        NCells = self.NCells
 
         # Extract retentate temperature profile from solver vector
         # Extrai perfil de temperatura do retentado do vetor do solver
-        T_ret = np.clip(X[0:N+1], 100, 600)
+        T_ret = np.clip(X[0:NCells+1], 100, 600)
 
         # Extract permeate temperature profile
         # Extrai perfil de temperatura do permeado
-        T_per = np.clip(X[N+1:2*(N+1)], 100, 600)
+        T_per = np.clip(X[NCells+1:2*(NCells+1)], 100, 600)
 
         # Initialize residual vector
         # Inicializa vetor de resíduos
-        R = np.zeros(2*(N+1))
+        Res_Vec = np.zeros(2*(NCells+1))
 
         # ----------------------------
         # Boundary condition
@@ -111,7 +116,7 @@ class EnergyModule:
 
         # Enforce retentate inlet temperature
         # Impõe temperatura de entrada do retentado
-        R[0] = T_ret[0] - self.T_ret_in
+        Res_Vec[0] = T_ret[0] - self.T_ret_in
 
         # ----------------------------
         # Precompute enthalpies
@@ -120,74 +125,83 @@ class EnergyModule:
 
         # Retentate enthalpy profile
         # Perfil de entalpia do retentado
-        h_ret = np.array([self.thermo.get_h_ret(k, T_ret[k]) for k in range(N+1)])
+        hRet = np.array([self.thermo.get_h_ret(k, T_ret[k]) for k in range(NCells+1)])
 
         # Permeate enthalpy profile
         # Perfil de entalpia do permeado
-        h_per = np.array([self.thermo.get_h_per(k, T_per[k]) for k in range(N+1)])
+        hPerm = np.array([self.thermo.get_h_per(k, T_per[k]) for k in range(NCells+1)])
 
         # Enthalpy of the permeating stream
         # Entalpia do fluxo que atravessa a membrana
-        h_J   = np.array([self.thermo.get_h_J(k, T_ret[k]) for k in range(N+1)])
+        hMemb = np.array(
+            [0.0 if k == 0 else self.thermo.get_h_J(k, T_ret[k]) for k in range(NCells + 1)]
+        )
 
+        # Overall Heat Transfer Coef
+        if self.eval_UA:
+            self.UA = self.geom.AREA_SEG * np.array(
+                [0.0 if k == 0 else self.thermo._uo_b7(k, T_ret[k], T_per[k-1], self.FPerm, self.FRet, self.geom) for k in range(NCells+1)]
+            )
         # ----------------------------
         # Interior nodes
         # Nós internos
         # ----------------------------
-        for k in range(1, N):
+        for k in range(1, NCells + 1):
 
             # Heat conduction through the membrane wall
             # Condução de calor através da parede da membrana
+            # ACREDITO QUE VAMOS CALCULAR U AQUI
             conduction = self.UA[k] * (T_ret[k] - T_per[k-1])
 
             # Retentate energy balance
             # Balanço de energia no retentado
-            R[k] = (
-                self.F[k-1] * h_ret[k-1]
-                - self.F[k] * h_ret[k]
-                - self.J_per[k] * h_J[k]
+            Res_Vec[k] = (
+                self.FRet[k-1] * hRet[k-1]
+                - self.FRet[k] * hRet[k]
+                - self.FMemb[k] * hMemb[k]
                 - conduction
             )
 
             # Permeate energy balance
             # Balanço de energia no permeado
-            R[N+k] = (
-                self.G[k] * h_per[k]
-                - self.G[k-1] * h_per[k-1]
-                + self.J_per[k] * h_J[k]
+
+            Res_Vec[NCells+k] = (
+                self.FPerm[k] * hPerm[k]
+                - self.FPerm[k-1] * hPerm[k-1]
+                + self.FMemb[k] * hMemb[k]
                 + conduction
             )
 
-        # ----------------------------
-        # Last node (module outlet)
-        # Último nó (saída do módulo)
-        # ----------------------------
-        k = N
-
-        # Heat conduction between retentate and permeate
-        # Condução de calor entre retentado e permeado
-        conduction = self.UA[k] * (T_ret[k] - T_per[k-1])
-
-        # Retentate energy balance at outlet
-        # Balanço de energia do retentado na saída
-        R[k] = (
-            self.F[k-1] * h_ret[k-1]
-            - self.F[k] * h_ret[k]
-            - self.J_per[k] * h_J[k]
-            - conduction
-        )
-
-        # Permeate energy balance at outlet
-        # Balanço de energia do permeado na saída
-        R[N+k] = (
-            - self.G[k-1] * h_per[k-1]
-            + self.J_per[k] * h_J[k]
-            + conduction
-        )
+        # # ----------------------------
+        # # Last node (module outlet)
+        # # Último nó (saída do módulo)
+        # # ----------------------------
+        # k = NCells
+        #
+        # # Heat conduction between retentate and permeate
+        # # Condução de calor entre retentado e permeado
+        # conduction = self.UA[k] * (T_ret[k] - T_per[k-1])
+        #
+        # # Retentate energy balance at outlet
+        # # Balanço de energia do retentado na saída
+        # Res_Vec[k] = (
+        #     self.FRet[k-1] * hRet[k-1]
+        #     - self.FRet[k] * hRet[k]
+        #     - self.FMemb[k] * hMemb[k]
+        #     - conduction
+        # )
+        #
+        # # Permeate energy balance at outlet
+        # # Balanço de energia do permeado na saída
+        # Res_Vec[NCells+k] = (
+        #     - self.FPerm[k-1] * hPerm[k-1]
+        #     + self.FMemb[k] * hMemb[k]
+        #     + conduction
+        # )
 
         # Return residual vector
         # Retorna vetor de resíduos
-        return R
+        return Res_Vec
 
     # -------------------------------------------------
     # Jacobian sparsity
@@ -201,38 +215,37 @@ class EnergyModule:
 
         # Number of segments
         # Número de segmentos
-        N = self.N
+        NCells = self.NCells
 
         # Total number of temperature variables
         # Número total de variáveis de temperatura
-        n = 2*(N+1)
+        n = 2 * (NCells + 1)
 
         # Initialize sparse matrix
         # Inicializa matriz esparsa
-        S = lil_matrix((n, n), dtype=int)
+        Spa_Mat = lil_matrix((n, n), dtype=int)
 
         # Loop over internal nodes
         # Loop sobre nós internos
-        for k in range(1, N+1):
-
+        for k in range(1, NCells + 1):
             # Retentate energy equation
             # Equação de energia do retentado
             row = k
-            S[row, k] = 1
-            S[row, k-1] = 1
-            S[row, (N+1)+(k-1)] = 1
+            Spa_Mat[row, k] = 1
+            Spa_Mat[row, k - 1] = 1
+            Spa_Mat[row, (NCells + 1) + (k - 1)] = 1
 
             # Permeate energy equation
             # Equação de energia do permeado
-            row = N + k
-            S[row, (N+1)+k] = 1
-            S[row, (N+1)+(k-1)] = 1
-            S[row, k] = 1
+            row = NCells + k
+            Spa_Mat[row, (NCells + 1) + k] = 1
+            Spa_Mat[row, (NCells + 1) + (k - 1)] = 1
+            Spa_Mat[row, k] = 1
 
         # Boundary condition dependency
         # Dependência da condição de contorno
-        S[0,0] = 1
+        Spa_Mat[0, 0] = 1
 
         # Convert to CSR sparse format for efficient solver use
         # Converte para formato CSR para uso eficiente no solver
-        return S.tocsr()
+        return Spa_Mat.tocsr()

@@ -23,52 +23,52 @@ class Geometry:
 
     def __init__(
         self,
-        L,
-        D_shell,
-        D_o,
-        D_i,
-        N_fibers,
-        N_segments,
+        LHidraulic,
+        DiamShell,
+        DiamFiber_o,
+        DiamFiber_i,
+        NFibers,
+        NCells,
     ):
         """
         Parameters
         ----------
-        L : float
+        LHidraulic : float
             Module length [m]
             Comprimento do módulo [m]
-        D_shell : float
+        DiamShell : float
             Shell diameter [m]
             Diâmetro do casco [m]
-        D_o : float
+        DiamFiber_o : float
             Fiber outer diameter [m]
             Diâmetro externo da fibra [m]
-        D_i : float
+        DiamFiber_i : float
             Fiber inner diameter [m]
             Diâmetro interno da fibra [m]
-        N_fibers : int
+        NFibers : int
             Number of fibers
             Número de fibras
-        N_segments : int
+        NCells : int
             Number of FDM segments
             Número de segmentos FDM
         """
-        self.L = L
-        self.D_shell = D_shell
-        self.D_o = D_o
-        self.D_i = D_i
-        self.N_fibers = N_fibers
-        self.N = N_segments
+        self.LHidraulic = LHidraulic
+        self.DiamShell = DiamShell
+        self.DiamFiber_o = DiamFiber_o
+        self.DiamFiber_i = DiamFiber_i
+        self.NFibers = NFibers
+        self.NCells = NCells
 
         # ===============================
         # Derived quantities
         # Grandezas derivadas
         # ===============================
-        self.Dz = self.L / self.N
+        self.dz = self.LHidraulic / self.NCells
 
         # Membrane area per unit length
         # Área de membrana por unidade de comprimento
-        self.AREA_PER_L = np.pi * self.D_o * self.N_fibers
+        self.AREA_PER_L = np.pi * self.DiamFiber_o * self.NFibers
 
         # Membrane area per segment
         # Área de membrana por segmento
-        self.AREA_SEG = self.AREA_PER_L * self.Dz
+        self.AREA_SEG = self.AREA_PER_L * self.dz

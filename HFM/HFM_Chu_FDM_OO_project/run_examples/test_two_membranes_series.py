@@ -55,9 +55,9 @@ def main():
     mem1 = HFMSimulator()
 
     mem1.energy = True
-    mem1.pressure_drop = False
+    mem1.pressure_drop = True
     mem1.heat_transfer_coef = 4
-    mem1.segments = 50
+    mem1.NCells = 50
 
     mem1.set_scenario(scenario1)
     mem1.set_feed(feed1)
@@ -70,9 +70,9 @@ def main():
     print("Membrane 1 finished")
 
     if print_results:
-        print("Feed:", res1.F[0])
-        print("Retentate:", res1.F[-1])
-        print("Permeate:", res1.G[0])
+        print("Feed:", res1.FRet[0])
+        print("Retentate:", res1.FRet[-1])
+        print("Permeate:", res1.FPerm[0])
         print("Recovery:", res1.recovery)
 
 
@@ -105,9 +105,9 @@ def main():
     mem2 = HFMSimulator()
 
     mem2.energy = True
-    mem2.pressure_drop = False
+    mem2.pressure_drop = True
     mem2.heat_transfer_coef = 4
-    mem2.segments = 50
+    mem2.NCells = 50
 
     mem2.set_scenario(scenario2)
     mem2.set_feed(permeate_stream1)
@@ -120,9 +120,9 @@ def main():
     print("Membrane 2 finished")
 
     if print_results:
-        print("Feed:", res2.F[0])
-        print("Retentate:", res2.F[-1])
-        print("Permeate:", res2.G[0])
+        print("Feed:", res2.FRet[0])
+        print("Retentate:", res2.FRet[-1])
+        print("Permeate:", res2.FPerm[0])
         print("Recovery:", res2.recovery)
 
     # ====================================================

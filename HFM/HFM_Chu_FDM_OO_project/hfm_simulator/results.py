@@ -41,7 +41,7 @@ class SimulationResults:
         # -----------------------------
 
         # EN/PT: number of discretization nodes
-        self.N = None
+        self.NCells = None
 
         # EN/PT: axial coordinate vector
         self.z = None
@@ -55,31 +55,31 @@ class SimulationResults:
         # -----------------------------
 
         # EN/PT: total retentate flow profile
-        self.F = None
+        self.FRet = None
 
         # EN/PT: total permeate flow profile
-        self.G = None
+        self.FPerm = None
 
         # EN/PT: retentate composition profile
-        self.x_ret = None
+        self.ZRet = None
 
         # EN/PT: permeate composition profile
-        self.y_per = None
+        self.ZPerm = None
 
         # EN/PT: retentate pressure profile
-        self.P = None
+        self.PRetCell = None
 
         # EN/PT: permeate pressure profile
-        self.p = None
+        self.PPermCell = None
 
         # EN/PT: total membrane flux
-        self.J = None
+        self.FMemb = None
 
         # EN/PT: component fluxes
-        self.J_comp = None
+        self.FMemb_comp = None
 
         # EN/PT: composition of membrane flux
-        self.z_J = None
+        self.ZMemb = None
 
         # -----------------------------
         # energy model
@@ -93,13 +93,13 @@ class SimulationResults:
         self.T_per = None
 
         # EN/PT: retentate enthalpy
-        self.h_ret = None
+        self.hRet = None
 
         # EN/PT: permeate enthalpy
-        self.h_per = None
+        self.hPerm = None
 
         # EN/PT: enthalpy of membrane flux
-        self.h_J = None
+        self.hMemb = None
 
         # EN/PT: heat transfer coefficient profile
         self.UA = None
@@ -107,8 +107,8 @@ class SimulationResults:
         # EN/PT: case name
         self.case_name = None
 
-        # EN/PT: permeability
-        self.permeability = None
+        # EN/PT: permeance
+        self.Permeance = None
 
         # EN/PT: viscosity
         self.viscosity = None
@@ -129,10 +129,10 @@ class SimulationResults:
         # EN: Fraction of feed recovered in permeate
         # PT-BR: Fração da alimentação recuperada no permeado
 
-        if self.F is None:
+        if self.FRet is None:
             return None
 
-        return 1 - self.F[-1] / self.F[0]
+        return 1 - self.FRet[-1] / self.FRet[0]
 
 
     # ------------------------------------------------
@@ -144,7 +144,7 @@ class SimulationResults:
 
         # EN: Ensure mass results are available
         # PT-BR: Verifica se resultados de massa existem
-        if self.F is None:
+        if self.FRet is None:
             raise RuntimeError("Mass results not available")
 
         post = MassPostProcessor()
@@ -154,15 +154,15 @@ class SimulationResults:
             filename=filename,
             case_name=self.case_name,
             components=self.components,
-            F=self.F,
-            x_ret=self.x_ret,
-            G=self.G,
-            y_per=self.y_per,
-            J=self.J,
-            J_comp=self.J_comp,
-            z_J=self.z_J,
-            P=self.P,
-            p=self.p
+            FRet=self.FRet,
+            ZRet=self.ZRet,
+            FPerm=self.FPerm,
+            ZPerm=self.ZPerm,
+            FMemb=self.FMemb,
+            FMemb_Comp=self.FMemb_comp,
+            ZMemb=self.ZMemb,
+            PRetCell=self.PRetCell,
+            PPermCell=self.PPermCell
         )
 
 
@@ -185,23 +185,23 @@ class SimulationResults:
             case_name=self.case_name,
             components=self.components,
 
-            F=self.F,
-            x_ret=self.x_ret,
-            h_ret=self.h_ret,
-            h_ret_mix=self.h_ret,
+            FRet=self.FRet,
+            ZRet=self.ZRet,
+            hRet=self.hRet,
+            hRet_mix=self.hRet,
 
-            G=self.G,
-            y_per=self.y_per,
-            h_per=self.h_per,
-            h_per_mix=self.h_per,
+            FPerm=self.FPerm,
+            ZPerm=self.ZPerm,
+            hPerm=self.hPerm,
+            hPerm_mix=self.hPerm,
 
-            J=self.J,
-            J_comp=self.J_comp,
-            z_J=self.z_J,
-            h_J=self.h_J,
+            FMemb=self.FMemb,
+            FMemb_comp=self.FMemb_comp,
+            ZMemb=self.ZMemb,
+            hMemb=self.hMemb,
 
-            P=self.P,
-            p=self.p,
+            PRetCell=self.PRetCell,
+            PPermCell=self.PPermCell,
 
             T_ret=self.T_ret,
             T_per=self.T_per,
@@ -295,31 +295,31 @@ class SimulationResults:
         PT-BR: Perfil de fluxo na membrana por componente
         """
         i = self._comp_index(comp)
-        return self.J_comp[:, i]
+        return self.FMemb_comp[:, i]
     
 
     def retentate_composition(self, comp):
 
         i = self._comp_index(comp)
-        return self.x_ret[:, i]
+        return self.ZRet[:, i]
     
 
     def permeate_composition(self, comp):
 
         i = self._comp_index(comp)
-        return self.y_per[:, i]
+        return self.ZPerm[:, i]
 
 
     def component_retentate_flow(self, comp):
 
         i = self._comp_index(comp)
-        return self.F * self.x_ret[:, i]
+        return self.FRet * self.ZRet[:, i]
     
 
     def component_permeate_flow(self, comp):
 
         i = self._comp_index(comp)
-        return self.G * self.y_per[:, i]
+        return self.FPerm * self.ZPerm[:, i]
 
 
     def list_components(self):
@@ -342,12 +342,12 @@ class SimulationResults:
         if side == "retentate":
 
             return Stream(
-                flow=self.F[-1],
-                composition=self.x_ret[-1],
-                pressure=self.P[-1],
+                flow=self.FRet[-1],
+                composition=self.ZRet[-1],
+                pressure=self.PRetCell[-1],
                 temperature=self.T_ret[-1] if self.T_ret is not None else None,
                 components=self.components,
-                permeability=self.permeability,
+                permeance=self.Permeance,
                 viscosity=self.viscosity,
                 molecularweight=self.molecularweight
             )
@@ -357,12 +357,12 @@ class SimulationResults:
             # EN: Counter-current → outlet is index 0
             # PT-BR: Contracorrente → saída é índice 0
             return Stream(
-                flow=self.G[0],
-                composition=self.y_per[0],
-                pressure=self.p[0],
+                flow=self.FPerm[0],
+                composition=self.ZPerm[0],
+                pressure=self.PPermCell[0],
                 temperature=self.T_per[0] if self.T_per is not None else None,
                 components=self.components,
-                permeability=self.permeability,
+                permeance=self.Permeance,
                 viscosity=self.viscosity,
                 molecularweight=self.molecularweight                
             )

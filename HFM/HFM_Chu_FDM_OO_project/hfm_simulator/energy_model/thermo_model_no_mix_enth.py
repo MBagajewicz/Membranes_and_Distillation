@@ -29,7 +29,7 @@ class ThermoModel:
       - Usa média molar ideal das entalpias de componentes puros
     """
 
-    def __init__(self, components, P_ret, p_per, x_ret, y_per, z_J):
+    def __init__(self, components, PRet, PPerm, ZRet, ZPerm, ZMemb):
 
         # List of components in the mixture
         # Lista de componentes na mistura
@@ -37,27 +37,27 @@ class ThermoModel:
 
         # Retentate pressure profile
         # Perfil de pressão do retentado
-        self.P_ret = np.asarray(P_ret)
+        self.PRet = np.asarray(PRet)
 
         # Permeate pressure profile
         # Perfil de pressão do permeado
-        self.p_per = np.asarray(p_per)
+        self.PPerm = np.asarray(PPerm)
 
         # Retentate composition profile
         # Perfil de composição do retentado
-        self.x_ret = np.asarray(x_ret)
+        self.ZRet = np.asarray(ZRet)
 
         # Permeate composition profile
         # Perfil de composição do permeado
-        self.y_per = np.asarray(y_per)
+        self.ZPerm = np.asarray(ZPerm)
 
         # Composition of the membrane permeation flux
         # Composição do fluxo que atravessa a membrana
-        self.z_J = np.asarray(z_J)
+        self.ZMemb = np.asarray(ZMemb)
 
         # Number of axial segments
         # Número de segmentos axiais
-        self.N = len(P_ret) - 1
+        self.NCells = len(PRet) - 1
 
         # --------------------------------------------------
         # 🔒 Composition fix at permeate outlet (k = N)
@@ -71,7 +71,7 @@ class ThermoModel:
         # Na saída do módulo o fluxo do permeado tende a zero,
         # então a composição fica numericamente indefinida.
         # Copiamos a composição do nó anterior para evitar problemas numéricos.
-        self.y_per[self.N] = self.y_per[self.N - 1]
+        self.ZPerm[self.NCells] = self.ZPerm[self.NCells - 1]
 
         # --------------------------------------------------
         # Pure-component states (NO mixtures)
@@ -86,7 +86,7 @@ class ThermoModel:
 
             # Create CoolProp thermodynamic state using Peng-Robinson EOS
             # Cria estado termodinâmico no CoolProp usando equação de estado Peng-Robinson
-            st = AbstractState("PR", comp)
+            st = AbstractState("HEOS", comp)
 
             # Store state object
             # Armazena objeto de estado
@@ -163,21 +163,21 @@ class ThermoModel:
 
         # Compute retentate enthalpy at node k
         # Calcula entalpia do retentado no nó k
-        return self._h_mix_ideal(self.P_ret[k], T, self.x_ret[k])
+        return self._h_mix_ideal(self.PRet[k], T, self.ZRet[k])
 
 
     def get_h_per(self, k, T):
 
         # Compute permeate enthalpy at node k
         # Calcula entalpia do permeado no nó k
-        return self._h_mix_ideal(self.p_per[k], T, self.y_per[k])
+        return self._h_mix_ideal(self.PPerm[k], T, self.ZPerm[k])
     
 
     def get_h_J(self, k, T):
 
         # Compute enthalpy of permeating flux
         # Calcula entalpia do fluxo que atravessa a membrana
-        return self._h_mix_ideal(self.P_ret[k], T, self.z_J[k])
+        return self._h_mix_ideal(self.PRet[k], T, self.ZMemb[k])
     
 
     # ----------------------------
@@ -190,8 +190,8 @@ class ThermoModel:
 
         # Pressure and composition at node k
         # Pressão e composição no nó k
-        P = self.P_ret[k]
-        x = self.x_ret[k]
+        P = self.PRet[k]
+        x = self.ZRet[k]
 
         # Initialize temperature guess
         # Inicializa estimativa de temperatura
@@ -272,8 +272,8 @@ class ThermoModel:
 
         # Pressure and composition
         # Pressão e composição
-        P = self.p_per[k]
-        x = self.y_per[k]
+        P = self.PPerm[k]
+        x = self.ZPerm[k]
 
         if T_guess is None:
             T = 0.5 * (T_min + T_max)
@@ -321,3 +321,139 @@ class ThermoModel:
         raise RuntimeError(
             f"T(h) inversion failed (ideal mix) at k={k}, h={h_target}"
         )
+
+    # ==========================================================
+    # TRANSPORT / THERMAL PROPERTIES
+    # ==========================================================
+    def _get_transport_props(self, P, T, x):
+
+        rho_mass = 0
+        rho_molar = 0
+        mu = 0
+        k = 0
+        cp_mass = 0
+        cp_molar = 0
+        MW = 0
+
+        for xi, comp in zip(x, self.components):
+
+            # Skip components with zero mole fraction
+            # Ignora componentes com fração molar zero
+            if xi == 0.0:
+                continue
+
+            st = self.states_pure[comp]
+
+            # Update thermodynamic state
+            # Atualiza estado termodinâmico
+            st.update(CoolProp.PT_INPUTS, P, T)
+
+            # Add weighted heat capacity
+            # Soma capacidade calorífica ponderada
+            rho_mass += xi * st.cpmolar()
+            rho_molar += xi * st.rhomolar()
+            mu += xi * st.viscosity()
+            k += xi * st.conductivity()
+            cp_mass += xi * st.cpmass()
+            cp_molar += xi * st.cpmolar()
+            MW += xi * st.molar_mass()
+
+        return {
+            "rho_mass": rho_mass,       # kg/m3
+            "rho_molar": rho_molar,     # mol/m3
+            "mu": mu,           # Pa.s
+            "k": k,         # W/m/K
+            "cp_mass": cp_mass,         # J/kg/K
+            "cp_molar": cp_molar,       # J/mol/K
+            "MW": MW,          # kg/mol
+        }
+
+    def get_transport_ret(self, k, T):
+        return self._get_transport_props(self.PRet[k], T, self.ZRet[k])
+
+    def get_transport_per(self, k, T):
+        return self._get_transport_props(self.PPerm[k], T, self.ZPerm[k])
+
+    def _uo_b7(self, k, T_ret_k, T_per_km1, FPerm, FRet, geom, support_porosity=0.5, k_polymer=0.2):
+        """
+        Overall heat transfer coefficient based on outer area
+        using Coker (1999), Appendix B, form B7.
+        """
+
+
+        # geometria
+        Ri = 0.5 * geom.DiamFiber_i
+        Rext = 0.5 * geom.DiamFiber_o
+
+        # propriedades locais via CoolProp
+        ret = self.get_transport_ret(k, T_ret_k)
+        per = self.get_transport_per(k - 1, T_per_km1)
+
+        # bore side (permeado)
+        k_g_b = per["k"]
+        mu_b = per["mu"]
+        cp_b = per["cp_mass"]
+        MW_b = per["MW"]
+        rho_b = per["rho_mass"]
+
+        # shell side (retentado)
+        k_g_s = ret["k"]
+        mu_s = ret["mu"]
+        cp_s = ret["cp_mass"]
+        MW_s = ret["MW"]
+        rho_s = ret["rho_mass"]
+
+        # vazões mássicas locais
+        mdot_b = max(FPerm[k - 1], 0.0) * MW_b
+        mdot_s = max(FRet[k], 0.0) * MW_s
+
+        # ----------------------------------
+        # B2: bore-side heat transfer
+        # ----------------------------------
+        A_bore = geom.NFibers * np.pi * Ri**2
+        vb = mdot_b / max(rho_b * A_bore, 1e-30)
+
+        Re_b = rho_b * vb * (2.0 * Ri) / max(mu_b, 1e-30)
+        Pr_b = cp_b * mu_b / max(k_g_b, 1e-30)
+
+        h_b = 3.66 * k_g_b / (2.0 * Ri)
+
+        # ----------------------------------
+        # B3: porous support conductivity
+        # ----------------------------------
+        f_p = 1.0 - support_porosity
+        k_supp = f_p * k_polymer + (1.0 - f_p) * k_g_b
+
+        # ----------------------------------
+        # B6: shell-side heat transfer
+        # ----------------------------------
+        A_shell_open = (np.pi / 4.0) * (
+            geom.DiamShell**2
+            - geom.NFibers * geom.DiamFiber_o**2
+        )
+        A_shell_open = max(A_shell_open, 1e-30)
+
+        # v_s = mdot_s / max(rho_s * A_shell_open, 1e-30)
+        Gs = mdot_s / A_shell_open
+
+        D_h = (geom.DiamShell**2 - geom.NFibers * geom.DiamFiber_o**2) / (geom.DiamShell + geom.NFibers * geom.DiamFiber_o) #todo: revisar Dh
+
+        Re_s = Gs * D_h / max(mu_s, 1e-30)
+        Pr_s = cp_s * mu_s / max(k_g_s, 1e-30)
+
+        h_s = (k_g_s / (2.0 * Rext)) * (
+            3.66 + 1.077 * (Re_s * Pr_s * (Rext / max(D_h, 1e-30)))**(1.0 / 3.0)
+        )
+
+        # ----------------------------------
+        # B7
+        # ----------------------------------
+
+        inv_uo = (
+                (Rext / Ri)/max(h_b, 1e-30)
+            + (Rext / max(k_supp, 1e-30)) * np.log(Rext / Ri)
+            + 1.0 / max(h_s, 1e-30)
+                )
+
+        uo = 1.0 / max(inv_uo, 1e-30)
+        return uo

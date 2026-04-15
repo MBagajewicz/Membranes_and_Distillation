@@ -90,10 +90,10 @@ class EnergyPostProcessor:
         filename,
         case_name,
         components,
-        F, x_ret, h_ret, h_ret_mix,
-        G, y_per, h_per, h_per_mix,
-        J, J_comp, z_J, h_J,
-        P, p, T_ret, T_per,
+        FRet, ZRet, hRet, hRet_mix,
+        FPerm, ZPerm, hPerm, hPerm_mix,
+        FMemb, FMemb_comp, ZMemb, hMemb,
+        PRetCell, PPermCell, T_ret, T_per,
         UA
     ):
 
@@ -103,7 +103,7 @@ class EnergyPostProcessor:
 
         # Number of axial nodes
         # Número de nós axiais
-        N = len(F) - 1
+        N = len(FRet) - 1
 
         # Create Excel workbook
         # Cria arquivo Excel
@@ -144,50 +144,50 @@ class EnergyPostProcessor:
         # Add retentate component flows
         # Adiciona vazões molares por componente no retentado
         for i in range(n_comp):
-            header.append(f"F_{i}")
+            header.append(f"FRet_{i}")
 
         # Add retentate compositions
         # Adiciona composições do retentado
         for i in range(n_comp):
-            header.append(f"x_ret[{i}]")
+            header.append(f"ZRet[{i}]")
 
         # Add retentate pressure and enthalpy
         # Adiciona pressão e entalpia do retentado
-        header.append("P_ret")
-        header.append("h_ret")
+        header.append("PRet")
+        header.append("hRet")
 
         # Add total permeate flow
         # Adiciona vazão total do permeado
-        header.append("G_tot")
+        header.append("FPerm_tot")
 
         # Add permeate component flows
         # Adiciona vazões molares por componente no permeado
         for i in range(n_comp):
-            header.append(f"G_{i}")
+            header.append(f"FPerm_{i}")
 
         # Add permeate compositions
         # Adiciona composições do permeado
         for i in range(n_comp):
-            header.append(f"y_per[{i}]")
+            header.append(f"ZPerm[{i}]")
 
         # Add permeate pressure and enthalpy
         # Adiciona pressão e entalpia do permeado
-        header.append("p_per")
-        header.append("h_per")
+        header.append("PPerm")
+        header.append("hPerm")
 
         # Add membrane total flux
         # Adiciona fluxo total da membrana
-        header.append("J_tot")
+        header.append("FMemb_tot")
 
         # Add membrane component flux
         # Adiciona fluxo por componente da membrana
         for i in range(n_comp):
-            header.append(f"J_{i}")
+            header.append(f"FMemb_{i}")
 
         # Add membrane composition
         # Adiciona composição do fluxo da membrana
         for i in range(n_comp):
-            header.append(f"z_J[{i}]")
+            header.append(f"ZMemb[{i}]")
 
         # Additional thermodynamic variables
         # Variáveis termodinâmicas adicionais
@@ -213,55 +213,55 @@ class EnergyPostProcessor:
 
             # Start row with axial node index and total retentate flow
             # Inicia linha com índice axial e vazão total do retentado
-            row = [k, float(F[k])]
+            row = [k, float(FRet[k])]
 
             # Retentate component flows
             # Vazões por componente no retentado
             for i in range(n_comp):
-                row.append(float(F[k] * x_ret[k, i]))
+                row.append(float(FRet[k] * ZRet[k, i]))
 
             # Retentate compositions
             # Composições do retentado
             for i in range(n_comp):
-                row.append(float(x_ret[k, i]))
+                row.append(float(ZRet[k, i]))
 
             # Retentate pressure and enthalpy
             # Pressão e entalpia do retentado
-            row.append(float(P[k]))
-            row.append(float(h_ret[k]))
+            row.append(float(PRetCell[k]))
+            row.append(float(hRet[k]))
 
             # Total permeate flow
             # Vazão total do permeado
-            row.append(float(G[k]))
+            row.append(float(FPerm[k]))
 
             # Permeate component flows
             # Vazões por componente no permeado
             for i in range(n_comp):
-                row.append(float(G[k] * y_per[k, i]))
+                row.append(float(FPerm[k] * ZPerm[k, i]))
 
             # Permeate compositions
             # Composições do permeado
             for i in range(n_comp):
-                row.append(float(y_per[k, i]))
+                row.append(float(ZPerm[k, i]))
 
             # Permeate pressure and enthalpy
             # Pressão e entalpia do permeado
-            row.append(float(p[k]))
-            row.append(float(h_per[k]))
+            row.append(float(PPermCell[k]))
+            row.append(float(hPerm[k]))
 
             # Total membrane flux
             # Fluxo total da membrana
-            row.append(float(J[k]))
+            row.append(float(FMemb[k]))
 
             # Membrane component flux
             # Fluxo por componente na membrana
             for i in range(n_comp):
-                row.append(float(J_comp[k, i]))
+                row.append(float(FMemb_comp[k, i]))
 
             # Membrane composition
             # Composição do fluxo da membrana
             for i in range(n_comp):
-                row.append(float(z_J[k, i]))
+                row.append(float(ZMemb[k, i]))
 
             # Heat conduction between streams
             # Condução de calor entre correntes
@@ -272,9 +272,9 @@ class EnergyPostProcessor:
 
             # Compute dew point temperatures
             # Calcula temperaturas de ponto de orvalho
-            Tdew_ret = self.dew_point(P[k], x_ret[k])
-            Tdew_per = self.dew_point(p[k], y_per[k])
-            Tdew_mem = self.dew_point(P[k], z_J[k])
+            Tdew_ret = self.dew_point(PRetCell[k], ZRet[k])
+            Tdew_per = self.dew_point(PPermCell[k], ZPerm[k])
+            Tdew_mem = self.dew_point(PRetCell[k], ZMemb[k])
 
             # Append thermodynamic variables
             # Adiciona variáveis termodinâmicas

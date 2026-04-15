@@ -14,7 +14,7 @@ class Stream:
         pressure,
         temperature,
         components,
-        permeability,
+        permeance,
         viscosity,
         molecularweight
     ):
@@ -39,9 +39,9 @@ class Stream:
         # PT-BR: Lista de componentes (ordem deve coincidir com composição)
         self.components = list(components)
 
-        # EN: Permeability of each component [mol/(m2 Pa s)]
+        # EN: permeance of each component [mol/(m2 Pa s)]
         # PT-BR: Permeabilidade de cada componente
-        self.permeability = permeability
+        self.permeance = permeance
 
         # EN: Dynamic viscosity of each component [Pa·s]
         # PT-BR: Viscosidade dinâmica de cada componente [Pa·s]
@@ -95,7 +95,7 @@ class Stream:
         print("pressure [Pa]:", self.pressure)
         print("temperature [K]:", self.temperature)
 
-        print("permeability [mol/(m2 Pa s)]:", self.permeability)
+        print("permeance [mol/(m2 Pa s)]:", self.permeance)
         print("viscosity [Pa s]:", self.viscosity)
         print("molecular weight [kg/mol]:", self.molecularweight)        
 

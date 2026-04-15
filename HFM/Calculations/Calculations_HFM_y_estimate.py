@@ -24,24 +24,6 @@ def estimate_y_pc_multicomponent(
     tol: float = 1e-10,
     max_iter: int = 2000,
 ):
-    """
-    Estima a composição no lado fechado das fibras (y_pc) para mistura multicomponente,
-    contracorrente com alimentação no casco, via ponto-fixo:
-
-        y = J / sum(J)
-        J_i = Q_i * max( (x_r_min_i - delta*y_i) , 1e-16)
-
-    Args
-    ----
-    Q      : permeâncias/permeation constants (shape: [Nc]) (>=0)
-    delta  : razão de pressões totais Pp/Pf (0 < delta < 1 tipicamente)
-    tol    : tolerância em norma infinito
-    max_iter: máximo de iterações
-
-    Returns
-    -------
-    y_pc : np.ndarray shape [Nc], sum=1, y_pc>=0
-    """
 
     Q = np.asarray(Q, dtype=float).copy()
 
@@ -83,8 +65,3 @@ def estimate_y_pc_multicomponent(
         y = y_next
 
     return y  # Retornar o melhor encontrado ao fim das iterações
-
-if __name__ == '__main__':
-    Q = np.array([3.207e-9, 1.33e-10, 3.968e-10])
-    delta = 1/15
-    print(estimate_y_pc_multicomponent(Q, delta))

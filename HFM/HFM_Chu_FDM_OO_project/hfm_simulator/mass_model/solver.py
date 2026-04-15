@@ -54,7 +54,7 @@ class HFMSolver:
         self.module = module
 
 
-    def solve(self, x0, tol=1e-9, maxfev=20000, verbose=False):
+    def solve(self, x0, tol=1e-9, maxfev=20000, verbose=True):
         """
         Solves the nonlinear system using least squares
         with positivity constraints.
@@ -83,7 +83,9 @@ class HFMSolver:
 
         # Build sparsity pattern of the Jacobian matrix
         # Constrói a estrutura esparsa do Jacobiano
-        S = self.module.build_jac_sparsity()
+        Spa_Mat = self.module.build_jac_sparsity()
+
+        jac_fun = self.module.jacobian if hasattr(self.module, "jacobian") else '2-point'
 
         # Call SciPy nonlinear least squares solver
         # Chama o solver de mínimos quadrados não lineares do SciPy
@@ -99,11 +101,12 @@ class HFMSolver:
 
             # Finite-difference Jacobian approximation
             # Aproximação do Jacobiano por diferenças finitas
-            jac='2-point',
+            # jac='2-point',
+            jac=jac_fun,
 
             # Provide sparsity pattern to accelerate computation
             # Fornece estrutura esparsa para acelerar o cálculo
-            jac_sparsity=S,
+            jac_sparsity=Spa_Mat,
 
             # Trust-region reflective algorithm
             # Algoritmo trust-region reflective
@@ -112,6 +115,11 @@ class HFMSolver:
             # Linear solver used internally
             # Solver linear usado internamente
             tr_solver='lsmr',
+            # tr_options={'atol': 1e-3, 'btol': 1e-3, 'maxiter': 50},
+            # workers=-1,  # se sua versão suportar
+            # ftol=1e-6,
+            # xtol=1e-6,
+            # gtol=1e-6,
 
             # Scale variables using Jacobian magnitude
             # Escala variáveis usando magnitude do Jacobiano

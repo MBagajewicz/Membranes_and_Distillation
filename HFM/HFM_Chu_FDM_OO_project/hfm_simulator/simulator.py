@@ -11,7 +11,7 @@ from .mass_model.solver import HFMSolver
 # PT-BR: Importa componentes do modelo de energia
 from .energy_model.energy_module import EnergyModule
 from .energy_model.energy_solver import EnergySolver
-from .energy_model.thermo_model_no_mix_enth import ThermoModel
+
 
 # EN: Import results container
 # PT-BR: Importa objeto de resultados
@@ -36,7 +36,7 @@ class HFMSimulator:
 
         # EN: Number of discretization segments
         # PT-BR: Número de segmentos de discretização
-        self.segments = 50
+        self.NCells = 50
 
         # EN: Global heat transfer coefficient [W/(m2 K)]
         # PT-BR: Coeficiente global de transferência de calor
@@ -53,6 +53,13 @@ class HFMSimulator:
         # EN: Mixture properties model
         # PT-BR: Modelo de propriedades da mistura
         self.properties = None
+
+        # EN: Enthalpy Calculation Method
+        # PT-BR: Método de Cálculo da Entalpia
+        # Mix = real mixture enthalpy from Peng–Robinson EOS 
+        # NoMix = ideal/averaged enthalpy assumption
+        self.enthalpy_method = 'Mix'
+
 
 
     # ---------------------------------------
@@ -126,27 +133,27 @@ class HFMSimulator:
         # EN: Extract data from feed
         # PT-BR: Extrai dados da alimentação
         components = feed.components
-        F_feed_total = feed.flow
-        x_feed = feed.composition
+        FFeed_total = feed.flow
+        ZFeed = feed.composition
 
         # EN: Convert total flow to component flow
         # PT-BR: Converte vazão total em vazão por componente
-        F_feed = F_feed_total * np.array(x_feed)
+        FFeed = FFeed_total * np.array(ZFeed)
 
-        P_feed = feed.pressure
+        PFeed = feed.pressure
         T = feed.temperature
 
         props = self.properties
 
-        # EN: Permeability comes from feed (design choice)
+        # EN: permeance comes from feed (design choice)
         # PT-BR: Permeabilidade vem da alimentação (decisão de design)
-        J_vals = feed.permeability
+        Permeance = feed.permeance
 
-        n_comp = len(J_vals)
+        n_comp = len(Permeance)
 
         # EN: Permeate pressure from scenario
         # PT-BR: Pressão do permeado do cenário
-        P_perm = p["P_p"]
+        PPerm = p["PPerm"]
 
         # EN: Gas constant
         # PT-BR: Constante dos gases
@@ -159,15 +166,15 @@ class HFMSimulator:
         # ------------------------------------------------
 
         geom = Geometry(
-            L=p["L"],
-            D_shell=p["D"],
-            D_o=p["D_o"],
-            D_i=p["D_i"],
-            N_fibers=(1 - p["Void_Frac"]) * (p["D"]**2) / (p["D_o"]**2),
-            N_segments=self.segments
+            LHidraulic=float(p["LHidraulic"]),
+            DiamShell=float(p["DiamShell"]),
+            DiamFiber_o=float(p["DiamFiber_o"]),
+            DiamFiber_i=float(p["DiamFiber_i"]),
+            NFibers=int((1 - p["Void_Frac"]) * (p["DiamShell"]**2) / (p["DiamFiber_o"]**2)),
+            NCells=self.NCells
         )
 
-        N = geom.N
+        NCells = geom.NCells
         width = 2 * n_comp + 2
 
 
@@ -181,26 +188,26 @@ class HFMSimulator:
             # EN: Hydraulic correlations for pressure drop
             # PT-BR: Correlações hidráulicas para queda de pressão
             K_shell = (
-                192 * geom.N_fibers * geom.D_o *
-                (geom.D_shell + geom.N_fibers * geom.D_o)
+                192 * geom.NFibers * geom.DiamFiber_o *
+                (geom.DiamShell + geom.NFibers * geom.DiamFiber_o)
             ) / (
-                np.pi * (geom.D_shell**2 - geom.N_fibers * geom.D_o**2)**3
+                np.pi * (geom.DiamShell**2 - geom.NFibers * geom.DiamFiber_o**2)**3
             )
 
-            K_bore = 128 / (np.pi * geom.D_i**4 * geom.N_fibers)
+            K_bore = 128 / (np.pi * geom.DiamFiber_i**4 * geom.NFibers)
 
             module = HFM_WithDP(
                 geometry=geom,
                 properties=props,
                 R=R,
                 T=T,
-                J=J_vals,
+                Permeance=Permeance,
                 K_shell=K_shell,
                 K_bore=K_bore,
                 n_comp=n_comp,
-                F_feed=F_feed,
-                P_feed=P_feed,
-                P_perm=P_perm
+                FFeed=FFeed,
+                PFeed=PFeed,
+                PPerm=PPerm
             )
 
         else:
@@ -210,11 +217,11 @@ class HFMSimulator:
                 properties=props,
                 R=R,
                 T=T,
-                J=J_vals,
+                Permeance=Permeance,
                 n_comp=n_comp,
-                F_feed=F_feed,
-                P_feed=P_feed,
-                P_perm=P_perm
+                FFeed=FFeed,
+                PFeed=PFeed,
+                PPerm=PPerm
             )
 
 
@@ -223,16 +230,16 @@ class HFMSimulator:
         # Chute inicial
         # ------------------------------------------------
 
-        F_guess = np.zeros((N + 1, n_comp))
-        G_guess = np.zeros((N + 1, n_comp))
+        F_guess = np.zeros((NCells + 1, n_comp))
+        G_guess = np.zeros((NCells + 1, n_comp))
 
         for i in range(n_comp):
 
-            F_guess[:, i] = np.linspace(F_feed[i], F_feed[i]*0.8, N+1)
-            G_guess[:, i] = np.linspace(F_feed[i]*0.8, 1e-6, N+1)
+            F_guess[:, i] = np.linspace(FFeed[i], FFeed[i]*0.8, NCells+1)
+            G_guess[:, i] = np.linspace(FFeed[i]*0.8, 1e-6, NCells+1)
 
-        P_guess = np.linspace(P_feed, P_feed - 1e4, N+1)
-        p_guess = np.linspace(P_perm, P_perm + 1e4, N+1)
+        P_guess = np.linspace(PFeed, PFeed - 1e4, NCells+1)
+        p_guess = np.linspace(PPerm, PPerm + 1e4, NCells+1)
 
         x0 = np.hstack([
             F_guess,
@@ -251,7 +258,7 @@ class HFMSimulator:
 
         sol, info = solver.solve(x0)
 
-        sol_mat = sol.reshape((N+1, width))
+        sol_mat = sol.reshape((NCells+1, width))
 
 
         # ------------------------------------------------
@@ -259,11 +266,11 @@ class HFMSimulator:
         # Extrair resultados
         # ------------------------------------------------
 
-        F_fin = sol_mat[:, :n_comp]
-        G_fin = sol_mat[:, n_comp:2*n_comp]
+        FRet_fin = sol_mat[:, :n_comp]
+        FPerm_fin = sol_mat[:, n_comp:2*n_comp]
 
-        P_fin = sol_mat[:, 2*n_comp]
-        p_fin = sol_mat[:, 2*n_comp+1]
+        PRetCell_fin = sol_mat[:, 2*n_comp]
+        PPermCell = sol_mat[:, 2*n_comp+1]
 
 
         # ------------------------------------------------
@@ -271,17 +278,17 @@ class HFMSimulator:
         # Variáveis de corrente
         # ------------------------------------------------
 
-        F = F_fin.sum(axis=1)
-        G = G_fin.sum(axis=1)
+        FRet = FRet_fin.sum(axis=1)
+        FPerm = FPerm_fin.sum(axis=1)
 
-        X_R = F_fin / F[:, None]
+        ZRet = FRet_fin / FRet[:, None]
 
-        X_P = np.zeros_like(G_fin)
+        ZPerm = np.zeros_like(FPerm_fin)
 
-        for k in range(len(G)):
+        for k in range(len(FPerm)):
 
-            if G[k] > 1e-12:
-                X_P[k] = G_fin[k] / G[k]
+            if FPerm[k] > 1e-12:
+                ZPerm[k] = FPerm_fin[k] / FPerm[k]
 
 
         # ------------------------------------------------
@@ -289,19 +296,19 @@ class HFMSimulator:
         # Fluxos de membrana
         # ------------------------------------------------
 
-        J_comp = np.zeros((N+1, n_comp))
+        FMemb_comp = np.zeros((NCells+1, n_comp))
 
-        for k in range(1, N+1):
-            J_comp[k,:] = G_fin[k-1,:] - G_fin[k,:]
+        for k in range(1, NCells+1):
+            FMemb_comp[k,:] = FPerm_fin[k-1,:] - FPerm_fin[k,:]
 
-        J = J_comp.sum(axis=1)
+        FMemb = FMemb_comp.sum(axis=1)
 
-        Z_J = np.zeros((N+1, n_comp))
+        ZMemb = np.zeros((NCells+1, n_comp))
 
-        for k in range(1, N+1):
+        for k in range(1, NCells+1):
 
-            if J[k] > 1e-12:
-                Z_J[k] = J_comp[k] / J[k]
+            if FMemb[k] > 1e-12:
+                ZMemb[k] = FMemb_comp[k] / FMemb[k]
 
 
         # ------------------------------------------------
@@ -311,26 +318,26 @@ class HFMSimulator:
 
         results = SimulationResults()
 
-        results.N = N
-        results.z = np.linspace(0, geom.L, N+1)
+        results.NCells = NCells
+        results.z = np.linspace(0, geom.LHidraulic, NCells+1)
 
         results.components = components
         results.case_name = p.get("name", "case")
 
-        results.F = F
-        results.G = G
+        results.FRet = FRet
+        results.FPerm = FPerm
 
-        results.x_ret = X_R
-        results.y_per = X_P
+        results.ZRet = ZRet
+        results.ZPerm = ZPerm
 
-        results.P = P_fin
-        results.p = p_fin
+        results.PRetCell = PRetCell_fin
+        results.PPermCell = PPermCell
 
-        results.J = J
-        results.J_comp = J_comp
-        results.z_J = Z_J
+        results.FMemb = FMemb
+        results.FMemb_comp = FMemb_comp
+        results.ZMemb = ZMemb
 
-        results.permeability = feed.permeability
+        results.Permeance = feed.permeance
         results.viscosity = feed.viscosity
         results.molecularweight = feed.molecularweight
 
@@ -341,36 +348,53 @@ class HFMSimulator:
         # ------------------------------------------------
 
         if self.energy:
+            if self.enthalpy_method == 'Mix':
+                from .energy_model.thermo_model import ThermoModelWithMixture
+                thermo = ThermoModelWithMixture(
+                    components=components,
+                    PRet=PRetCell_fin,
+                    PPerm=PPermCell,
+                    ZRet=ZRet,
+                    ZPerm=ZPerm,
+                    ZMemb=ZMemb
+                )
+            else:
+                from .energy_model.thermo_model_no_mix_enth import ThermoModel
+                thermo = ThermoModel(
+                    components=components,
+                    PRet=PRetCell_fin,
+                    PPerm=PPermCell,
+                    ZRet=ZRet,
+                    ZPerm=ZPerm,
+                    ZMemb=ZMemb
+                )
 
-            thermo = ThermoModel(
-                components=components,
-                P_ret=P_fin,
-                p_per=p_fin,
-                x_ret=X_R,
-                y_per=X_P,
-                z_J=Z_J
-            )
 
-            UA = geom.AREA_SEG * np.ones(len(F)) * self.heat_transfer_coef
+
+            if self.heat_transfer_coef:
+                UA = geom.AREA_SEG * np.ones(len(FRet)) * self.heat_transfer_coef
+            else:
+                UA = None
 
             energy_module = EnergyModule(
-                F_ret=F,
-                G_per=G,
-                P_ret=P_fin,
-                P_per=p_fin,
-                x_ret=X_R,
-                y_per=X_P,
+                FRet=FRet,
+                FPer=FPerm,
+                PRet=PRetCell_fin,
+                PPerm=PPermCell,
+                ZRet=ZRet,
+                ZPerm=ZPerm,
                 thermo=thermo,
                 T_ret_in=T,
                 UA=UA,
-                J_per=J,
-                z_J=Z_J
+                FMemb=FMemb,
+                ZMemb=ZMemb,
+                geom = geom
             )
 
-            T_guess = np.zeros(2*(N+1))
+            T_guess = np.zeros(2*(NCells+1))
 
-            T_guess[:N+1] = np.linspace(T, T-0.1, N+1)
-            T_guess[N+1:] = np.linspace(T-2, T-2.1, N+1)
+            T_guess[:NCells+1] = np.linspace(T, T-0.1, NCells+1)
+            T_guess[NCells+1:] = np.linspace(T-2, T-2.1, NCells+1)
 
             energy_solver = EnergySolver(
                 energy_module,
@@ -382,11 +406,42 @@ class HFMSimulator:
             results.T_ret = energy_results["T_ret"]
             results.T_per = energy_results["T_per"]
 
-            results.h_ret = energy_results["h_ret"]
-            results.h_per = energy_results["h_per"]
-            results.h_J = energy_results["h_J"]
+            mdot_b = sum(max(FPerm[0], 0.0) * props.M)
+            A_bore = geom.NFibers * np.pi * (geom.DiamFiber_i/2) ** 2
+            rho_b = results.PPermCell[0] * sum(props.M * results.ZPerm[0])/ (R*results.T_per[0]) #M méd
+            vb = mdot_b / max(rho_b * A_bore, 1e-30)
+            Re_b = rho_b * vb * (2.0 * (geom.DiamFiber_i/2)) / sum(props.M * results.ZPerm[0])
+            print([vb,Re_b])
+            mdot_s = max(FRet[-1], 0.0) * props.M
 
-            results.UA = UA
 
+            results.hRet = energy_results["hRet"]
+            results.hPerm = energy_results["hPerm"]
+            results.hMemb = energy_results["hMemb"]
+
+            results.UA = energy_results["UA"]
+            results.U = energy_results["UA"]/geom.AREA_SEG
+        mdot_b = sum(max(FPerm[0], 0.0) * props.M)
+        A_bore = geom.NFibers * np.pi * (geom.DiamFiber_i / 2) ** 2
+        rho_b = results.PPermCell[0] * sum(props.M * results.ZPerm[0]) / (R * T)  # M méd
+        vb = mdot_b / max(rho_b * A_bore, 1e-30)
+        Re_b = rho_b * vb * (2.0 * (geom.DiamFiber_i / 2)) / (sum(props.M * results.ZPerm[0])*sum(props.MU* results.ZPerm[0]))
+        print('Bore outlet:',[vb, Re_b])
+
+        mdot_s = sum(FRet[0] * props.M)
+        A_shell_open = (np.pi / 4.0) * (
+                geom.DiamShell ** 2
+                - geom.NFibers * geom.DiamFiber_o ** 2
+        )
+        rho_s = results.PRetCell[0] * sum(props.M * results.ZRet[0]) / (R * T)  # M méd
+        v_s = mdot_s / (rho_s * A_shell_open)
+
+        Gs = mdot_s / A_shell_open
+
+        D_h = (geom.DiamShell ** 2 - geom.NFibers * geom.DiamFiber_o ** 2) / (
+                    geom.DiamShell + geom.NFibers * geom.DiamFiber_o)  # todo: revisar Dh
+
+        Re_s = Gs * D_h / max(sum(props.MU* results.ZRet[0]), 1e-30)
+        print('Shell inlet',[v_s, Re_s])
         return results
 

@@ -83,14 +83,15 @@ Model_HFM = {
 
     'Set_Trimming_Info': {
 
-        'Primordial_Set_Trimming_Constraints_List': ['LD_lb', 'LD_ub', 'esp_LB', 'esp_UB', 'max_recovery_proxy'],
+        # 'Primordial_Set_Trimming_Constraints_List': ['LD_lb', 'LD_ub', 'esp_LB', 'esp_UB', 'max_xret_proxy'],
+        'Primordial_Set_Trimming_Constraints_List': ['LD_LB_UB', 'esp_LB_UB'],
         # These are the Set_Trimming functions used for Initial Set Generation (they are applied to Primordial Set before
         # solver is called (e.g. Geometric Constraints, that do not depend on problem data)
         # Listed functions must be defined in Constraints_and_OF.py file
         # This entry is optional, if the list is empty, or if the entry is completely skipped, the Initial Set
         # will be the same as the Primordial Set
 
-        'Set_Trimming_Constraints_List': [],   # 'Dpr_max','Dpp_max'  these are proxy constraints
+        'Set_Trimming_Constraints_List': ['max_xret_proxy'],   # 'Dpr_max','Dpp_max'  these are proxy constraints
 
         #'Set_Trimming_Constraints_List': ['v_r_min','v_r_max','v_p_min','v_p_max','v_dti_min','v_dti_max','Re_r_min','Re_r_max','Re_p_min','Re_p_max','Dp_r_max','Dp_p_max'], 
         # Other constraints are proxy constraints
@@ -107,7 +108,7 @@ Model_HFM = {
 
     'Enumeration_Info': {
 
-        'Enumeration_Constraint_List': ['Recovery'],
+        'Enumeration_Constraint_List': ['Max_comp_ret_AND_Max_rec_perm'],
 
         'Lower_Bound_Equation': ['LB_HFM'],
 
@@ -121,7 +122,7 @@ if __name__ == '__main__':
     from itertools import product
 
     diametros = np.round(np.linspace(50, 300, 26) * 1e-6, 6)
-    espessuras = np.round(np.linspace(20, 150, 14) * 1e-6, 6)
+    espessuras = np.round(np.linspace(20, 150, 27) * 1e-6, 6)
 
     lista_strings = [
         f"({a},{b})"

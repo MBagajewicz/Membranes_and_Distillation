@@ -26,15 +26,15 @@ class MassPostProcessor:
         filename,
         case_name,
         components,
-        F,
-        x_ret,
-        G,
-        y_per,
-        J,
-        J_comp,
-        z_J,
-        P,
-        p
+        FRet,
+        ZRet,
+        FPerm,
+        ZPerm,
+        FMemb,
+        FMemb_Comp,
+        ZMemb,
+        PRetCell,
+        PPermCell
     ):
 
         # Number of components in the mixture
@@ -43,7 +43,7 @@ class MassPostProcessor:
 
         # Number of axial nodes (segments + inlet)
         # Número de nós axiais (segmentos + entrada)
-        N = len(F) - 1
+        N = len(FRet) - 1
 
         # Create Excel workbook
         # Cria um arquivo Excel
@@ -98,48 +98,48 @@ class MassPostProcessor:
         # Add retentate component flows
         # Adiciona vazões molares por componente no retentado
         for i in range(n_comp):
-            header.append(f"F_{i}")
+            header.append(f"FRet_{i}")
 
         # Add retentate compositions
         # Adiciona composições molares do retentado
         for i in range(n_comp):
-            header.append(f"x_ret[{i}]")
+            header.append(f"ZRet[{i}]")
 
         # Add retentate pressure column
         # Adiciona coluna de pressão do retentado
-        header.append("P_ret [Pa]")
+        header.append("PRet [Pa]")
 
         # Add total permeate flow
         # Adiciona vazão total do permeado
-        header.append("G_tot [mol/s]")
+        header.append("FPerm_tot [mol/s]")
 
         # Add permeate component flows
         # Adiciona vazões molares por componente no permeado
         for i in range(n_comp):
-            header.append(f"G_{i}")
+            header.append(f"FPerm_{i}")
 
         # Add permeate compositions
         # Adiciona composições molares do permeado
         for i in range(n_comp):
-            header.append(f"y_per[{i}]")
+            header.append(f"ZPerm[{i}]")
 
         # Add permeate pressure column
         # Adiciona coluna de pressão do permeado
-        header.append("p_per [Pa]")
+        header.append("PPerm [Pa]")
 
         # Add total membrane flux
         # Adiciona fluxo total através da membrana
-        header.append("J_tot [mol/s]")
+        header.append("FMemb_tot [mol/s]")
 
         # Add membrane flux per component
         # Adiciona fluxo da membrana por componente
         for i in range(n_comp):
-            header.append(f"J_{i}")
+            header.append(f"FMemb_{i}")
 
         # Add membrane composition
         # Adiciona composição do fluxo através da membrana
         for i in range(n_comp):
-            header.append(f"z_J[{i}]")
+            header.append(f"ZMemb[{i}]")
 
         # Write header row to Excel
         # Escreve o cabeçalho na planilha Excel
@@ -156,7 +156,7 @@ class MassPostProcessor:
 
             # Initialize row with node index and total retentate flow
             # Inicializa a linha com índice do nó e vazão total do retentado
-            row = [k, float(F[k])]
+            row = [k, float(FRet[k])]
 
             # ------------------------------
             # Retentate component flows
@@ -167,7 +167,7 @@ class MassPostProcessor:
 
                 # Compute component flow = total flow × composition
                 # Calcula vazão do componente = vazão total × composição
-                row.append(float(F[k] * x_ret[k, i]))
+                row.append(float(FRet[k] * ZRet[k, i]))
 
             # ------------------------------
             # Retentate compositions
@@ -175,15 +175,15 @@ class MassPostProcessor:
             # ------------------------------
 
             for i in range(n_comp):
-                row.append(float(x_ret[k, i]))
+                row.append(float(ZRet[k, i]))
 
             # Add retentate pressure
             # Adiciona pressão do retentado
-            row.append(float(P[k]))
+            row.append(float(PRetCell[k]))
 
             # Add total permeate flow
             # Adiciona vazão total do permeado
-            row.append(float(G[k]))
+            row.append(float(FPerm[k]))
 
             # ------------------------------
             # Permeate component flows
@@ -194,7 +194,7 @@ class MassPostProcessor:
 
                 # Component permeate flow = total permeate × composition
                 # Vazão do componente no permeado = vazão total × composição
-                row.append(float(G[k] * y_per[k, i]))
+                row.append(float(FPerm[k] * ZPerm[k, i]))
 
             # ------------------------------
             # Permeate compositions
@@ -202,15 +202,15 @@ class MassPostProcessor:
             # ------------------------------
 
             for i in range(n_comp):
-                row.append(float(y_per[k, i]))
+                row.append(float(ZPerm[k, i]))
 
             # Add permeate pressure
             # Adiciona pressão do permeado
-            row.append(float(p[k]))
+            row.append(float(PPermCell[k]))
 
             # Add total membrane flux
             # Adiciona fluxo total através da membrana
-            row.append(float(J[k]))
+            row.append(float(FMemb[k]))
 
             # ------------------------------
             # Membrane flux per component
@@ -218,7 +218,7 @@ class MassPostProcessor:
             # ------------------------------
 
             for i in range(n_comp):
-                row.append(float(J_comp[k, i]))
+                row.append(float(FMemb_Comp[k, i]))
 
             # ------------------------------
             # Membrane composition
@@ -226,7 +226,7 @@ class MassPostProcessor:
             # ------------------------------
 
             for i in range(n_comp):
-                row.append(float(z_J[k, i]))
+                row.append(float(ZMemb[k, i]))
 
             # Write row to Excel
             # Escreve a linha na planilha Excel

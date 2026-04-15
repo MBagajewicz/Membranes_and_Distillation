@@ -47,28 +47,21 @@ Calculations_HFM_y_estimate
 #     fun_val = dfi-dfo + 1e-6 # +1e-6 to remove equal diameters
 #     return fun_val
 
-def LD_lb(L,D,dfo_esp,Void_Frac,m_p):
+def LD_LB_UB(L,D,dfo_esp,Void_Frac,m_p):
     # Lower bound on L/Ds
     L = L.astype(np.float64)
     D = D.astype(np.float64)
 
-    fun_val = m_p['LDLB'] - L / D
-    return fun_val
-
-def LD_ub(L,D,dfo_esp,Void_Frac,m_p):
-    # Upper bound on L/Ds
-    L = L.astype(np.float64)
-    D = D.astype(np.float64)
-
-    fun_val = L/D -m_p['LDUB']
-    return fun_val
+    fun_val_lb = m_p['LDLB'] - L / D
+    fun_val_up = L/D -m_p['LDUB']
+    return np.array([fun_val_lb, fun_val_up])
 
 # def HFM_shell_velocity(L,D,dfo_esp,Void_Frac,m_p): #todo
 #     Ntf = Calculations_HFM_Nf.Number_of_fibers(D,dfo,Void_Frac)
 #     vel_s = Calculations_HFM_Velocity_Shell(molar_flow_shell, comp_shell, M, rho, D, dfo, Ntf)
 #     return vel_s
 
-def max_recovery_proxy(L,D,dfo_esp,Void_Frac,m_p):
+def max_xret_proxy(L,D,dfo_esp,Void_Frac,m_p):
     L = L.astype(np.float64)
     D = D.astype(np.float64)
     Void_Frac = Void_Frac.astype(np.float64)
@@ -85,31 +78,22 @@ def max_recovery_proxy(L,D,dfo_esp,Void_Frac,m_p):
                                                                      F_f=m_p['f_total'],x_feed=m_p['comp_f'],Key_Comp_index=Key_Comp_index)
 
     max_transfer = m_p['Q'][:, None] * Area * (m_p['P_Feed'] * x_feed - m_p['P_Permeate'] * y_end.T)
-
-    fun_val = m_p['REC_MIN_PROXY'] - (max_transfer/m_p['U_Feed_Target'][:, None])[Key_Comp_index,:]
+    x_r = (m_p['f_total']*x_feed-max_transfer)/(m_p['f_total']-max_transfer)
+    # fun_val = m_p['REC_MIN_PROXY'] - (max_transfer/m_p['U_Feed_Target'][:, None])[Key_Comp_index,:]
+    fun_val = x_r[Key_Comp_index,:] - m_p['X_RET_KEY_MAX_PROXY']
     return fun_val
 
-def esp_LB(L,D,dfo_esp,Void_Frac,m_p):
-    # Upper bound on L/Ds
+def esp_LB_UB(L,D,dfo_esp,Void_Frac,m_p):
+    # Lower and Upper bounds on L/Ds
     dfo_esp_list = [ast.literal_eval(t) for t in dfo_esp]
     dfo = np.array([t[0] for t in dfo_esp_list], dtype=np.float64)
     esp = np.array([t[1] for t in dfo_esp_list], dtype=np.float64)
 
     esp_min = Calculations_HFM_Min_Thickness.Min_Thickness(m_p['P_Feed'], m_p['P_Permeate'], dfo, m_p['E'], m_p['sigma_y'], m_p['nu'], m_p['degradation_factor'], m_p['safety_factor'])
-    fun_val = esp_min - esp
-    return fun_val
-
-def esp_UB(L,D,dfo_esp,Void_Frac,m_p):
-    # Upper bound on L/Ds
-    dfo_esp_list = [ast.literal_eval(t) for t in dfo_esp]
-    dfo = np.array([t[0] for t in dfo_esp_list], dtype=np.float64)
-    esp = np.array([t[1] for t in dfo_esp_list], dtype=np.float64)
-
-    esp_min = Calculations_HFM_Min_Thickness.Min_Thickness(m_p['P_Feed'], m_p['P_Permeate'], dfo, m_p['E'], m_p['sigma_y'], m_p['nu'], m_p['degradation_factor'], m_p['safety_factor'])
-    fun_val = - 5e-6 - (esp_min - (esp)) # a menor diferença entre uma espessura e a próxima é 5e-6
-    # 0 <- (dfo - dfi - esp_min) <= 10e-6
-    # print(esp_min)
-    return fun_val
+    fun_val_lb = esp_min - esp
+    fun_val_up = - (esp_min - (esp)) - 0.05 * esp_min
+    # 0 <- (rfo - rfi - esp_min) <= 0.05*esp_min
+    return np.array([fun_val_lb, fun_val_up])
 ######################################################################################################################
 
 # region LB function
@@ -118,7 +102,7 @@ def esp_UB(L,D,dfo_esp,Void_Frac,m_p):
 # Lower Bound Function
 # --------------------------------------------------------------------------------------------------------------------
 
-def Recovery(L,D,dfo_esp,Void_Frac,m_p):
+def Max_comp_ret_AND_Max_rec_perm(L,D,dfo_esp,Void_Frac,m_p):
     # Lower bound on recovery
     # N_partitions = m_p['N_Partitions']
     # Dz = L / N_partitions
@@ -128,7 +112,7 @@ def Recovery(L,D,dfo_esp,Void_Frac,m_p):
     dfo_esp_list = [ast.literal_eval(t) for t in dfo_esp]
     dfo = np.array([t[0] for t in dfo_esp_list], dtype=np.float64)
     esp = np.array([t[1] for t in dfo_esp_list], dtype=np.float64)
-    dfi = dfo - esp
+    dfi = dfo - 2*esp
 
     Ntf = Calculations_HFM_Nf.Number_of_fibers(D,dfo,Void_Frac)
     # Key_Comp_index = m_p['COMPONENTS'].index(m_p['KEY_COMPONENT_RECOVERY'])

@@ -48,7 +48,7 @@ class EnergySolver:
 
         # Build sparsity structure of the Jacobian matrix
         # Constrói a estrutura esparsa do Jacobiano
-        S = self.module.build_jac_sparsity()
+        Spa_Mat = self.module.build_jac_sparsity()
 
         # Solve nonlinear system using SciPy least-squares solver
         # Resolve o sistema não linear usando o solver least-squares do SciPy
@@ -76,7 +76,7 @@ class EnergySolver:
 
             # Sparse Jacobian structure
             # Estrutura esparsa do Jacobiano
-            jac_sparsity=S,
+            jac_sparsity=Spa_Mat,
 
             # Solver tolerances
             # Tolerâncias do solver
@@ -98,7 +98,7 @@ class EnergySolver:
 
         # Print computation time
         # Imprime tempo de computação
-        # print(f"Computation time energy balance: {elapsed:.2f} s")
+        print(f"Computation time energy balance: {elapsed:.2f} s")
 
         # Check if solver converged successfully
         # Verifica se o solver convergiu corretamente
@@ -110,15 +110,15 @@ class EnergySolver:
 
         # Number of axial segments
         # Número de segmentos axiais
-        N = self.module.N
+        NCells = self.module.NCells
 
         # Extract retentate temperature profile from solution vector
         # Extrai perfil de temperatura do retentado do vetor solução
-        T_ret = result.x[:N+1]
+        T_ret = result.x[:NCells+1]
 
         # Extract permeate temperature profile
         # Extrai perfil de temperatura do permeado
-        T_per = result.x[N+1:]
+        T_per = result.x[NCells+1:]
 
         # ----------------------------------------
         # Compute enthalpies
@@ -127,33 +127,36 @@ class EnergySolver:
 
         # Initialize arrays for enthalpies
         # Inicializa vetores de entalpia
-        h_ret = np.zeros(N+1)
-        h_per = np.zeros(N+1)
-        h_J   = np.zeros(N+1)
+        hRet = np.zeros(NCells+1)
+        hPerm = np.zeros(NCells+1)
+        hMemb   = np.zeros(NCells+1)
+        UA = np.zeros(NCells + 1)
 
         # Loop over all nodes
         # Loop sobre todos os nós
-        for k in range(N+1):
+        for k in range(NCells+1):
 
             # Retentate enthalpy at node k
             # Entalpia do retentado no nó k
-            h_ret[k] = self.thermo.get_h_ret(k, T_ret[k])
+            hRet[k] = self.thermo.get_h_ret(k, T_ret[k])
 
             # Permeate enthalpy at node k
             # Entalpia do permeado no nó k
-            h_per[k] = self.thermo.get_h_per(k, T_per[k])
+            hPerm[k] = self.thermo.get_h_per(k, T_per[k])
 
             # Enthalpy of the permeating stream (membrane flux)
             # Entalpia do fluxo que atravessa a membrana
             if k > 0:
-                h_J[k] = self.thermo.get_h_J(k, T_ret[k])
+                hMemb[k] = self.thermo.get_h_J(k, T_ret[k])
+                UA[k] = self.module.geom.AREA_SEG * self.thermo._uo_b7(k, T_ret[k], T_per[k-1], self.module.FPerm, self.module.FRet, self.module.geom)
 
         # Return results as dictionary
         # Retorna resultados em formato de dicionário
         return {
             "T_ret": T_ret,
             "T_per": T_per,
-            "h_ret": h_ret,
-            "h_per": h_per,
-            "h_J": h_J
+            "hRet": hRet,
+            "hPerm": hPerm,
+            "hMemb": hMemb,
+            "UA": UA
         }

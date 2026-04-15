@@ -9,7 +9,7 @@ from properties_examples.Mixture_Properties import MixtureProperties # You mut c
 def main():
     # EN: True if you want to print results
     # PT-BR: True se deseja imprimir or resultados
-    print_results_screen = False
+    print_results_screen = True
     print_results_excel = False
 
     # --------------------------------------
@@ -71,11 +71,11 @@ def main():
         # components=["CO2", "Propane"]
 
 
-        # EN: Permeability of each component [mol/(m2 Pa s)]
+        # EN: permeance of each component [mol/(m2 Pa s)]
         # PT-BR: Permeabilidade de cada componente
-        permeability=s["permeability"],
+        permeance=scenario["S"]/scenario["t_mem"],
         # Example manual:
-        # permeability=np.array([6.8e-8, 7.7e-11])
+        # permeance=np.array([6.8e-8, 7.7e-11])
 
 
         # EN: Dynamic viscosity of each component [Pa·s]
@@ -119,8 +119,9 @@ def main():
 
     # EN: Activate/deactivate physics
     # PT-BR: Ativa/desativa física do modelo
-    sim.energy = True
-    sim.pressure_drop = True
+    sim.energy = scenario["EnergyBalance"]
+    sim.pressure_drop = scenario["PressureDrop"]
+    sim.enthalpy_method = scenario["EnthalpyMode"]
 
     # EN: Global heat transfer coefficient [W/(m2 K)]
     # PT-BR: Coeficiente global de transferência de calor
@@ -128,7 +129,7 @@ def main():
 
     # EN: Number of discretization segments
     # PT-BR: Número de segmentos de discretização
-    sim.segments = 50
+    sim.NCells = 50
 
     # EN: Assign inputs to simulator
     # PT-BR: Define entradas do simulador
@@ -156,24 +157,30 @@ def main():
     if print_results_screen:
         # EN: Check mass balance results
         # PT-BR: Verifica resultados de balanço de massa
-        print("Feed flow:", results.F[0])
-        print("Feed Temperature:", results.T_ret[0], " K")
-        print("Retentate outlet:", results.F[-1])
-        print("Retentate outlet Temperature:", results.T_ret[-1], " K")
+        print("Feed flow:", results.FRet[0])
+        if results.T_ret is not None:
+            print("Feed Temperature:", results.T_ret[0], " K")
+            print("Retentate outlet Temperature:", results.T_ret[-1], " K")
+        print("Retentate outlet:", results.FRet[-1])
 
         # EN: Counter-current → permeate outlet is index 0
         # PT-BR: Contracorrente → saída do permeado é índice 0
-        print("Permeate outlet:", results.G[0])
-        print("Permeate outlet Temperature:", results.T_per[0], " K")
+        print("Permeate outlet:", results.FPerm[0])
+        if results.T_per is not None:
+            print("Permeate outlet Temperature:", results.T_per[0], " K")
+            print("Permeate closed end Temperature:", results.T_per[-2], " K")
+        # print("Permeate (closed end - 1) Temperature:", results.T_per[-2], " K")
 
         print("Recovery:", results.recovery)
+        if sim.heat_transfer_coef == None:
+            print("U:", results.U[1:])
         print("-------------------------------")
         print("Permeate flow outlet via oulet method [mol/s]:", results.outlet("permeate").flow)
         print("Permeate composition outlet via oulet method:", results.outlet("permeate").composition)
         print("Permeate pressure outlet via oulet method [Pa]:", results.outlet("permeate").pressure)
         print("Permeate temperature outlet via oulet method [K]:", results.outlet("permeate").temperature)
         print("Permeate components outlet via oulet method:", results.outlet("permeate").components)
-        print("Permeate permeability outlet via oulet method [mol/(m2 Pa s)]:", results.outlet("permeate").permeability)
+        print("Permeate permeance outlet via oulet method [mol/(m2 Pa s)]:", results.outlet("permeate").permeance)
         print("Permeate viscosity outlet via oulet method [Pa s]:", results.outlet("permeate").viscosity)
         print("Permeate molecular weight outlet via oulet method [kg/mol]:", results.outlet("permeate").molecularweight)
         print("-------------------------------")
@@ -182,7 +189,7 @@ def main():
         print("Retentate pressure outlet via oulet method [Pa]:", results.outlet("retentate").pressure)
         print("Retentate temperature outlet via oulet method [K]:", results.outlet("retentate").temperature)
         print("Retentate components outlet via oulet method:", results.outlet("retentate").components)
-        print("Retentate permeability outlet via oulet method [mol/(m2 Pa s)]:", results.outlet("retentate").permeability)
+        print("Retentate permeance outlet via oulet method [mol/(m2 Pa s)]:", results.outlet("retentate").permeance)
         print("Retentate viscosity outlet via oulet method [Pa s]:", results.outlet("retentate").viscosity)
         print("Retentate molecular weight outlet via oulet method [kg/mol]:", results.outlet("retentate").molecularweight)
 
