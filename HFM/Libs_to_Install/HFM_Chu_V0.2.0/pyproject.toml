@@ -4,10 +4,10 @@ build-backend = "setuptools.build_meta"
 
 [project]
 name = "hfm-simulator"
-version = "0.1.1"
+version = "0.2.0"
 description = "Hollow Fiber Membrane Simulator"
 authors = [
-    { name="Oliva D.G." }
+    { name="João Victor Abdala Tupinambá, Oliva D.G., Argimiro Resende Secchi, Bagajewicz M.J." }
 ]
 dependencies = [
     "numpy",

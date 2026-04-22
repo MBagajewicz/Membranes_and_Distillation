@@ -426,7 +426,7 @@ class HFMSimulator:
         rho_b = results.PPermCell[0] * sum(props.M * results.ZPerm[0]) / (R * T)  # M méd
         vb = mdot_b / max(rho_b * A_bore, 1e-30)
         Re_b = rho_b * vb * (2.0 * (geom.DiamFiber_i / 2)) / (sum(props.M * results.ZPerm[0])*sum(props.MU* results.ZPerm[0]))
-        print('Bore outlet:',[vb, Re_b])
+        # print('Bore outlet:',[vb, Re_b])
 
         mdot_s = sum(FRet[0] * props.M)
         A_shell_open = (np.pi / 4.0) * (
@@ -442,6 +442,6 @@ class HFMSimulator:
                     geom.DiamShell + geom.NFibers * geom.DiamFiber_o)  # todo: revisar Dh
 
         Re_s = Gs * D_h / max(sum(props.MU* results.ZRet[0]), 1e-30)
-        print('Shell inlet',[v_s, Re_s])
+        # print('Shell inlet',[v_s, Re_s])
         return results
 

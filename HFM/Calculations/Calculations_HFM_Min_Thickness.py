@@ -14,43 +14,35 @@ import numpy as np
 
 #region Calculations
 
-def Min_Thickness(P, p, dfo, E, sigma_y, nu, degradation_factor, safety_factor):
+def Min_Thickness(P, p, dfo, E, nu, degradation_factor, safety_factor):
     """
-    Calcula a espessura mínima da membrana para resistir ao colapso e escoamento.
+    Calculate the minimum membrane thickness required to resist collapse.
 
     Args:
-        P: Pressão no casco (Pa)
-        p: Pressão no lúmen (Pa)
-        dfo: Raio Externo da fibra (m)
-        E: Módulo de Young (Pa),
-        sigma_y: Tensão de escoamento (Pa)
-        nu: Coeficiente de Poisson
+        P: Shell pressure (Pa)
+        p: Bore pressure (Pa)
+        dfo: fiber outer diameter (m)
+        E: Young Modulus (Pa),
+        nu: Poisson's Coefficient
 
-        degradation_factor: Assume 30% de perda de força devido à plasticização por CO2
-        safety_factor: Fator de segurança (assumido 3.0 para cobrir excentricidade e creep)
+        degradation_factor: Assume a 30% loss of strength due to CO2 plasticization.
+        safety_factor: Safety factor (assumed to be 3.0 to cover eccentricity and creep)
 
     Returns:
-        t_min (m): Espessura mínima recomendada
+        t_min (m): Recommended minimum thickness
     """
 
     P_diff = (P - p) # Pa
 
-    # Aplicar fator de degradação por CO2 (Plasticização)
-    # O CO2 amolece a matriz polimérica, reduzindo E e Sigma
+    # Apply CO2 degradation factor (Plasticization)
+    # CO2 softens the polymer matrix, reducing E.
     E_deg = E * degradation_factor
-    sigma_y = sigma_y * degradation_factor
 
-    # --- CRITÉRIO A: Resistência ao Escoamento (Yielding - Hoop Stress) ---
-    # Fórmula aproximada para tubos: sigma = (P * R) / t
-    # t_yield = (P * R * FS) / sigma_y
-    t_yield = (P_diff * (dfo/2) * safety_factor) / sigma_y
-
-    # --- CRITÉRIO B: Instabilidade Elástica (Buckling/Colapso) ---
-    # Fórmula clássica para colapso de tubo longo sob pressão externa
+    # --- CRITERION B: Elastic Instability (Buckling/Collapse) ---
+    # Classic formula for long pipe collapse under external pressure
     # P_cr = [2E / (1-nu^2)] * (t / 2Ro)^3
     # Isolando t:
     term_1 = (P_diff * safety_factor * (1 - nu ** 2)) / (2 * E_deg)
     t_buckling = dfo * (term_1) ** (1 / 3)
-    # Decisão final
-    # print(np.maximum(t_buckling, t_yield))
-    return np.maximum(t_buckling, t_yield)
+
+    return t_buckling

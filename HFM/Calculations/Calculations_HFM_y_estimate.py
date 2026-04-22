@@ -15,53 +15,76 @@ import numpy as np
 #region Calculations
 def estimate_y_pc_multicomponent(
     Q: np.ndarray,
-    A_t: float,
+    A_t: np.ndarray,
     Pf: float,
     Pp: float,
     F_f: float,
-    x_feed : np.ndarray,
+    x_feed: np.ndarray,
     Key_Comp_index: int,
-    tol: float = 1e-10,
+    tol: float = 1e-5,
     max_iter: int = 2000,
 ):
-
     Q = np.asarray(Q, dtype=float).copy()
 
-    # 1) Consistency check para permeancias e chute
+    # garante shape (nc, n_cases)
+    if Q.ndim == 1:
+        Q = Q[:, None]
+
+    A_t = np.asarray(A_t, dtype=float)
+    if A_t.ndim == 0:
+        A_t = np.array([A_t], dtype=float)
+
+    x_feed = np.asarray(x_feed, dtype=float).reshape(-1, 1)  # (nc, 1)
+
+    nc, n_cases = Q.shape
+
+    if x_feed.shape[0] != nc:
+        raise ValueError("x_feed e Q têm números de componentes incompatíveis.")
+
+    if A_t.size != n_cases:
+        raise ValueError("A_t e Q têm números de candidatos incompatíveis.")
+
     if np.any(Q < 0):
         raise ValueError("Q deve ser não-negativo.")
 
+    delta = Pp / Pf
 
-    # 2) inicialização
-
-    y = Q/sum(Q) * x_feed
-
-    delta = Pp/Pf
+    # chute inicial: composição do permeado puxada por Q
+    y = Q / np.maximum(np.sum(Q, axis=0, keepdims=True), 1e-16)   # (nc, n_cases)
+    y = y * x_feed
+    y = y / np.maximum(np.sum(y, axis=0, keepdims=True), 1e-16)
 
     for _ in range(max_iter):
-        # "fluxos" relativos na parte fechada da fibra oca
-        # 1) calcula x_r_end_min
-        denom = (F_f*x_feed - sum(Q*A_t[:, None] * (Pf*x_feed-Pp*y)))
-        denom[denom == 0] = 1e-16
-        x_r_min = (F_f*x_feed - Q*A_t[:, None] * (Pf*x_feed-Pp*y))/denom
+        # transferência máxima por componente/candidato
+        driving_pf = np.maximum(Pf * x_feed - Pp * y, 0.0)        # (nc, n_cases)
+        transfer = Q * A_t[None, :] * driving_pf                  # (nc, n_cases)
 
-        x_r_min[x_r_min <= 0] = 0
-        sx = x_r_min.sum(axis=1, keepdims=True)
-        x_r_min /= np.maximum(sx, 1e-16)  # normaliza
+        # fluxo total remanescente no retentado
+        denom = F_f - np.sum(transfer, axis=0, keepdims=True)     # (1, n_cases)
+        denom = np.maximum(denom, 1e-16)
 
-        #2) calcula y_end
-        driving = x_r_min - delta * y
-        J = Q * np.maximum(driving, 1e-16)
-        sJ = J.sum(axis=1, keepdims=True)
-        y_new = J / sJ
+        # composição mínima do retentado na extremidade fechada
+        x_r_min = (F_f * x_feed - transfer) / denom               # (nc, n_cases)
+        x_r_min = np.maximum(x_r_min, 1e-16)
+        x_r_min = x_r_min / np.maximum(np.sum(x_r_min, axis=0, keepdims=True), 1e-16)
 
-        y_next = np.maximum(y_new, 1e-16) # evita divisão por zero
-        sy = y_next.sum(axis=1, keepdims=True)
-        y_next = y_next / sy
+        # composição local do permeado que atravessa
+        driving = np.maximum(x_r_min - delta * y, 1e-16)
+        J = Q * driving
+        y_next = J / np.maximum(np.sum(J, axis=0, keepdims=True), 1e-16)
 
-        if np.max(np.abs(y_next - y)) < tol: # se o valor de y não mudar por uma tolerância, retornar.
-            return y_next
+        if np.max(np.abs(y_next - y)) < tol:
+            driving_pf = np.maximum(Pf * x_feed - Pp * y_next, 0.0)  # (nc, n_cases)
+            transfer = Q * A_t[None, :] * driving_pf  # (nc, n_cases)
+            # fluxo total remanescente no retentado
+            denom = F_f - np.sum(transfer, axis=0, keepdims=True)  # (1, n_cases)
+            denom = np.maximum(denom, 1e-16)
+            # composição mínima do retentado na extremidade fechada
+            x_r_min = (F_f * x_feed - transfer) / denom  # (nc, n_cases)
+            x_r_min = np.maximum(x_r_min, 1e-16)
+            x_r_min = x_r_min / np.maximum(np.sum(x_r_min, axis=0, keepdims=True), 1e-16)
+            return y_next.T, x_r_min  # (n_cases, nc)
 
         y = y_next
 
-    return y  # Retornar o melhor encontrado ao fim das iterações
+    return y.T, x_r_min

@@ -1,5 +1,11 @@
 # HFM Simulator
 
+NEW IMPLEMENTATION in 0.1.1
+- Permeance and permeability options added in example (test_simulation.py and scenarios.py)
+- Energy packages modified to HEOS to manage properties in U variable
+- Energy balance modified (energy_module.pý) to manage U variable
+ 
+
 A modular Python framework for simulating **Hollow Fiber Membrane (HFM)** systems, including:
 
 * Mass balance (multi-component)
