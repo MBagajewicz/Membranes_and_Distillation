@@ -29,7 +29,7 @@
 
 
 Selected_Model = 'HFM'          # The same as defined in Models_List (CASE SENSITIVE)
-Selected_Example = 'Example1'   # The same as defined in Examples_{Model} in Model folder (CASE SENSITIVE)
+Selected_Example = 'Example2'   # The same as defined in Examples_{Model} in Model folder (CASE SENSITIVE)
 Create_Results_txt = True       # True or False
 
 
