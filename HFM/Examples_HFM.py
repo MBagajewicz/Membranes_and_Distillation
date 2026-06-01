@@ -392,7 +392,6 @@ Example2 = {
 }
 
 
-
 Example3 = {
 
     'Number_of_Equipment': 1,
@@ -481,7 +480,7 @@ Example3 = {
             "f_total": 0.05,    #mol/s
             "comp_f": np.array([0.5, 0.5]),
             "Q": np.array([2.5e-7, 5.0e-8]),   # Permeance [mol/(m²·Pa·s)]
-            "S": np.array([2.5e-7, 5.0e-8]) * 2e-6,
+            "S": np.array([2.5e-6, 5.0e-7]) * 2e-6,
             # Heat transfer coefficient [W/(m2 K)]
             'U': 4,  # float or None
 
@@ -510,6 +509,7 @@ Example3 = {
         }
     },
 }
+
 
 
 
