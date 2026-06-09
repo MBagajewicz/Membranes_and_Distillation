@@ -43,7 +43,7 @@ def ST_Nf2(Nf1_c,Nf2_c,Ns_c,m_p): # Allows only candidates with Nf2 <= Ns-2 = Nt
     return fun_val
 
 def ST_Nf1_Nf2(Nf1_c,Nf2_c,Ns_c,m_p): # Allows only candidates with Nf1 <= Nf2
-    fun_val = Nf1_c - Nf2_c + 1   ##########   Changed this
+    fun_val = Nf1_c - Nf2_c   
     print(f"Pruning: Nf1={Nf1_c}, Nf2={Nf2_c}, Ns={Ns_c}, result={Nf1_c - Nf2_c + 1}")
     return fun_val
 
