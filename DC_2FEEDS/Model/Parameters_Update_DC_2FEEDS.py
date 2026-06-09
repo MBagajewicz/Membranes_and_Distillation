@@ -33,7 +33,7 @@ from Commom_Equations_DC import Calculations_DC_Param_Set_Up
 # Initialize Aspen
 def par_start_Aspen(m_p):
 
-    m_p = Calculations_DC_Param_Set_Up.call_initial_Aspen_2FEEDS(m_p)
+    m_p = Calculations_DC_Param_Set_Up.call_initial_Aspen_2feeds(m_p)
 
     return m_p
 
