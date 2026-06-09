@@ -1,0 +1,59 @@
+********** Normal Set Trimming running **********
+Set Trimming successful - The candidates solution set is not empty
+Building initial set time:  0.00052 seconds
+
+Primordial Set Trimming time:  0.00266 seconds
+
+
+************ Initial Set generated from Primordial Set ************
+
+Candidate set cardinality after each trimming [4914, 2925, 2630, 2630]
+
+******************** Starting Execution for DC_2FEEDS_Example4 ********************
+
+The solution of Equipment1 "DC_2FEEDS" is presented below:
+Set trimming and Enumeration activated. Performing Set Trimming First, followed by Selected Enumeration
+Set Trimming successful - The candidates solution set is not empty
+Set Trimming Solution {'trimmed_candidates': array([[ 5,  5,  5, ..., 17, 17, 17],
+       [13, 13, 13, ..., 30, 30, 30],
+       [15, 16, 17, ..., 33, 34, 35]], shape=(3, 2630)), 'candidate_set_cardinality_after_each_trimming': [2630]}
+Elapsed time Set Trimming: 0.0015299320220947266
+Performing Smart Enumeration now
+Lower bound values [1.e+20 1.e+20 1.e+20 ... 1.e+20 1.e+20 1.e+20]
+Incumbent value: 71345.93460728232
+Solving candidate 0 of 2630 ['Nf1', 'Nf2', 'Ns']  =  [9, 13, 15] :
+Solving candidate 1 of 2630 ['Nf1', 'Nf2', 'Ns']  =  [9, 13, 16] :
+Solving candidate 2 of 2630 ['Nf1', 'Nf2', 'Ns']  =  [9, 13, 17] :
+Solving candidate 3 of 2630 ['Nf1', 'Nf2', 'Ns']  =  [9, 13, 18] :
+Solving candidate 4 of 2630 ['Nf1', 'Nf2', 'Ns']  =  [9, 13, 19] :
+Solving candidate 5 of 2630 ['Nf1', 'Nf2', 'Ns']  =  [9, 13, 20] :
+Solving candidate 6 of 2630 ['Nf1', 'Nf2', 'Ns']  =  [9, 13, 21] :
+Solving candidate 7 of 2630 ['Nf1', 'Nf2', 'Ns']  =  [9, 13, 22] :
+Solving candidate 8 of 2630 ['Nf1', 'Nf2', 'Ns']  =  [9, 13, 23] :
+Solving candidate 9 of 2630 ['Nf1', 'Nf2', 'Ns']  =  [9, 13, 24] :
+Solving candidate 10 of 2630 ['Nf1', 'Nf2', 'Ns']  =  [9, 13, 25] :
+Solving candidate 11 of 2630 ['Nf1', 'Nf2', 'Ns']  =  [9, 13, 26] :
+Solving candidate 12 of 2630 ['Nf1', 'Nf2', 'Ns']  =  [9, 13, 27] :
+Solving candidate 13 of 2630 ['Nf1', 'Nf2', 'Ns']  =  [9, 13, 28] :
+Solving candidate 14 of 2630 ['Nf1', 'Nf2', 'Ns']  =  [9, 13, 29] :
+Solving candidate 15 of 2630 ['Nf1', 'Nf2', 'Ns']  =  [9, 13, 30] :
+Solving candidate 16 of 2630 ['Nf1', 'Nf2', 'Ns']  =  [9, 14, 16] :
+Solving candidate 17 of 2630 ['Nf1', 'Nf2', 'Ns']  =  [9, 13, 31] :
+Solving candidate 18 of 2630 ['Nf1', 'Nf2', 'Ns']  =  [9, 14, 17] :
+Solving candidate 19 of 2630 ['Nf1', 'Nf2', 'Ns']  =  [9, 13, 32] :
+Solving candidate 20 of 2630 ['Nf1', 'Nf2', 'Ns']  =  [9, 14, 18] :
+Solving candidate 21 of 2630 ['Nf1', 'Nf2', 'Ns']  =  [9, 13, 33] :
+Solving candidate 22 of 2630 ['Nf1', 'Nf2', 'Ns']  =  [9, 14, 19] :
+Solving candidate 23 of 2630 ['Nf1', 'Nf2', 'Ns']  =  [9, 13, 34] :
+Solving candidate 24 of 2630 ['Nf1', 'Nf2', 'Ns']  =  [9, 14, 20] :
+Solving candidate 25 of 2630 ['Nf1', 'Nf2', 'Ns']  =  [9, 13, 35] :
+Solving candidate 26 of 2630 ['Nf1', 'Nf2', 'Ns']  =  [9, 14, 21] :
+##################################
+Exit at candidate: 26
+Lower Bound: 71350.83208807666 Candidate: 26
+Solution after Smart Enumeration {'TAC_OF': {'TAC': np.float64(71345.93460728232)}, 'Nf1': np.int64(9), 'Nf2': np.int64(13), 'Ns': np.int64(35)}
+Elapsed time for Equipment1 "DC_2FEEDS": 773.98 seconds 
+
+OF Solution total ($/year) 71345.93460728232
+Total time elapsed: 787.34129 seconds
+
