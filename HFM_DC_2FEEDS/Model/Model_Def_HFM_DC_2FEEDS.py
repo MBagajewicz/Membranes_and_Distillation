@@ -80,7 +80,7 @@ Model_HFM_DC = {
 
         'Optimization_Variables': ['Sep'],
 
-        'Set_Up_Global_Optimizer': 'Set_Up_HFM_DC'
+        'Set_Up_Global_Optimizer': 'Set_Up_HFM_DC_2FEEDS'
 
     }
 

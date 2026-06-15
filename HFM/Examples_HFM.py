@@ -265,8 +265,8 @@ Example11 = {
             'COMPONENTS': ["CO2","Propane"],
             'KEY_COMPONENT_RECOVERY_PERM': 'Propane',
             'KEY_COMPONENT_COMP_RET': 'CO2',
-            'Energy_bool': False,
-            'Pressure_Drop_bool': False,
+            'Energy_bool': True,
+            'Pressure_Drop_bool': True,
             'EnthalpyMode': 'NoMix',
             # Mix = real mixture enthalpy from Peng–Robinson EOS // NoMix = ideal/averaged enthalpy assumption
 
@@ -354,8 +354,8 @@ Example2 = {
             'COMPONENTS': ['BENZENE', 'TOLUENE'],
             'KEY_COMPONENT_RECOVERY_PERM': 'TOLUENE',
             'KEY_COMPONENT_COMP_RET': 'BENZENE',
-            'Energy_bool': False,
-            'Pressure_Drop_bool': False,
+            'Energy_bool': True,
+            'Pressure_Drop_bool': True,
             'EnthalpyMode': 'NoMix', # Mix = real mixture enthalpy from Peng–Robinson EOS // NoMix = ideal/averaged enthalpy assumption
 
             'M': np.array([44.01e-3, 16.04e-3]), # Molar Mass ['BENZENE', 'TOLUENE'] (kg/mol)

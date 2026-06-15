@@ -3,9 +3,9 @@
 
 ********** Normal Set Trimming running **********
 Set Trimming successful - The candidates solution set is not empty
-Building initial set time:  0.45441 seconds
+Building initial set time:  0.26710 seconds
 
-Primordial Set Trimming time:  3.88298 seconds
+Primordial Set Trimming time:  2.60312 seconds
 
 
 ************ Initial Set generated from Primordial Set ************
@@ -23,7 +23,7 @@ Set Trimming Solution {'trimmed_candidates': array([['0.7', '0.7', '0.7', ..., '
         '(0.0003,3e-05)', '(0.0003,3e-05)', '(0.0003,3e-05)'],
        ['0.2', '0.21', '0.22', ..., '0.28', '0.29', '0.3']],
       shape=(4, 27422), dtype='<U32'), 'candidate_set_cardinality_after_each_trimming': [41360, 27422]}
-Elapsed time Set Trimming: 0.41421079635620117
+Elapsed time Set Trimming: 0.26470208168029785
 Performing Smart Enumeration now
 Lower bound values [ 57.57669741  56.85703707  56.13737674 ... 603.18578949 594.80716188
  586.43041923]
@@ -6470,8 +6470,8 @@ New Incumbent: 136.6969795429991
 Exit at candidate: 6433
 Lower Bound: 136.6969795429991 Candidate: 6433
 Solution after Smart Enumeration {'AREA_OF': {'Area': array(136.69697954)}, 'L': array(['0.6'], dtype='<U32'), 'D': array(['0.14'], dtype='<U32'), 'dfo_esp': array(['(0.0002,2e-05)'], dtype='<U32'), 'Void_Frac': array(['0.26'], dtype='<U32')}
-Elapsed time for Equipment1 "HFM": 472.06 seconds 
+Elapsed time for Equipment1 "HFM": 187.94 seconds 
 
 OF Solution total (m²) 136.6969795429991
-Total time elapsed: 476.42134 seconds
+Total time elapsed: 190.84557 seconds
 

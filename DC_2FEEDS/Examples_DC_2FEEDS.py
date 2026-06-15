@@ -177,7 +177,7 @@ Example1 = {
             'Pcol' : 1e5,               # Column Pressure (Pa) - constant throughout the column --> Pendência: consider some pressure drop
 
             # Feed Data 
-            'z_f' : [[0.7, 0.2, 0.1], [0.2, 0.2, 0.6]],     # [Feed 1,Feed2] molar composition [Benzene, Toluene, m-Xylene]
+            'z_f' : [[0.8, 0.2], [0.2, 0.2]],     # [Feed 1,Feed2] molar composition [Benzene, Toluene, m-Xylene]
             'F_f' :  [100, 100],                            # [Feed 1,Feed2] flow (kmol/h)
             'T_f' :  [113.4 + 273.15, 113.4 + 273.15],      # [Feed 1,Feed2] temperature (K)
 
@@ -186,7 +186,7 @@ Example1 = {
             'xB_BOTTOM' : 0.005,                # Bottom benzene purity     
               
             # Components - NAMES MUST BE THE SAME AS SET IN ASPEN PLUS (if Aspen is to be used)!! CASE SENSITIVE 
-            'Comp_name' : ['BENZENE', 'TOLUENE', 'M-XYLENE'],      
+            'Comp_name' : ['BENZENE', 'TOLUENE'],      
 
             # --------------------------- 
             # Thermal Utilities Data
@@ -238,6 +238,3 @@ Example1 = {
 ###################################################################################################################
 ###################################################################################################################
 
-
-Example2 = copy.deepcopy(Example1)
-Example2['Equipment1']['Model_Parameters']['z_f'] = [[0.2, 0.2, 0.6],[0.7, 0.2, 0.1]]

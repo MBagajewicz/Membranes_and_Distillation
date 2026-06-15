@@ -48,7 +48,7 @@ Model_HFM = {
         # functions of the list may be skipped and should be called by model programmer inside Next_Level_Set_Up
         # function
 
-        'List_of_Variables': ['L','D','dfo_esp','Void_Frac'],  #length, shell diamter, fiber diameters, void fraction in the shell.
+        'List_of_Variables': ['L','D','dfo_esp','Void_Frac'],  #length, shell diameter, fiber diameters, void fraction in the shell.
         
         # List of discrete design variables. User will give discrete options in example file in the same order as 
         # defined here, and this is also the same order that must be used in Constraints_and_OF.py functions
