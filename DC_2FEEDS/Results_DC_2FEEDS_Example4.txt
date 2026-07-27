@@ -1,8 +1,8 @@
 ********** Normal Set Trimming running **********
 Set Trimming successful - The candidates solution set is not empty
-Building initial set time:  0.00052 seconds
+Building initial set time:  0.00028 seconds
 
-Primordial Set Trimming time:  0.00266 seconds
+Primordial Set Trimming time:  0.00196 seconds
 
 
 ************ Initial Set generated from Primordial Set ************
@@ -17,7 +17,7 @@ Set Trimming successful - The candidates solution set is not empty
 Set Trimming Solution {'trimmed_candidates': array([[ 5,  5,  5, ..., 17, 17, 17],
        [13, 13, 13, ..., 30, 30, 30],
        [15, 16, 17, ..., 33, 34, 35]], shape=(3, 2630)), 'candidate_set_cardinality_after_each_trimming': [2630]}
-Elapsed time Set Trimming: 0.0015299320220947266
+Elapsed time Set Trimming: 0.0013804435729980469
 Performing Smart Enumeration now
 Lower bound values [1.e+20 1.e+20 1.e+20 ... 1.e+20 1.e+20 1.e+20]
 Incumbent value: 71345.93460728232
@@ -52,8 +52,8 @@ Solving candidate 26 of 2630 ['Nf1', 'Nf2', 'Ns']  =  [9, 14, 21] :
 Exit at candidate: 26
 Lower Bound: 71350.83208807666 Candidate: 26
 Solution after Smart Enumeration {'TAC_OF': {'TAC': np.float64(71345.93460728232)}, 'Nf1': np.int64(9), 'Nf2': np.int64(13), 'Ns': np.int64(35)}
-Elapsed time for Equipment1 "DC_2FEEDS": 773.98 seconds 
+Elapsed time for Equipment1 "DC_2FEEDS": 958.92 seconds 
 
 OF Solution total ($/year) 71345.93460728232
-Total time elapsed: 787.34129 seconds
+Total time elapsed: 973.62676 seconds
 
