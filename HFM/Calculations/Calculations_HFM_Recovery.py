@@ -199,4 +199,19 @@ def model_HFM_Recovery(L,D,dfo,dfi,Void_Frac,m_p,Ntf):
     # f_out_per_key = dic_perm.get(m_p['KEY_COMPONENT_RECOVERY_PERM'])*results.outlet("permeate").flow
     #
     # rec = f_out_per_key/f_feed_key
+  
+    print("======== Membrane outlet ========")
+
+    print("Retentate flow:")
+    print(results.FRet[-1])
+
+    print("Retentate composition:")
+    print(results.ZRet[-1])
+
+    print("Permeate flow:")
+    print(results.FPerm[0])
+
+    print("Permeate composition:")
+    print(results.ZPerm[0])
+    
     return np.array([X_ret_key,Rec_Perm])
