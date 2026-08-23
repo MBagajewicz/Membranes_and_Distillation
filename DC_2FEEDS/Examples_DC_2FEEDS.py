@@ -414,7 +414,7 @@ Example6 = {
 
             # Separation Task Specification
             'xB_TOP': 0.98,  # Top benzene purity
-            'xB_BOTTOM': 0.2,  # Bottom benzene purity
+            'xB_BOTTOM': 0.02,  # Bottom benzene purity
 
             # Components - NAMES MUST BE THE SAME AS SET IN ASPEN PLUS (if Aspen is to be used)!! CASE SENSITIVE
             'Comp_name': ['BENZENE', 'TOLUENE'],
