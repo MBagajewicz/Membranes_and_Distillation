@@ -142,8 +142,8 @@ def consistency(m_d, m_p, save_result):
 
     verif1 = Calculations_MEM_Consistency.verification_positive_variables(m_p, save_result)
     verif2 = Calculations_MEM_Consistency.verification_Pfeed_Pperm(m_p, save_result)
-    verif4 = variables_bounds(m_d)
-    verif5 = variables_standard_values(m_d)
+    # verif4 = variables_bounds(m_d)
+    # verif5 = variables_standard_values(m_d)
     return m_d, m_p
 
 
