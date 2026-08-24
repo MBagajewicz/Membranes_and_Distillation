@@ -171,7 +171,7 @@ Example1 = {
 
             ],
 
-            'Selected_OF': ['TAC_OF'],  #Options:   'TAC_OF', 'CAPEX_OF', 'AREA_OF'
+            'Selected_OF': ['TAC_OF'],
 
         },
 

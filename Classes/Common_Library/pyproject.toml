@@ -1,0 +1,33 @@
+[build-system]
+requires = ["setuptools>=61"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "Common-Library"
+version = "0.2.1"
+
+description = "Reusable scientific utilities, streams and physical properties (CoolProp-backed) - Revision"
+authors = [
+    {name = "João Victor Abdala Tupinambá"},
+    {name = "Oliva D.G."},
+    {name = "Argimiro Resende Secchi"},
+    {name = "Bagajewicz M.J."}
+]
+
+readme = "README.md"
+
+requires-python = ">=3.10"
+
+# Declared dependencies are exactly what the package imports.
+#   numpy    -- every module
+#   CoolProp -- Mix_Properties_CoolProp_HEOS, Mix_Enthalpy, Mixture_Properties.
+#               This was MISSING: a clean install of Common-Library failed at
+#               import time, and only worked in practice because CoolProp
+#               happened to be present in the developers' environments.
+dependencies = [
+    "numpy",
+    "CoolProp"
+]
+
+[tool.setuptools.packages.find]
+where = ["src"]

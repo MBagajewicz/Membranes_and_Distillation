@@ -1,0 +1,25 @@
+[build-system]
+requires = ["setuptools>=61"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "STHE-Simulator"
+version = "0.1.0"
+
+description = "Heat exchanger simulator"
+authors = [
+    {name = "Oliva D.G."},
+    {name = "Bagajewicz M.J."}
+]
+
+readme = "README.md"
+
+requires-python = ">=3.10"
+
+dependencies = [
+    "numpy",
+    "scipy",
+]
+
+[tool.setuptools.packages.find]
+where = ["src"]

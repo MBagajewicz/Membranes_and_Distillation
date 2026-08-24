@@ -24,7 +24,7 @@
 
 ##################################################################################################################
 # region Import Library
-from STHE.Calculations import (
+from Simulator_STHE.Calculations_STHE import (
     Calculations_STHE_Reynolds_tubeside,
     Calculations_STHE_velocity_tubeside,
     Calculations_STHE_Reynolds_shellside,
@@ -37,7 +37,7 @@ from STHE.Calculations import (
     Calculations_STHE_CAPEX,
     Calculations_STHE_U
 )
-from Common_Equations_HEX import Calculations_HEX_LMTD, Calculations_HEX_heatload
+from Common.HEX_Calculations import Calculations_HEX_LMTD, Calculations_HEX_heatload
 # endregion
 ##################################################################################################################
 

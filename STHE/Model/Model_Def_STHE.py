@@ -106,7 +106,7 @@ Model_STHE = {
 
     'Set_Trimming_Info': {
 
-        'Incremental_Set_Trimming': False,
+        'Incremental_Set_Trimming': True,
         # If it is True you will run Set Trimming in incremental mode
         # If it is False you will run Set Triming in tradicional mode (i.e. all variables will be always used)
 

@@ -11,7 +11,24 @@
 
 #region Import Library
 import numpy as np
+# from HFM.Calculations.Calculations_HFM_Solve_FDM import solve_HFM_model_FDM
 # #endregion
+
+# #region Calculations
+# def model_HFM_Recovery(N_parts, U_Feed_Target, V_Sweep_Target, Q, P_Feed, P_Permeate, T, dfi, dfo, Ntf, D, MU, M, Dz,Key_Comp_index):
+#     '''Recovery is the ammount of a key component that is present the Permeate over the ammount
+#     of that component present in the Feed'''
+#     # solve the model
+
+#     U_fin, V_fin, P_fin, p_fin = solve_HFM_model_FDM(N_parts, U_Feed_Target, V_Sweep_Target, Q, P_Feed, P_Permeate, T, dfi, dfo, Ntf, D, MU, M, Dz)
+
+#     if isinstance(U_fin,int):
+#         rec = 0
+#     else:
+#         rec = V_fin[N_parts, Key_Comp_index] / U_Feed_Target[Key_Comp_index]
+#     # Calculate recovery (%) of Key compound in the permeate from the feed.
+#     print(rec)
+#     return rec
 
 from hfm_simulator import HFMSimulator
 from hfm_simulator.stream import Stream
@@ -46,7 +63,7 @@ def model_HFM_Recovery(L,D,dfo,dfi,Void_Frac,m_p,Ntf):
         "s_flow": 0, # mol/s
         "ZFeed": m_p['comp_f'], # %mol
         # "comp_s": m_p['comp_s'], # %mol
-        "S": m_p['S'], # [mol/(m Pa s)]
+        "Q": m_p['Q'], # [mol/(m2 Pa s)]
         # 'kD': np.array([1.34,0.1263]),
         # 'CH': np.array([30.78, 27.15]),
         # 'b': np.array([0.395, 0.092]),
@@ -56,7 +73,6 @@ def model_HFM_Recovery(L,D,dfo,dfi,Void_Frac,m_p,Ntf):
         "DiamShell": D, # m
         "DiamFiber_o": dfo, # m
         "DiamFiber_i": dfi, # m
-        "t_mem": (dfo-dfi)/2, # m
         "LHidraulic": L, # m
         "N": Ntf,
         "Feed": "Shell",
@@ -109,11 +125,11 @@ def model_HFM_Recovery(L,D,dfo,dfi,Void_Frac,m_p,Ntf):
         # components=["CO2", "Propane"]
 
 
-        # EN: permeance of each component [mol/(m2 Pa s)]
-        # PT-BR: Permeancia de cada componente
-        permeance=scenario["S"]/scenario["t_mem"],
+        # EN: Permeability of each component [mol/(m2 Pa s)]
+        # PT-BR: Permeabilidade de cada componente
+        permeability=scenario["Q"],
         # Example manual:
-        # permeance=np.array([6.8e-8, 7.7e-11])
+        # permeability=np.array([6.8e-8, 7.7e-11])
 
 
         # EN: Dynamic viscosity of each component [Pa·s]
@@ -157,9 +173,8 @@ def model_HFM_Recovery(L,D,dfo,dfi,Void_Frac,m_p,Ntf):
 
     # EN: Activate/deactivate physics
     # PT-BR: Ativa/desativa física do modelo
-    sim.energy = m_p['Energy_bool']
-    sim.pressure_drop = m_p['Pressure_Drop_bool']
-    sim.enthalpy_method = m_p['EnthalpyMode']
+    sim.energy = False
+    sim.pressure_drop = True
 
     # EN: Global heat transfer coefficient [W/(m2 K)]
     # PT-BR: Coeficiente global de transferência de calor
@@ -167,7 +182,7 @@ def model_HFM_Recovery(L,D,dfo,dfi,Void_Frac,m_p,Ntf):
 
     # EN: Number of discretization segments
     # PT-BR: Número de segmentos de discretização
-    sim.NCells = m_p['N_Partitions']
+    sim.segments = m_p['N_Partitions']
 
     # EN: Assign inputs to simulator
     # PT-BR: Define entradas do simulador
@@ -181,22 +196,17 @@ def model_HFM_Recovery(L,D,dfo,dfi,Void_Frac,m_p,Ntf):
     # Rodar simulação
     # --------------------------------------
 
-    # print("Running simulation...")
+    print("Running simulation...")
 
     results = sim.run()
 
-    # print("Simulation finished")
-    Key_Comp_index_Perm = m_p['COMPONENTS'].index(m_p['KEY_COMPONENT_RECOVERY_PERM'])
-    Key_Comp_index_Ret = m_p['COMPONENTS'].index(m_p['KEY_COMPONENT_COMP_RET'])
-    Rec_Perm = ((results.FPerm[0] * results.ZPerm[0]) / (results.FRet[0] * results.ZRet[0]))[Key_Comp_index_Perm]
-    # Rec_Ret = ((results.F[-1] * results.x_ret[-1]) / (results.F[0] * results.x_ret[0]))[Key_Comp_index_Ret]
-    X_ret_key = results.ZRet[-1][Key_Comp_index_Ret]
+    print("Simulation finished")
 
-    # dic_feed = dict(zip(scenario["Components"],scenario["comp_f"]))
-    # dic_perm = dict(zip(results.outlet("permeate").components,results.outlet("permeate").composition))
-    #
-    # f_feed_key = dic_feed.get(m_p['KEY_COMPONENT_RECOVERY_PERM'])*scenario['f_total']
-    # f_out_per_key = dic_perm.get(m_p['KEY_COMPONENT_RECOVERY_PERM'])*results.outlet("permeate").flow
-    #
-    # rec = f_out_per_key/f_feed_key
-    return np.array([X_ret_key,Rec_Perm])
+    dic_feed = dict(zip(scenario["Components"],scenario["ZFeed"]))
+    dic_perm = dict(zip(results.outlet("permeate").components,results.outlet("permeate").composition))
+
+    f_feed_key = dic_feed.get(m_p['KEY_COMPONENT_RECOVERY'])*scenario['FFeed']
+    f_out_per_key = (dic_perm.get(m_p['KEY_COMPONENT_RECOVERY'])*results.outlet("permeate").flow)
+
+    rec = f_out_per_key/f_feed_key
+    return rec
