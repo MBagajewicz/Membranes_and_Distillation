@@ -28,8 +28,8 @@
 ##################################################################################################################
 
 
-Selected_Model = 'STHE_MS'          # The same as defined in Models_List (CASE SENSITIVE)
-Selected_Example = 'Example14'   # The same as defined in Examples_{Model} in Model folder (CASE SENSITIVE)
+Selected_Model = 'STHE'          # The same as defined in Models_List (CASE SENSITIVE)
+Selected_Example = 'Example1'   # The same as defined in Examples_{Model} in Model folder (CASE SENSITIVE)
 Create_Results_txt = True       # True or False
 
 ##################################################################################################################
