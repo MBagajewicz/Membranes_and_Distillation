@@ -1,0 +1,35 @@
+[build-system]
+requires = ["setuptools>=61"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "LMPD-Simulator"
+version = "0.1.0"
+
+description = "Algebraic log-mean pressure difference simulator for hollow fiber membrane modules: closed-form correction factor, derived flow closure, bore and shell pressure drop, one simultaneous Newton system"
+authors = [
+    {name = "João Victor Abdala Tupinambá"},
+    {name = "Oliva D.G."},
+    {name = "Sabrina De Abreu"},
+    {name = "Argimiro Resende Secchi"},
+    {name = "Bagajewicz M.J."}
+]
+
+readme = "README.md"
+
+requires-python = ">=3.10"
+
+# Declared dependencies are exactly what the package imports.
+#   numpy, scipy    -- the Newton system, the bisection and erfcx
+#   Common-Library  -- Streams and Membrane_Permeance, so a design and a feed can
+#                      be handed to this simulator or to HFM-Simulator unchanged
+# openpyxl is NOT a dependency: this package exports no spreadsheet, because an
+# algebraic model has no profile to tabulate.
+dependencies = [
+    "numpy",
+    "scipy",
+    "Common-Library"
+]
+
+[tool.setuptools.packages.find]
+where = ["src"]

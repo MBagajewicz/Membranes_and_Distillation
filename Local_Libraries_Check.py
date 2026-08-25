@@ -30,7 +30,7 @@ LOCAL_LIBRARIES = {
 
     "Simulator_HFM": {
         "package": "HFM-Simulator",
-        "path": ROOT / "HFM" / "Models_Library" / "HFM_Library",
+        "path": ROOT / "HFM" / "Models_Library" / "Models_Library_Discretized",
     },
 
     "Simulator_STHE": {

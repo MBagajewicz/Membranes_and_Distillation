@@ -1,4 +1,0 @@
-
-******* Testing consistency *******
-
-********** Normal Set Trimming running **********

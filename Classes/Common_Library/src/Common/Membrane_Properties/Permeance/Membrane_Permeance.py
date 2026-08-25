@@ -11,7 +11,7 @@
 import numpy as np
 
 
-class MembranePermeance:
+class Membrane_Permeance:
     """
     EN:
     Permeance model for membrane components.

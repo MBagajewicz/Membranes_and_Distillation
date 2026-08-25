@@ -25,7 +25,7 @@
 ##################################################################################################################
 # region Import Library
 import sys
-from Common_Equations_MEM import Calculations_MEM_Consistency
+from Simulator_HFM.Calculations_HFM import Calculations_HFM_Consistency
 from HFM.Model.Model_Def_HFM import Model_HFM
 # endregion
 ##################################################################################################################
@@ -140,8 +140,8 @@ def consistency(m_d, m_p, save_result):
 
 
 
-    verif1 = Calculations_MEM_Consistency.verification_positive_variables(m_p, save_result)
-    verif2 = Calculations_MEM_Consistency.verification_Pfeed_Pperm(m_p, save_result)
+    verif1 = Calculations_HFM_Consistency.verification_positive_variables(m_p, save_result)
+    verif2 = Calculations_HFM_Consistency.verification_Pfeed_Pperm(m_p, save_result)
     # verif4 = variables_bounds(m_d)
     # verif5 = variables_standard_values(m_d)
     return m_d, m_p

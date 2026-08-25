@@ -41,7 +41,7 @@ import numpy as np
 from Simulator_HFM.Simulator_Run_HFM import SimulatorRunHFM
 from Simulator_HFM.Simulator_Geometry_HFM import SimulatorGeometryHFM
 from Common.Stream.stream import Stream
-from Common.Membrane_Properties.Permeance.Membrane_Permeance import MembranePermeance
+from Common.Membrane_Properties.Permeance.Membrane_Permeance import Membrane_Permeance
 from Common.Process_Simulator import Flowsheet, SequentialSolver, IterativeSolver
 from Simulator_HFM.Equipment_Simulator_HFM.Equipment_HFM import HFMMembrane
 from Simulator_STHE import STHE
@@ -175,13 +175,13 @@ def build_hfmmembrane(cfg, feed_stream):
     params = merge_params(COMMON_PARAMS, cfg, feed_stream.components)
 
     if "S" in params and params["S"] is not None and np.any(params["S"]):
-        permeance = MembranePermeance(
+        permeance = Membrane_Permeance(
             components=params["Components"],
             permeability=params["S"],
             thickness=params["t_mem"],
         )
     else:
-        permeance = MembranePermeance(
+        permeance = Membrane_Permeance(
             components=params["Components"],
             permeance=params["Q"],
         )

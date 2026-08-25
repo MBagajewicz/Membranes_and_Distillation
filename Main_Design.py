@@ -29,7 +29,7 @@
 
 
 Selected_Model = 'HFM'          # The same as defined in Models_List (CASE SENSITIVE)
-Selected_Example = 'Example6'   # The same as defined in Examples_{Model} in Model folder (CASE SENSITIVE)
+Selected_Example = 'Scenario_S0'   # The same as defined in Examples_{Model} in Model folder (CASE SENSITIVE)
 Create_Results_txt = True       # True or False
 
 ##################################################################################################################
@@ -78,7 +78,7 @@ if root_path not in sys.path:
 
 # Dynamically select the active example based on user input
 try:
-    Active_Repository = Import_Example.Import_Example(Selected_Model,'Examples_')
+    Active_Repository = Import_Example.Import_Example(Selected_Model,'Examples_Design_')
 except:
     print(f'**There is no Example Repository named Examples_{Selected_Model} in {Selected_Model} folder. Check and try again**')
     sys.exit()
