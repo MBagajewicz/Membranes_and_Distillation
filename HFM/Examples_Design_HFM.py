@@ -1112,23 +1112,28 @@ Example2 = {
 
             # Mechanical stress constants (FOR THE FIBER, NOT POLYMER)
             'E': {
-                'PI': 121e6 # Young Modulus (Pa)
+                # 'PI': 121e6 # Young Modulus (Pa)
+                'PI': 3e9 # Young Modulus (Pa)
             },
 
             'sigma_y': {
-                'PI': 54.8e6 # Hoop Stress (Not implemented) (Pa)
+                # 'PI': 54.8e6 # Hoop Stress (Not implemented) (Pa)
+                'PI': 75e6 # Hoop Stress (Not implemented) (Pa)
             },
 
             'nu': {
-                'PI': 0.35 # Poisson's Coefficient
+                # 'PI': 0.35 # Poisson's Coefficient
+                'PI': 0.42 # Poisson's Coefficient
             },
 
             'degradation_factor': {
-                'PI': 0.8 # will change Young Modulus
+                # 'PI': 0.8 # will change Young Modulus
+                'PI': 0.7 # will change Young Modulus
             },
 
             'safety_factor': {
-                'PI': 2.0 # will change thickness
+                # 'PI': 2.0 # will change thickness
+                'PI': 3.0 # will change thickness
             },
 
             # Solver options
