@@ -154,10 +154,10 @@ Example1 = {
             'KEY_COMPONENT_RECOVERY_PERM': 'CH4', # Component you don't want to lose from feed to permeate
             'KEY_COMPONENT_COMP_RET': 'CO2', # Component that has a max molar fraction value acceptable at retentate
 
-            'Pressure_Drop_bool': True, # Boolean to evaluate pressure drop
+            'Pressure_Drop_bool': False, # Boolean to evaluate pressure drop
 
-            'Energy_bool': True, # Boolean to evaluate energy balance
-            'UseFugacity': True, # Boolean to use fugacity as driving force for mass transfer, otherwise partial pressures
+            'Energy_bool': False, # Boolean to evaluate energy balance
+            'UseFugacity': False, # Boolean to use fugacity as driving force for mass transfer, otherwise partial pressures
             'EOS': "PR", # "PR" or "HEOS"
             'EnthalpyMode': 'Mix', # Mix = real mixture enthalpy from Peng–Robinson EOS // NoMix = ideal/averaged enthalpy assumption
 
@@ -215,6 +215,7 @@ Example1 = {
             'check_dew_permeate': False,
             'MAX_DP_RET': 1e5, # Maximum pressure drop on retentate side (Pa)
             'MAX_P_PERM': 10e5, # Maximum pressure bore-side. Occurs at permeate closed-end
+            'MAX_MACH': 0.1
         }
     },
 }
