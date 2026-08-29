@@ -21,7 +21,7 @@
 
 # region INPUT Model
 
-Model_HFM_DC = {
+Model_HFM_DC_2FEEDS = {
 
     # =========================================== General Information ============================================
     # The first entries are General (True or False) Information regarding the Model Operation Mode.
@@ -78,9 +78,9 @@ Model_HFM_DC = {
 
         'Unit_OF': '$/year',
 
-        'Optimization_Variables': ['Sep'],
+        'Optimization_Variables': ['Separation','Limit_other_comp_Perm' ],
 
-        'Set_Up_Global_Optimizer': 'Set_Up_HFM_DC'
+        'Set_Up_Global_Optimizer': 'Set_Up_HFM_DC_2FEEDS'
 
     }
 

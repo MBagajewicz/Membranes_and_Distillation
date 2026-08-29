@@ -1,0 +1,266 @@
+********** Normal Set Trimming running **********
+Set Trimming successful - The candidates solution set is not empty
+Building initial set time:  0.00024 seconds
+
+Primordial Set Trimming time:  0.00254 seconds
+
+
+************ Initial Set generated from Primordial Set ************
+
+Candidate set cardinality after each trimming [4410, 3486, 2750, 2750]
+
+******************** Starting Execution for DC_2FEEDS_Example6 ********************
+
+The solution of Equipment1 "DC_2FEEDS" is presented below:
+Set trimming and Enumeration activated. Performing Set Trimming First, followed by Selected Enumeration
+Set Trimming successful - The candidates solution set is not empty
+Set Trimming Solution {'trimmed_candidates': array([[ 4,  4,  4, ..., 17, 17, 17],
+       [10, 10, 10, ..., 24, 24, 24],
+       [15, 16, 17, ..., 33, 34, 35]], shape=(3, 2750)), 'candidate_set_cardinality_after_each_trimming': [2750]}
+Elapsed time Set Trimming: 0.0012063980102539062
+Performing Smart Enumeration now
+Lower bound values [21105.08312969 21137.60986734 21170.1363198  ... 21013.87780225
+ 21046.38943852 21078.90102036]
+Incumbent value: 21071.787879218413
+Solving candidate 0 of 2750 ['Nf1', 'Nf2', 'Ns']  =  [10, 13, 15] :
+**********************************
+Updating incumbent
+Lower Bound: 20458.54862316638 Candidate: 0
+New Incumbent: 20870.10365683167
+Solving candidate 1 of 2750 ['Nf1', 'Nf2', 'Ns']  =  [11, 13, 15] :
+Solving candidate 2 of 2750 ['Nf1', 'Nf2', 'Ns']  =  [9, 13, 15] :
+**********************************
+Updating incumbent
+Lower Bound: 20462.196191256462 Candidate: 2
+New Incumbent: 20835.137978543924
+Solving candidate 3 of 2750 ['Nf1', 'Nf2', 'Ns']  =  [12, 13, 15] :
+Solving candidate 4 of 2750 ['Nf1', 'Nf2', 'Ns']  =  [10, 12, 15] :
+**********************************
+Updating incumbent
+Lower Bound: 20470.092037459966 Candidate: 4
+New Incumbent: 20750.35168514659
+Solving candidate 5 of 2750 ['Nf1', 'Nf2', 'Ns']  =  [9, 12, 15] :
+**********************************
+Updating incumbent
+Lower Bound: 20471.745147260794 Candidate: 5
+New Incumbent: 20714.003328922692
+Solving candidate 6 of 2750 ['Nf1', 'Nf2', 'Ns']  =  [8, 13, 15] :
+Solving candidate 7 of 2750 ['Nf1', 'Nf2', 'Ns']  =  [11, 12, 15] :
+Solving candidate 8 of 2750 ['Nf1', 'Nf2', 'Ns']  =  [8, 12, 15] :
+**********************************
+Updating incumbent
+Lower Bound: 20482.67986605094 Candidate: 8
+New Incumbent: 20697.10220426649
+Solving candidate 9 of 2750 ['Nf1', 'Nf2', 'Ns']  =  [10, 14, 16] :
+Solving candidate 10 of 2750 ['Nf1', 'Nf2', 'Ns']  =  [11, 14, 16] :
+Solving candidate 11 of 2750 ['Nf1', 'Nf2', 'Ns']  =  [9, 11, 15] :
+**********************************
+Updating incumbent
+Lower Bound: 20485.301665195002 Candidate: 11
+New Incumbent: 20669.25111053059
+Solving candidate 12 of 2750 ['Nf1', 'Nf2', 'Ns']  =  [10, 11, 15] :
+Solving candidate 13 of 2750 ['Nf1', 'Nf2', 'Ns']  =  [12, 14, 16] :
+Solving candidate 14 of 2750 ['Nf1', 'Nf2', 'Ns']  =  [9, 14, 16] :
+Solving candidate 15 of 2750 ['Nf1', 'Nf2', 'Ns']  =  [10, 13, 16] :
+Solving candidate 16 of 2750 ['Nf1', 'Nf2', 'Ns']  =  [11, 13, 16] :
+Solving candidate 17 of 2750 ['Nf1', 'Nf2', 'Ns']  =  [8, 11, 15] :
+**********************************
+Updating incumbent
+Lower Bound: 20494.035684437873 Candidate: 17
+New Incumbent: 20652.441347144177
+Solving candidate 18 of 2750 ['Nf1', 'Nf2', 'Ns']  =  [9, 13, 16] :
+Solving candidate 19 of 2750 ['Nf1', 'Nf2', 'Ns']  =  [12, 13, 16] :
+Solving candidate 20 of 2750 ['Nf1', 'Nf2', 'Ns']  =  [8, 14, 16] :
+Solving candidate 21 of 2750 ['Nf1', 'Nf2', 'Ns']  =  [10, 12, 16] :
+Solving candidate 22 of 2750 ['Nf1', 'Nf2', 'Ns']  =  [9, 12, 16] :
+**********************************
+Updating incumbent
+Lower Bound: 20504.259224816364 Candidate: 22
+New Incumbent: 20650.509063980844
+Solving candidate 23 of 2750 ['Nf1', 'Nf2', 'Ns']  =  [7, 13, 15] :
+Solving candidate 24 of 2750 ['Nf1', 'Nf2', 'Ns']  =  [9, 10, 15] :
+Solving candidate 25 of 2750 ['Nf1', 'Nf2', 'Ns']  =  [8, 13, 16] :
+Solving candidate 26 of 2750 ['Nf1', 'Nf2', 'Ns']  =  [11, 12, 16] :
+Solving candidate 27 of 2750 ['Nf1', 'Nf2', 'Ns']  =  [11, 15, 17] :
+Solving candidate 28 of 2750 ['Nf1', 'Nf2', 'Ns']  =  [10, 15, 17] :
+Solving candidate 29 of 2750 ['Nf1', 'Nf2', 'Ns']  =  [7, 12, 15] :
+Solving candidate 30 of 2750 ['Nf1', 'Nf2', 'Ns']  =  [8, 10, 15] :
+**********************************
+Updating incumbent
+Lower Bound: 20510.687549058384 Candidate: 30
+New Incumbent: 20641.58955892301
+Solving candidate 31 of 2750 ['Nf1', 'Nf2', 'Ns']  =  [12, 15, 17] :
+Solving candidate 32 of 2750 ['Nf1', 'Nf2', 'Ns']  =  [9, 15, 17] :
+Solving candidate 33 of 2750 ['Nf1', 'Nf2', 'Ns']  =  [8, 12, 16] :
+Solving candidate 34 of 2750 ['Nf1', 'Nf2', 'Ns']  =  [10, 14, 17] :
+Solving candidate 35 of 2750 ['Nf1', 'Nf2', 'Ns']  =  [11, 14, 17] :
+Solving candidate 36 of 2750 ['Nf1', 'Nf2', 'Ns']  =  [9, 11, 16] :
+**********************************
+Updating incumbent
+Lower Bound: 20517.816040821417 Candidate: 36
+New Incumbent: 20634.196990376084
+Solving candidate 37 of 2750 ['Nf1', 'Nf2', 'Ns']  =  [10, 11, 16] :
+Solving candidate 38 of 2750 ['Nf1', 'Nf2', 'Ns']  =  [7, 11, 15] :
+Solving candidate 39 of 2750 ['Nf1', 'Nf2', 'Ns']  =  [12, 14, 17] :
+Solving candidate 40 of 2750 ['Nf1', 'Nf2', 'Ns']  =  [9, 14, 17] :
+Solving candidate 41 of 2750 ['Nf1', 'Nf2', 'Ns']  =  [10, 13, 17] :
+Solving candidate 42 of 2750 ['Nf1', 'Nf2', 'Ns']  =  [11, 13, 17] :
+Solving candidate 43 of 2750 ['Nf1', 'Nf2', 'Ns']  =  [8, 11, 16] :
+**********************************
+Updating incumbent
+Lower Bound: 20526.550215117182 Candidate: 43
+New Incumbent: 20625.88635594493
+Solving candidate 44 of 2750 ['Nf1', 'Nf2', 'Ns']  =  [9, 13, 17] :
+Solving candidate 45 of 2750 ['Nf1', 'Nf2', 'Ns']  =  [8, 15, 17] :
+Solving candidate 46 of 2750 ['Nf1', 'Nf2', 'Ns']  =  [7, 14, 16] :
+Solving candidate 47 of 2750 ['Nf1', 'Nf2', 'Ns']  =  [12, 13, 17] :
+Solving candidate 48 of 2750 ['Nf1', 'Nf2', 'Ns']  =  [7, 10, 15] :
+Solving candidate 49 of 2750 ['Nf1', 'Nf2', 'Ns']  =  [8, 14, 17] :
+Solving candidate 50 of 2750 ['Nf1', 'Nf2', 'Ns']  =  [11, 16, 18] :
+Solving candidate 51 of 2750 ['Nf1', 'Nf2', 'Ns']  =  [10, 12, 17] :
+Solving candidate 52 of 2750 ['Nf1', 'Nf2', 'Ns']  =  [12, 16, 18] :
+Solving candidate 53 of 2750 ['Nf1', 'Nf2', 'Ns']  =  [9, 12, 17] :
+Solving candidate 54 of 2750 ['Nf1', 'Nf2', 'Ns']  =  [10, 16, 18] :
+Solving candidate 55 of 2750 ['Nf1', 'Nf2', 'Ns']  =  [7, 13, 16] :
+Solving candidate 56 of 2750 ['Nf1', 'Nf2', 'Ns']  =  [9, 10, 16] :
+Solving candidate 57 of 2750 ['Nf1', 'Nf2', 'Ns']  =  [8, 13, 17] :
+Solving candidate 58 of 2750 ['Nf1', 'Nf2', 'Ns']  =  [11, 12, 17] :
+Solving candidate 59 of 2750 ['Nf1', 'Nf2', 'Ns']  =  [13, 16, 18] :
+Solving candidate 60 of 2750 ['Nf1', 'Nf2', 'Ns']  =  [11, 15, 18] :
+Solving candidate 61 of 2750 ['Nf1', 'Nf2', 'Ns']  =  [10, 15, 18] :
+Solving candidate 62 of 2750 ['Nf1', 'Nf2', 'Ns']  =  [7, 12, 16] :
+Solving candidate 63 of 2750 ['Nf1', 'Nf2', 'Ns']  =  [8, 10, 16] :
+Solving candidate 64 of 2750 ['Nf1', 'Nf2', 'Ns']  =  [12, 15, 18] :
+Solving candidate 65 of 2750 ['Nf1', 'Nf2', 'Ns']  =  [9, 16, 18] :
+Solving candidate 66 of 2750 ['Nf1', 'Nf2', 'Ns']  =  [9, 15, 18] :
+Solving candidate 67 of 2750 ['Nf1', 'Nf2', 'Ns']  =  [8, 12, 17] :
+Solving candidate 68 of 2750 ['Nf1', 'Nf2', 'Ns']  =  [10, 14, 18] :
+Solving candidate 69 of 2750 ['Nf1', 'Nf2', 'Ns']  =  [11, 14, 18] :
+Solving candidate 70 of 2750 ['Nf1', 'Nf2', 'Ns']  =  [9, 11, 17] :
+Solving candidate 71 of 2750 ['Nf1', 'Nf2', 'Ns']  =  [10, 11, 17] :
+Solving candidate 72 of 2750 ['Nf1', 'Nf2', 'Ns']  =  [7, 11, 16] :
+Solving candidate 73 of 2750 ['Nf1', 'Nf2', 'Ns']  =  [12, 14, 18] :
+Solving candidate 74 of 2750 ['Nf1', 'Nf2', 'Ns']  =  [9, 14, 18] :
+Solving candidate 75 of 2750 ['Nf1', 'Nf2', 'Ns']  =  [10, 13, 18] :
+Solving candidate 76 of 2750 ['Nf1', 'Nf2', 'Ns']  =  [11, 13, 18] :
+Solving candidate 77 of 2750 ['Nf1', 'Nf2', 'Ns']  =  [8, 11, 17] :
+**********************************
+Updating incumbent
+Lower Bound: 20559.064590802765 Candidate: 77
+New Incumbent: 20623.556320794803
+Solving candidate 78 of 2750 ['Nf1', 'Nf2', 'Ns']  =  [8, 16, 18] :
+Solving candidate 79 of 2750 ['Nf1', 'Nf2', 'Ns']  =  [9, 13, 18] :
+Solving candidate 80 of 2750 ['Nf1', 'Nf2', 'Ns']  =  [8, 15, 18] :
+Solving candidate 81 of 2750 ['Nf1', 'Nf2', 'Ns']  =  [7, 15, 17] :
+Solving candidate 82 of 2750 ['Nf1', 'Nf2', 'Ns']  =  [11, 17, 19] :
+Solving candidate 83 of 2750 ['Nf1', 'Nf2', 'Ns']  =  [12, 17, 19] :
+Solving candidate 84 of 2750 ['Nf1', 'Nf2', 'Ns']  =  [7, 14, 17] :
+Solving candidate 85 of 2750 ['Nf1', 'Nf2', 'Ns']  =  [10, 17, 19] :
+Solving candidate 86 of 2750 ['Nf1', 'Nf2', 'Ns']  =  [12, 13, 18] :
+Solving candidate 87 of 2750 ['Nf1', 'Nf2', 'Ns']  =  [7, 10, 16] :
+Solving candidate 88 of 2750 ['Nf1', 'Nf2', 'Ns']  =  [13, 17, 19] :
+Solving candidate 89 of 2750 ['Nf1', 'Nf2', 'Ns']  =  [8, 14, 18] :
+Solving candidate 90 of 2750 ['Nf1', 'Nf2', 'Ns']  =  [11, 16, 19] :
+Solving candidate 91 of 2750 ['Nf1', 'Nf2', 'Ns']  =  [10, 12, 18] :
+Solving candidate 92 of 2750 ['Nf1', 'Nf2', 'Ns']  =  [12, 16, 19] :
+Solving candidate 93 of 2750 ['Nf1', 'Nf2', 'Ns']  =  [9, 12, 18] :
+Solving candidate 94 of 2750 ['Nf1', 'Nf2', 'Ns']  =  [10, 16, 19] :
+Solving candidate 95 of 2750 ['Nf1', 'Nf2', 'Ns']  =  [7, 13, 17] :
+Solving candidate 96 of 2750 ['Nf1', 'Nf2', 'Ns']  =  [9, 10, 17] :
+Solving candidate 97 of 2750 ['Nf1', 'Nf2', 'Ns']  =  [6, 13, 15] :
+Solving candidate 98 of 2750 ['Nf1', 'Nf2', 'Ns']  =  [8, 13, 18] :
+Solving candidate 99 of 2750 ['Nf1', 'Nf2', 'Ns']  =  [11, 12, 18] :
+Solving candidate 100 of 2750 ['Nf1', 'Nf2', 'Ns']  =  [13, 16, 19] :
+Solving candidate 101 of 2750 ['Nf1', 'Nf2', 'Ns']  =  [9, 17, 19] :
+Solving candidate 102 of 2750 ['Nf1', 'Nf2', 'Ns']  =  [11, 15, 19] :
+Solving candidate 103 of 2750 ['Nf1', 'Nf2', 'Ns']  =  [10, 15, 19] :
+Solving candidate 104 of 2750 ['Nf1', 'Nf2', 'Ns']  =  [6, 12, 15] :
+Solving candidate 105 of 2750 ['Nf1', 'Nf2', 'Ns']  =  [7, 12, 17] :
+Solving candidate 106 of 2750 ['Nf1', 'Nf2', 'Ns']  =  [8, 10, 17] :
+Solving candidate 107 of 2750 ['Nf1', 'Nf2', 'Ns']  =  [12, 15, 19] :
+Solving candidate 108 of 2750 ['Nf1', 'Nf2', 'Ns']  =  [9, 16, 19] :
+Solving candidate 109 of 2750 ['Nf1', 'Nf2', 'Ns']  =  [9, 15, 19] :
+Solving candidate 110 of 2750 ['Nf1', 'Nf2', 'Ns']  =  [8, 12, 18] :
+Solving candidate 111 of 2750 ['Nf1', 'Nf2', 'Ns']  =  [10, 14, 19] :
+Solving candidate 112 of 2750 ['Nf1', 'Nf2', 'Ns']  =  [6, 11, 15] :
+Solving candidate 113 of 2750 ['Nf1', 'Nf2', 'Ns']  =  [11, 14, 19] :
+Solving candidate 114 of 2750 ['Nf1', 'Nf2', 'Ns']  =  [9, 11, 18] :
+Solving candidate 115 of 2750 ['Nf1', 'Nf2', 'Ns']  =  [10, 11, 18] :
+Solving candidate 116 of 2750 ['Nf1', 'Nf2', 'Ns']  =  [7, 11, 17] :
+Solving candidate 117 of 2750 ['Nf1', 'Nf2', 'Ns']  =  [12, 14, 19] :
+Solving candidate 118 of 2750 ['Nf1', 'Nf2', 'Ns']  =  [9, 14, 19] :
+Solving candidate 119 of 2750 ['Nf1', 'Nf2', 'Ns']  =  [10, 13, 19] :
+Solving candidate 120 of 2750 ['Nf1', 'Nf2', 'Ns']  =  [16, 17, 19] :
+Solving candidate 121 of 2750 ['Nf1', 'Nf2', 'Ns']  =  [8, 17, 19] :
+Solving candidate 122 of 2750 ['Nf1', 'Nf2', 'Ns']  =  [11, 13, 19] :
+Solving candidate 123 of 2750 ['Nf1', 'Nf2', 'Ns']  =  [6, 10, 15] :
+Solving candidate 124 of 2750 ['Nf1', 'Nf2', 'Ns']  =  [8, 11, 18] :
+Solving candidate 125 of 2750 ['Nf1', 'Nf2', 'Ns']  =  [8, 16, 19] :
+Solving candidate 126 of 2750 ['Nf1', 'Nf2', 'Ns']  =  [9, 13, 19] :
+Solving candidate 127 of 2750 ['Nf1', 'Nf2', 'Ns']  =  [12, 18, 20] :
+Solving candidate 128 of 2750 ['Nf1', 'Nf2', 'Ns']  =  [11, 18, 20] :
+Solving candidate 129 of 2750 ['Nf1', 'Nf2', 'Ns']  =  [7, 16, 18] :
+Solving candidate 130 of 2750 ['Nf1', 'Nf2', 'Ns']  =  [13, 18, 20] :
+Solving candidate 131 of 2750 ['Nf1', 'Nf2', 'Ns']  =  [8, 15, 19] :
+Solving candidate 132 of 2750 ['Nf1', 'Nf2', 'Ns']  =  [10, 18, 20] :
+Solving candidate 133 of 2750 ['Nf1', 'Nf2', 'Ns']  =  [7, 15, 18] :
+Solving candidate 134 of 2750 ['Nf1', 'Nf2', 'Ns']  =  [11, 17, 20] :
+Solving candidate 135 of 2750 ['Nf1', 'Nf2', 'Ns']  =  [12, 17, 20] :
+Solving candidate 136 of 2750 ['Nf1', 'Nf2', 'Ns']  =  [7, 14, 18] :
+Solving candidate 137 of 2750 ['Nf1', 'Nf2', 'Ns']  =  [10, 17, 20] :
+Solving candidate 138 of 2750 ['Nf1', 'Nf2', 'Ns']  =  [12, 13, 19] :
+Solving candidate 139 of 2750 ['Nf1', 'Nf2', 'Ns']  =  [7, 10, 17] :
+Solving candidate 140 of 2750 ['Nf1', 'Nf2', 'Ns']  =  [13, 17, 20] :
+Solving candidate 141 of 2750 ['Nf1', 'Nf2', 'Ns']  =  [8, 14, 19] :
+Solving candidate 142 of 2750 ['Nf1', 'Nf2', 'Ns']  =  [11, 16, 20] :
+Solving candidate 143 of 2750 ['Nf1', 'Nf2', 'Ns']  =  [10, 12, 19] :
+Solving candidate 144 of 2750 ['Nf1', 'Nf2', 'Ns']  =  [6, 14, 16] :
+Solving candidate 145 of 2750 ['Nf1', 'Nf2', 'Ns']  =  [12, 16, 20] :
+Solving candidate 146 of 2750 ['Nf1', 'Nf2', 'Ns']  =  [9, 12, 19] :
+Solving candidate 147 of 2750 ['Nf1', 'Nf2', 'Ns']  =  [10, 16, 20] :
+Solving candidate 148 of 2750 ['Nf1', 'Nf2', 'Ns']  =  [7, 13, 18] :
+Solving candidate 149 of 2750 ['Nf1', 'Nf2', 'Ns']  =  [9, 10, 18] :
+Solving candidate 150 of 2750 ['Nf1', 'Nf2', 'Ns']  =  [9, 18, 20] :
+Solving candidate 151 of 2750 ['Nf1', 'Nf2', 'Ns']  =  [6, 13, 16] :
+Solving candidate 152 of 2750 ['Nf1', 'Nf2', 'Ns']  =  [8, 13, 19] :
+Solving candidate 153 of 2750 ['Nf1', 'Nf2', 'Ns']  =  [11, 12, 19] :
+Solving candidate 154 of 2750 ['Nf1', 'Nf2', 'Ns']  =  [13, 16, 20] :
+Solving candidate 155 of 2750 ['Nf1', 'Nf2', 'Ns']  =  [9, 17, 20] :
+Solving candidate 156 of 2750 ['Nf1', 'Nf2', 'Ns']  =  [11, 15, 20] :
+Solving candidate 157 of 2750 ['Nf1', 'Nf2', 'Ns']  =  [10, 15, 20] :
+Solving candidate 158 of 2750 ['Nf1', 'Nf2', 'Ns']  =  [6, 12, 16] :
+Solving candidate 159 of 2750 ['Nf1', 'Nf2', 'Ns']  =  [7, 12, 18] :
+Solving candidate 160 of 2750 ['Nf1', 'Nf2', 'Ns']  =  [8, 10, 18] :
+Solving candidate 161 of 2750 ['Nf1', 'Nf2', 'Ns']  =  [12, 15, 20] :
+Solving candidate 162 of 2750 ['Nf1', 'Nf2', 'Ns']  =  [9, 16, 20] :
+Solving candidate 163 of 2750 ['Nf1', 'Nf2', 'Ns']  =  [16, 18, 20] :
+Solving candidate 164 of 2750 ['Nf1', 'Nf2', 'Ns']  =  [9, 15, 20] :
+Solving candidate 165 of 2750 ['Nf1', 'Nf2', 'Ns']  =  [8, 12, 19] :
+Solving candidate 166 of 2750 ['Nf1', 'Nf2', 'Ns']  =  [10, 14, 20] :
+Solving candidate 167 of 2750 ['Nf1', 'Nf2', 'Ns']  =  [6, 11, 16] :
+Solving candidate 168 of 2750 ['Nf1', 'Nf2', 'Ns']  =  [11, 14, 20] :
+Solving candidate 169 of 2750 ['Nf1', 'Nf2', 'Ns']  =  [9, 11, 19] :
+Solving candidate 170 of 2750 ['Nf1', 'Nf2', 'Ns']  =  [10, 11, 19] :
+Solving candidate 171 of 2750 ['Nf1', 'Nf2', 'Ns']  =  [7, 11, 18] :
+Solving candidate 172 of 2750 ['Nf1', 'Nf2', 'Ns']  =  [12, 14, 20] :
+Solving candidate 173 of 2750 ['Nf1', 'Nf2', 'Ns']  =  [9, 14, 20] :
+Solving candidate 174 of 2750 ['Nf1', 'Nf2', 'Ns']  =  [10, 13, 20] :
+Solving candidate 175 of 2750 ['Nf1', 'Nf2', 'Ns']  =  [8, 18, 20] :
+Solving candidate 176 of 2750 ['Nf1', 'Nf2', 'Ns']  =  [17, 18, 20] :
+Solving candidate 177 of 2750 ['Nf1', 'Nf2', 'Ns']  =  [16, 17, 20] :
+Solving candidate 178 of 2750 ['Nf1', 'Nf2', 'Ns']  =  [12, 19, 21] :
+Solving candidate 179 of 2750 ['Nf1', 'Nf2', 'Ns']  =  [11, 19, 21] :
+Solving candidate 180 of 2750 ['Nf1', 'Nf2', 'Ns']  =  [8, 17, 20] :
+Solving candidate 181 of 2750 ['Nf1', 'Nf2', 'Ns']  =  [13, 19, 21] :
+Solving candidate 182 of 2750 ['Nf1', 'Nf2', 'Ns']  =  [11, 13, 20] :
+Solving candidate 183 of 2750 ['Nf1', 'Nf2', 'Ns']  =  [6, 10, 16] :
+Solving candidate 184 of 2750 ['Nf1', 'Nf2', 'Ns']  =  [8, 11, 19] :
+##################################
+Exit at candidate: 184
+Lower Bound: 20624.092922972697 Candidate: 184
+Solution after Smart Enumeration {'TAC_OF': {'TAC': array(20623.55632079)}, 'Nf1': array([8]), 'Nf2': array([11]), 'Ns': array([17])}
+Elapsed time for Equipment1 "DC_2FEEDS": 681.94 seconds 
+
+OF Solution total ($/year) 20623.556320794803
+Total time elapsed: 695.29393 seconds
+

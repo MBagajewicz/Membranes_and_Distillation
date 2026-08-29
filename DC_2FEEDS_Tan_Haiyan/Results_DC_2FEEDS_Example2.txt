@@ -1,0 +1,21 @@
+********** Normal Set Trimming running **********
+Set Trimming successful - The candidates solution set is not empty
+Building initial set time:  0.00013 seconds
+
+Primordial Set Trimming time:  0.00058 seconds
+
+
+************ Initial Set generated from Primordial Set ************
+
+Candidate set cardinality after each trimming [5832, 3078, 1140, 1130]
+
+******************** Starting Execution for DC_2FEEDS_Example2 ********************
+
+The solution of Equipment1 "DC_2FEEDS" is presented below:
+Set trimming and Enumeration activated. Performing Set Trimming First, followed by Selected Enumeration
+Set Trimming successful - The candidates solution set is not empty
+Set Trimming Solution {'trimmed_candidates': array([[13, 13, 13, ..., 28, 29, 30],
+       [13, 13, 13, ..., 30, 30, 30],
+       [18, 19, 20, ..., 32, 32, 32]], shape=(3, 1130)), 'candidate_set_cardinality_after_each_trimming': [1130]}
+Elapsed time Set Trimming: 0.00061798095703125
+Performing Smart Enumeration now

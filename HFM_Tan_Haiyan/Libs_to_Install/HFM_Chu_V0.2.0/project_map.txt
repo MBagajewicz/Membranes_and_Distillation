@@ -1,0 +1,31 @@
+hfm_project/
+│
+├─ pyproject.toml
+├─ README.md
+│
+├─ hfm_simulator/          ← paquete instalable
+│   │
+│   ├─ __init__.py
+│   ├─ simulator.py
+│   ├─ results.py
+│   │
+│   ├─ mass_model/
+│   │   ├─ __init__.py
+│   │   ├─ geometry.py
+│   │   ├─ module_dp.py
+│   │   ├─ module_nodp.py
+│   │   ├─ solver.py
+│   │   └─ report_mass.py
+│   │
+│   └─ energy_model/
+│       ├─ __init__.py
+│       ├─ energy_module.py
+│       ├─ energy_solver.py
+│       ├─ energy_postprocess.py
+│       ├─ thermo_model.py
+│       └─ thermo_model_no_mix_enth.py
+│
+│
+├─ scenarios_examples/              ← FUERA del paquete
+    └─ scenarios.py
+

@@ -1,0 +1,4 @@
+numpy~=2.3.4
+scipy~=1.16.3
+matplotlib~=3.10.7
+-e ./Libs_to_Install/HFM_Chu_V0.2.0

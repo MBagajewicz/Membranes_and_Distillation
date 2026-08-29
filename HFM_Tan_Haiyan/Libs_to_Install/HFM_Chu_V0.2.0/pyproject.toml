@@ -1,0 +1,21 @@
+[build-system]
+requires = ["setuptools>=61"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "hfm-simulator"
+version = "0.2.0"
+description = "Hollow Fiber Membrane Simulator"
+authors = [
+    { name="João Victor Abdala Tupinambá, Oliva D.G., Argimiro Resende Secchi, Bagajewicz M.J." }
+]
+dependencies = [
+    "numpy",
+    "scipy",
+    "openpyxl",
+    "CoolProp"
+]
+
+[tool.setuptools.packages.find]
+where = ["."]
+include = ["hfm_simulator*"]
