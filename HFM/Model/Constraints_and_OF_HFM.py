@@ -154,5 +154,16 @@ def AREA_OF(L,D,dfo_esp,Void_Frac,m_p):
     Area = Calculations_HFM_Area.HFM_area(dfo, L, Ntf)
     return Area
 
+def CAPEX_OF(L,D,dfo_esp,Void_Frac,m_p):
+    L = L.astype(np.float64)
+    D = D.astype(np.float64)
+    Void_Frac = Void_Frac.astype(np.float64)
+    dfo_esp_list = [ast.literal_eval(t) for t in dfo_esp]
+    dfo = np.array([t[0] for t in dfo_esp_list], dtype=np.float64)
+    Ntf=Calculations_HFM_Nf.Number_of_fibers(D,dfo,Void_Frac)
+    Area = Calculations_HFM_Area.HFM_area(dfo, L, Ntf)
+    Costm2=m_p['COST_PER_M2']
+    CAPEX=Calculations_HFM_CAPEX.HFM_area(Costm2,Area)
+    return Area
 # endregion
 ##################################################################################################################
