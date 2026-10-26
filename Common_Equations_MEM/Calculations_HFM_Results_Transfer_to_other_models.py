@@ -16,20 +16,24 @@ from math import pi
 
 #region Calculations
 
-
 def SU_DC_2FEEDS(results, m_p):
 
-    # Retentate Toluene to be transferred to 
-    m_p['z_f'] = (results['xxxx'].tolist()
-    m_p['F_f'] = (results['xxxx'].tolist()
-    m_p['T_f'] = (results['xxxx'].tolist()
+    # Retentate  to be transferred to
 
-# z_f, F_f and T_f are in a form of vectors for the two feeds. 
-#'z_f' : [[0.7, 0.2, 0.1], [0.2, 0.2, 0.6]], 
-#'F_f' :  [100, 100],                  
+    perm_flow_kmolh = results['perm_flow'] * 3600
+    ret_flow_kmolh = results['ret_flow'] * 3600
+
+
+    m_p['z_f'] = [results['perm_comp'].tolist(),results['ret_comp'].tolist()]
+    m_p['F_f'] = [perm_flow_kmolh,ret_flow_kmolh]
+    m_p['T_f'] = [m_p['T'], m_p['T']]
+
+# z_f, F_f and T_f are in a form of vectors for the two feeds.
+#'z_f' : [[0.7, 0.2, 0.1], [0.2, 0.2, 0.6]],
+#'F_f' :  [100, 100],
 #'T_f' :  [1350, 360],                   )
 
-# I do not know how the results from the membrane are reported, so you need to figure that out. 
+# I do not know how the results from the membrane are reported, so you need to figure that out.
 
     return m_p
 
