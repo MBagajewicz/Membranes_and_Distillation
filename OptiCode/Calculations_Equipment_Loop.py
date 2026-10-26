@@ -73,6 +73,9 @@ def ST_SE_Equipment_Loop(x, Active_Example, Active_Models, Selected_Model, Selec
     for i in range(Number_of_Equipments):
         equipment_key = f'Equipment{i + 1}'
         pd_key = f'm_p{i + 1}'
+        if m_p_dict[pd_key].get('update')==True:
+            
+        
         Active_Example[equipment_key]['Model_Parameters'].update(m_p_dict[pd_key])
 
     try:

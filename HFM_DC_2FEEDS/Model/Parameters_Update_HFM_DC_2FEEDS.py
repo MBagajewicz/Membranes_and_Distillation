@@ -24,7 +24,7 @@
 ##################################################################################################################
 # region Import Library
 from Common_Equations_MEM import (
-     Calculations_HFM_Results_Transfer_to_other_models
+     Calculations_HFM_Transfer
     )
  
 # endregion
@@ -39,7 +39,7 @@ from Common_Equations_MEM import (
 
 def Set_Up_DC_2FEEDS(results, m_p):
 
-    m_p = Calculations_HFM_Results_Transfer_to_other_models.SU_DC_2FEEDS(results, m_p)
+    m_p = Calculations_HFM_Transfer.SU_DC_2FEEDS(results, m_p)
 
     return m_p
 

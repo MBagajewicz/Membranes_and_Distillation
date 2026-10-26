@@ -248,31 +248,17 @@ Example1 = {
             'stream_names': ['FEED1', 'FEED2', 'D-TOP', 'B-BOTTOM'],
             # Bounds for manipulated variables within Aspen Active Specs
             'reflux_ratio_bounds': [0, 100],  # Reflux ratio
-            'distillate_rate_bounds': [0, 1.08]  # Distillate rate
-
+            'distillate_rate_bounds': [0, 1.08],  # Distillate rate
+            'update':True
 
         }
 
-},
-
-#######################################################################
-
-'Global_Optimizer': {
-
-    'Selected_Optimizer': 'Parameter_Enumeration',
-    # Bounds must be given in the same order as model optimization variables ['Separation']
-   # Separation_Retentate,Separation_Permeate
-
-    'Lower_Bounds': [0.1,0.1],
-
-    'Upper_Bounds': [0.3,0.3],
-
-    'step1': 0.05,
-
-    'step2':0.05
-    }
+######################################################################
 }
-# endregion
+
+}
+
+
 
 ######################################################################################################################
 
