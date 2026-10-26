@@ -14,6 +14,8 @@
 #   0.8          13-May-2025     Mariana Mello             Update .txt file with Examples Results
 #   0.9          25-Jun-2025     Mariana Mello             Minor changes
 #   0.10         04-Aug-2025     Alice Peccini             Include Next Level m_p dictionaries for set_up functions
+#   0.11         26-Oct-2026     Mariana Mello             Removed empty 'update' if; transfer of results between
+#                                                          equipments moved to Solver_Organizer
 ##################################################################################################################
 ##################################################################################################################
 #endregion
@@ -70,12 +72,11 @@ def ST_SE_Equipment_Loop(x, Active_Example, Active_Models, Selected_Model, Selec
     if not feasibility:
         return 1e20
 
+    # Updates Model_Parameters of each equipment. The transfer of results between equipments ('update': True) is
+    # made by Solver_Organizer, after the previous equipment is solved
     for i in range(Number_of_Equipments):
         equipment_key = f'Equipment{i + 1}'
         pd_key = f'm_p{i + 1}'
-        if m_p_dict[pd_key].get('update')==True:
-            
-        
         Active_Example[equipment_key]['Model_Parameters'].update(m_p_dict[pd_key])
 
     try:

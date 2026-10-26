@@ -6,6 +6,7 @@
 # VERSION        DATE            AUTHOR                    DESCRIPTION OF CHANGES MADE
 #  0.0        06-Nov-2025     João Tupinambá               Proposed
 #  0.1        23-Mar-2026     Diego Oliva                  Proposed
+#  0.2        26-Oct-2026     Mariana Mello                Simulation split into Simulate_HFM; add model_HFM_Outlet
 ##################################################################################################################
 #endregion
 
@@ -19,7 +20,7 @@ from hfm_simulator.stream import Stream
 # from HFM.HFM_Chu_Scenarios import SCENARIOS, STREAMS
 from Common_Equations_Properties.Mixture_Properties import MixtureProperties
 
-def model_HFM_Recovery(L,D,dfo,dfi,Void_Frac,m_p,Ntf):
+def Simulate_HFM(L,D,dfo,dfi,Void_Frac,m_p,Ntf):
 
     # EN: True if you want to print results
     # PT-BR: True se deseja imprimir or resultados
@@ -186,6 +187,25 @@ def model_HFM_Recovery(L,D,dfo,dfi,Void_Frac,m_p,Ntf):
     results = sim.run()
 
     # print("Simulation finished")
+    return results
+
+def model_HFM_Outlet(L,D,dfo,dfi,Void_Frac,m_p,Ntf):
+
+    # EN: Outlet streams of the membrane (flows in mol/s)
+    # PT-BR: Correntes de saída da membrana (vazões em mol/s)
+    results = Simulate_HFM(L,D,dfo,dfi,Void_Frac,m_p,Ntf)
+
+    return {
+        'perm_flow': results.FPerm[0],
+        'perm_comp': np.asarray(results.ZPerm[0]),
+        'ret_flow': results.FRet[-1],
+        'ret_comp': np.asarray(results.ZRet[-1])
+    }
+
+def model_HFM_Recovery(L,D,dfo,dfi,Void_Frac,m_p,Ntf):
+
+    results = Simulate_HFM(L,D,dfo,dfi,Void_Frac,m_p,Ntf)
+
     Key_Comp_index_Perm = m_p['COMPONENTS'].index(m_p['KEY_COMPONENT_RECOVERY_PERM'])
     Key_Comp_index_Ret = m_p['COMPONENTS'].index(m_p['KEY_COMPONENT_COMP_RET'])
     Rec_Perm = ((results.FPerm[0] * results.ZPerm[0]) / (results.FRet[0] * results.ZRet[0]))[Key_Comp_index_Perm]

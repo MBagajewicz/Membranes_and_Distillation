@@ -21,6 +21,8 @@
 #   0.12         01-Sep-2025     Diego Oliva               Adding data to be send in Calculations_Execute_Solver.Execute_Solver,
 #   0.12         01-Sep-2025     Diego Oliva               this data is used by Incremental routine;
 #   0.12         01-Sep-2025     Diego Oliva               it is sending after "equipment_dt['Model_Declarations']['Type_Enumeration']"
+#   0.13         26-Oct-2026     Mariana Mello             Selected_Model 'Set_Up_Sequential': if 'update' is True,
+#                                                          previous equipment results feed the current equipment
 ##################################################################################################################
 ##################################################################################################################
 #endregion
@@ -69,7 +71,18 @@ def Solver_Organizer(Active_Example, Active_Models, Selected_Model, Selected_Exa
         Parameters_Update_Module = Active_Models['Parameters_Update'][Type_Equipment]
         for function in Sequential_Set_Up:
             getattr(Parameters_Update_Module, function)(Sol_Dict, equipment_dt['Model_Parameters'])
-        
+
+        # Selected_Model sequential set up: previous equipment outlet feeds this equipment if 'update' is True
+        if equipment_dt['Model_Parameters'].get('update') and i > 1:
+            Selected_Model_Module = Active_Models['Parameters_Update'][Selected_Model]
+            Selected_Model_Set_Up = Active_Models['Models_Def'].get(Selected_Model, {}) \
+                                                .get('Set_Up_Sequential', {}).get(equipment_key, [])
+            previous_key = f'Equipment{i - 1}'
+            for function in Selected_Model_Set_Up:
+                getattr(Selected_Model_Module, function)(Sol_Dict[previous_key],
+                                                 Active_Example[previous_key]['Model_Parameters'],
+                                                 equipment_dt['Model_Parameters'])
+
         # Checks to see if recursive Trimming is applied for selected equipment
         if equipment_def['Set_Trimming_Info'].get('Recursive_Set_Trimming'):
 

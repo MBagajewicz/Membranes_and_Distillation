@@ -7,6 +7,7 @@
 #   0.0          28-Fev-2025     Alice Peccini             Original
 #   0.2          29-Apr-2025     Mariana Mello             Update to fix error
 #   0.3          12-May-2025     Mariana Mello             Changed name from 'pd' to 'm_p'
+#   0.4          26-Oct-2026     Mariana Mello             Set_Up_DC_2FEEDS receives previous equipment m_p (m_p_prev)
 ##################################################################################################################
 # INPUT: Define Functions for 'Parameters_Calculations_List' and 'Example_Within_Set_Up'
 ##################################################################################################################
@@ -37,9 +38,9 @@ from Common_Equations_MEM import (
  
 
 
-def Set_Up_DC_2FEEDS(results, m_p):
+def Set_Up_DC_2FEEDS(results, m_p_prev, m_p):
 
-    m_p = Calculations_HFM_Transfer.SU_DC_2FEEDS(results, m_p)
+    m_p = Calculations_HFM_Transfer.SU_DC_2FEEDS(results, m_p_prev, m_p)
 
     return m_p
 

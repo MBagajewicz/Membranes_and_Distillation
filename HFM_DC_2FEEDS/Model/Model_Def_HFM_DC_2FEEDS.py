@@ -5,7 +5,9 @@
 ##################################################################################################################
 # VERSION        DATE            AUTHOR                    DESCRIPTION OF CHANGES MADE
 #   0.0         17-Feb-2025     Diego Oliva                STHE Examples Repository
-#   0.1         28-Feb-2025     Alice Peccini              Relocating folders 
+#   0.1         28-Feb-2025     Alice Peccini              Relocating folders
+#   0.2         26-Oct-2026     Mariana Mello              Add 'Set_Up_Sequential' (HFM outlet feeds DC_2FEEDS) and
+#                                                          syntax error correction
 ##################################################################################################################
 # INPUT: Setting of examples
 ##################################################################################################################
@@ -97,7 +99,7 @@ Model_HFM_DC_2FEEDS = {
             # They also must be defined in Constraints_and_OF.py file
     
 #            'Recursive_Set_Trimming': {
-                },
+#                },
             # Recursive Set Trimming Option. It is Optional. If user defines the parameter with the same name, 
             # only one option would be evaluated. If user does not enter a valid option, Variable_Options will be used.
 #        } ,
@@ -121,6 +123,15 @@ Model_HFM_DC_2FEEDS = {
 #           }
 
 #        },
+
+       # ========================================= Sequential Set Up =========================================
+
+        'Set_Up_Sequential': {
+            'Equipment2': ['Set_Up_DC_2FEEDS']
+        }
+        # Functions (defined in Parameters_Update_HFM_DC_2FEEDS.py) that transfer the results of the previous
+        # Equipment (HFM) to the Model_Parameters of the given Equipment (DC_2FEEDS). Only applied if 'update': True
+        # is set in the Model_Parameters of the receiving Equipment in the example file
 
 }
 
