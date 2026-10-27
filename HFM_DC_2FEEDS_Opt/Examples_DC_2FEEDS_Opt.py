@@ -29,7 +29,7 @@ import copy
 
 Example1 = {
 
-    'Number_of_Equipment': 1,
+    'Number_of_Equipment': 2,
 
     'Equipment1': {
 
@@ -42,8 +42,8 @@ Example1 = {
             # Values of the discrete variables (All variables declared in 'List_of_Variables' must be given values)
             'Discrete_Values_of_Variables': [
 
-                list(np.round(np.linspace(0.5, 3, 10), 2)),  # L
-                list(np.linspace(50, 200, 10) * 1e-3),  # D
+                list(np.round(np.linspace(0.5, 2, 16), 2)),  # L
+                list(np.linspace(50, 200, 16) * 1e-3),  # D
                 # list(np.round(np.linspace(50, 200, 16)*1e-6,6)),  #dfo  # 50,60,70... | Richard W. Baker(auth.) - Membrane Technology and Applications pg 148
                 ['(5e-05,2e-05)', '(6e-05,2e-05)', '(7e-05,2e-05)', '(7e-05,3e-05)', '(8e-05,2e-05)', '(8e-05,3e-05)',
                  '(9e-05,2e-05)', '(9e-05,3e-05)', '(9e-05,4e-05)', '(0.0001,2e-05)', '(0.0001,3e-05)',
@@ -82,8 +82,7 @@ Example1 = {
                  '(0.0003,4e-05)', '(0.0003,5e-05)', '(0.0003,6e-05)', '(0.0003,7e-05)', '(0.0003,8e-05)',
                  '(0.0003,9e-05)', '(0.0003,0.0001)', '(0.0003,0.00011)', '(0.0003,0.00012)', '(0.0003,0.00013)',
                  '(0.0003,0.00014)'],
-
-                list(np.round(np.linspace(0.44, 0.55, 8), 2))  # Void_Frac # 0.30,0.31,0.32...
+                list(np.round(np.linspace(0.2, 0.3, 11), 2))  # Void_Frac # 0.20,0.21,0.22...
                 # note on membrane thickness: Most gas separation processes using polymer membranes require that the selective
                 # membrane layer be extremely thin to achieve economical fluxes. Typical membrane thicknesses are less
                 # than 0.5 μm and often less than 0.1 μm >>FOR THE SELECTIVE PART<< | Richard W. Baker(auth.) - Membrane Technology and Applications pg 335
@@ -91,7 +90,6 @@ Example1 = {
             # Enumeration type (Options are 'Exhaustive', 'Smart' or 'Segmental_Smart' ---> Default is 'Smart')
             'Type_Enumeration': 'Smart',
 
-            'Selected_OF': ['CAPEX_OF'],
 
         },
 
@@ -100,29 +98,31 @@ Example1 = {
         'Model_Parameters': {
 
             'COMPONENTS': ['PROPYLENE', 'PROPANE'],
-            'KEY_COMPONENT_RECOVERY_PERM': 'PROPANE',
-            'KEY_COMPONENT_COMP_RET': 'PROPYLENE',
-            'Energy_bool': False,
-            'Pressure_Drop_bool': False,
+            # Components present on feed, further vectors informed will be on this order
+            'KEY_COMPONENT_RECOVERY_PERM': 'PROPANE',  # Component you don't want to lose from feed to permeate
+            'KEY_COMPONENT_COMP_RET': 'PROPYLENE',  # Component that has a max molar fraction value acceptable at retentate
+            'Energy_bool': False,  # Boolean to evaluate energy balance
+            'Pressure_Drop_bool': False,  # Boolean to evaluate pressure drop
             'EnthalpyMode': 'NoMix',
             # Mix = real mixture enthalpy from Peng–Robinson EOS // NoMix = ideal/averaged enthalpy assumption
 
-            'M': np.array([42.08e-3, 44.10e-3]),  # Molar Mass ['PROPYLENE', 'PROPANE'] (kg/mol)
-            'MU': np.array([8.4e-6, 8.5e-6]),  # Viscosities ['PROPYLENE', 'PROPANE'] (Pa·s)
-            "T": 303.15,         # K
-            "P_Feed": 7e5,     # pa
-            "P_Permeate": 1e5,    # pa
-            "f_total": 0.3,    #mol/s
-            "comp_f": np.array([0.5, 0.5]),
-            "Q": np.array([3.0e-7, 3.0e-8]),   # Permeance [mol/(m²·Pa·s)]
-            "S": np.array([3.0e-7, 3.0e-8]) * 2e-6,
+            'M': np.array([42.08e-3, 44.10e-3]),  # Molar Mass [CO2, CH4,N2] (kg/mol)
+            'MU': np.array([8.0e-6, 7.5e-6]),  # Viscosities [CO2, CH4,N2] (Pa·s)
+            "T": 323.15,  # Temperature (K)
+            "P_Feed": 3e5,  # Feed pressure (Pa)
+            "P_Permeate": 1e5,  # Permeate outlet pressure (Pa)
+            "f_total": 0.5,  # Total feed molar flow
+            "comp_f": np.array([0.5,0.5]),  # Feed molar fractions (order must be that of 'COMPONENTS')
+            "Q": np.array([3.0e-7, 3.0e-8]),  # Permeance [mol/(m²·Pa·s)]
+            "S": np.array([3.0e-7, 3.0e-8]) * 2e-6,#得改一下
+            # Permeability [mol/(m Pa s)] # Permeabilities of components (order must be that of 'COMPONENTS')
             # Heat transfer coefficient [W/(m2 K)]
-            'U': 4,  # float or None
+            'U': 4,
+            # float or None. Used on energy balance, if None it is calculated on each control volume. If float, is constant on that value.
 
+            # Mechanical stress constants
             # Using table 13.12 from Van Krevelen's 'Properties of Polymers'
             #                              >> FOR POLY-IMIDES <<
-
-            # 6FDA-DAM(Polyimide Film Materials)
             'E': 2.8e9,  # Young Modulus (Pa)
             'sigma_y': 80e6,  # Hoop Stress (Not implemented, to be used when feed is on bore side) (Pa)
             'nu': 0.42,  # Poisson's Coefficient
@@ -137,46 +137,39 @@ Example1 = {
             'LDLB': 3,  # Lower bound on L/D
             'LDUB': 30,  # Upper bound on L/D
 
-            'MAX_COMP_RET AND MAX_REC_PERM': np.array([0.2, 0.22]),
+            'MAX_COMP_RET AND MAX_REC_PERM': np.array([0.32, 0.20]),
             # Max molar fraction of unwanted component at Retentate and max recovery of component you don't want to lose at permeate.
             'X_RET_KEY_MAX_PROXY': 0.3,
-            # Proxy for maximum mass transfer (considering the unwanted component as the most permeable, 
-            # checks if at max mass transfer it achieves <x% molar fraction)
-            'COST_PER_M2': 500  # Cost per m² of membrane ($/m²)
+            # Proxy for maximum mass transfer (considering the unwanted component as the most permeable, checks if at max mass transfer it achieves <x% molar fraction)
+
         }
-    },
 
-
-
+},
 
 ########################################################################
 
-    'Equipment2': {
+'Equipment2': {
 
-           'Model_Declarations': {
+    'Model_Declarations': {
 
-            # Type of Equipment - Models_List
-            'Type_Equipment': 'DC_2FEEDS',
+        # Type of Equipment - Models_List
+        'Type_Equipment': 'DC_2FEEDS',
 
-            # Discrete_Values_of_Variables
-            # Values of the discrete variables (All variables declared in 'List_of_Variables' must be given values)
-            'Discrete_Values_of_Variables': [
+        # Discrete_Values_of_Variables
+        # Values of the discrete variables (All variables declared in 'List_of_Variables' must be given values)
+        'Discrete_Values_of_Variables': [
 
-                list(range(10, 30)),
-                # Nf1 (Feed 1 considered from stage 3 to 40, considering there are always a stripping
-                # and a rectifying section)
-                # Nf is interpreted regarding stages and not trays (same as in Aspen Plus)
-                list(range(40, 60)),
-                # Nf2 (Feed 2 considered from stage 3 to 40, considering there are always a stripping
-                # and a rectifying section)
-                # Nf is interpreted regarding stages and not trays (same as in Aspen Plus)
-                list(range(50, 90))  # Ns (Stages and not trays, as in Aspen Plus)
-                # Ns = 5 means: condenser + 3 stages within the column + reboiler
-                # Ns = 42 means: condenser + 40 stages within the column + reboiler
-            ],
+        list(range(6,40)),
 
-            # Enumeration type (Options are 'Exhaustive', 'Smart' or 'Segmental_Smart' ---> Default is 'Smart')
-            'Type_Enumeration': 'Smart',
+
+        list(range(15,50)),
+
+
+        list(range(30,60))
+
+
+        ],
+           'Type_Enumeration': 'Smart',
 
             'Enumeration_Constraints_List': ['ST_Nf1_Nf2', 'ST_Nf2', 'ST_Ns0'],
 
@@ -207,13 +200,13 @@ Example1 = {
             # Column Pressure (Pa) - constant throughout the column --> Pendência: consider some pressure drop
 
             # Feed Data
-            'z_f': [[0.8317, 0.1683],[0.3000, 0.7000]],  # [Feed 1,Feed2] molar composition ['PROPYLENE', 'PROPANE']
-            'F_f': [40.62276, 67.37724],  # [Feed 1,Feed2] flow (kmol/h)
-            'T_f': [40 + 273.15, 40 + 273.15],  # [Feed 1,Feed2] temperature (K)
+            'z_f': [[0.7686,0.2314],[0.3200,0.6800]],  # [Feed 1,Feed2] molar composition [Benzene, Toluene]
+            'F_f': [0.4334,0.6466],  # [Feed 1,Feed2] flow (kmol/h)
+            'T_f': [50 + 273.15, 50 + 273.15],  # [Feed 1,Feed2] temperature (K)
 
             # Separation Task Specification
-            'xB_TOP': 0.98,  # Top PROPYLENE purity
-            'xB_BOTTOM': 0.02,  # Bottom PROPANE purity
+            'xB_TOP': 0.98,  # Top benzene purity
+            'xB_BOTTOM': 0.02,  # Bottom benzene purity
 
             # Components - NAMES MUST BE THE SAME AS SET IN ASPEN PLUS (if Aspen is to be used)!! CASE SENSITIVE
             'Comp_name': ['C3H6', 'C3H8'],
@@ -249,15 +242,21 @@ Example1 = {
             # Aspen Related Data
             # ---------------------------
             # File, block and streams - ATTENTION: THIS NAMES ARE CASE SENSITIVE, MUST BE THE SAME AS IN ASPEN FILE
-            'file_name': ['PP Column-2FEEDS(6).bkp'],
+            'file_name': ['PP Column-2FEEDS(2).bkp'],
             'block_name': ['COLUMN1'],
             'stream_names': ['FEED1', 'FEED2', 'D-TOP', 'B-BOTTOM'],
             # Bounds for manipulated variables within Aspen Active Specs
             'reflux_ratio_bounds': [0, 100],  # Reflux ratio
-            'distillate_rate_bounds': [0, 108]  # Distillate rate
+            'distillate_rate_bounds': [0, 1.08],  # Distillate rate
+            'update':True
 
         }
-    },
+
+######################################################################
+},
+
+
+
 
 #######################################################################
 
@@ -269,10 +268,10 @@ Example1 = {
       
         'Lower_Bounds': [0.5,0.5],
    
-        'Upper_Bounds': [0.98, 0.99]
+        'Upper_Bounds': [0.98, 0.99],
 
          'Step': [0.01, 0.01]
-    },
+    }
 }
 # endregion
 

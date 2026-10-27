@@ -35,23 +35,8 @@ from Common_Equations_HEX import (
 ##################################################################################################################
 # region Parameters Calculation functions
   
-def Set_Up_HFM_DC_2FEEDS(Separation, Limit_other_comp_Perm, m_p_dict):
-
-    # ========================================= Parameters update =========================================
- 
-    m_p1 = m_p_dict['m_p1']
-    m_p2 = m_p_dict['m_p2']
-
-    m_p1['MAX_COMP_RET AND MAX_REC_PERM' '] = np.array([Separation, Limit_other_comp_Perm])
 
 
- # there are no changes needed in the spec of DC2FEEDS   m_p2['xx']  ...
-    
-   
-        feasibility = True
-
- 
-    return m_p_dict, feasibility
 # endregion
 ##################################################################################################################
 
