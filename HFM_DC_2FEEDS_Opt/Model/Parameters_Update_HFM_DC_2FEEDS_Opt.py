@@ -23,11 +23,7 @@
 
 ##################################################################################################################
 # region Import Library
-from Common_Equations_HEX import (
-    Calculations_HEX_heatload, 
-    Calculations_HEX_LMTD
-    )
-#from STHE.Calculations import Calculations_STHE_correction_factor
+
 # endregion
 ##################################################################################################################
 
