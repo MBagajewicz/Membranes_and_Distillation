@@ -25,10 +25,11 @@ def SU_DC_2FEEDS(results, m_p_prev, m_p):
     # m_p_prev: HFM Model_Parameters
     # m_p: DC_2FEEDS Model_Parameters (Feed 1 = permeate, Feed 2 = retentate)
 
-    L = float(results['L'])
-    D = float(results['D'])
-    Void_Frac = float(results['Void_Frac'])
-    dfo, esp = ast.literal_eval(results['dfo_esp'])
+    L = float(results['L'])   # L = float(np.squeeze(results['L']).item())
+    D = float(results['D'])   # D = float(np.squeeze(results['D']).item())
+    Void_Frac = float(results['Void_Frac'])  # Void_Frac = float(np.squeeze(results['Void_Frac']).item())
+    dfo, esp = ast.literal_eval(results['dfo_esp'])  # dfo_esp_str = str(np.squeeze(results['dfo_esp']).item()) / dfo, esp = ast.literal_eval(dfo_esp_str)
+    
     dfi = dfo - 2*esp
     Ntf = Calculations_HFM_Nf.Number_of_fibers(D, dfo, Void_Frac)
 
